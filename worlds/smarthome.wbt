@@ -1,0 +1,225 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+  info [
+    "Simulation of Boston Dynamics' Spot robot in a simple industrial environment."
+    "The robot is saying hello with its right leg."
+  ]
+  title "Spot Robot demo"
+}
+Viewpoint {
+  orientation -0.08512090814903293 0.8407548754532955 0.5346827754822455 0.607864097436684
+  position -6.6310664824079995 -1.6183676532622537 5.812039278955824
+  followType "None"
+  followSmoothness 0
+}
+TexturedBackground {
+  texture "factory"
+  skybox FALSE
+}
+TexturedBackgroundLight {
+  texture "factory"
+}
+RectangleArena {
+  floorSize 10 10
+  floorAppearance ThreadMetalPlate {
+    textureTransform TextureTransform {
+      scale 0.7 0.7
+    }
+  }
+  wallThickness 0.1
+  wallHeight 3.4
+  wallAppearance Roughcast {
+    colorOverride 0.662745 0.662745 0.662745
+    textureTransform TextureTransform {
+      scale 10 10
+    }
+  }
+}
+Window {
+  translation 2.35512 -0.911752 0
+  rotation 0 0 1 -0.523595307179586
+}
+ConstructionLamp {
+  translation 0 -1.21 0.07
+}
+DEF RGBLight FloorLight {
+  translation 1.50055 1.22957 -4.70735e-14
+  supportColor 0 0 0
+  pointLightColor 0 0 0
+  pointLightIntensity 0
+}
+DEF lamp Solid {
+  translation 0 0 0.52
+  rotation 0 0 1 1.0472
+  children [
+    DEF lamplight SpotLight {
+      attenuation 0 0 1
+      beamWidth 0.7
+      color 0 1 0
+      direction 0 1 1
+    }
+  ]
+}
+Robot {
+  translation -0.688571 2.37828 1.59
+  scale 3 3 3
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance BrushedSteel {
+          }
+          geometry Box {
+            size 0.1 0.1 0.1
+          }
+        }
+      ]
+    }
+  ]
+  controller "<extern>"
+  supervisor TRUE
+}
+Spot {
+  translation -0.00446062 0.150935 0.630999
+  rotation 0.00011860757558117128 -7.169884223196018e-05 0.9999999903957595 1.9297815031660943
+}
+StraightStairs {
+  translation -1.8 4.36 0
+  name "straight stairs(2)"
+  stepSize 0.3 1.2 0.03
+  stepRise 0.1667
+  nSteps 14
+  stepAppearance GalvanizedMetal {
+    textureTransform TextureTransform {
+      scale 0.3 1
+    }
+  }
+  stringerAppearance GalvanizedMetal {
+    textureTransform TextureTransform {
+      scale 4 8
+    }
+  }
+  leftRail [
+    StraightStairsRail {
+      run 4.2
+      rise 2.338
+      balusterHeight 0.5
+      balusterRadius 0.019
+      nBalusters 3
+      appearance GalvanizedMetal {
+        textureTransform TextureTransform {
+          scale 4 8
+        }
+      }
+    }
+  ]
+  rightRail [
+    StraightStairsRail {
+      run 4.2
+      rise 2.338
+      balusterHeight 0.5
+      balusterRadius 0.019
+      nBalusters 3
+      appearance GalvanizedMetal {
+        textureTransform TextureTransform {
+          scale 4 8
+        }
+      }
+    }
+  ]
+}
+WoodenBox {
+  translation 0.821339 4.12919 0.3
+  rotation 0 0 -1 0.19635
+}
+WoodenBox {
+  translation 1.70404 3.95367 0.3
+  rotation 0 0 1 0.0654494
+  name "wooden box(1)"
+}
+WoodenBox {
+  translation 1.16604 4.05875 0.9
+  rotation 0 0 1 0.0654494
+  name "wooden box(2)"
+}
+PlasticCrate {
+  translation -0.276141 -3.89221 0
+  rotation 0 0 -1 0.916294
+  size 0.3 0.5 0.2
+}
+TrafficCone {
+  translation 4.63526 -3.89768 0.228719
+  rotation 0.0003109999849598856 -0.9999999516395034 0 1.997414
+}
+TrafficCone {
+  translation 3.38354 -3.49778 0
+  rotation 0 0 -1 1.0472
+  name "traffic cone(1)"
+}
+TrafficCone {
+  translation 4.09265 -3.13193 0
+  rotation 0 0 1 -1.047195307179586
+  name "traffic cone(2)"
+}
+TrafficCone {
+  translation 3.98473 -4.41983 0
+  rotation 0 0 1 -1.047195307179586
+  name "traffic cone(3)"
+}
+OilBarrel {
+  translation 4.67 0 0.44
+}
+OilBarrel {
+  translation 4.69 -0.68 0.44
+  name "oil barrel(1)"
+}
+OilBarrel {
+  translation 4.05 -0.22 0.44
+  name "oil barrel(3)"
+}
+OilBarrel {
+  translation 4.25 -0.27 1.32
+  name "oil barrel(6)"
+}
+CardboardBox {
+  translation 1.71781 -4.16794 0.28
+  rotation 0 0 1 -0.785395307179586
+  name "cardboard box(4)"
+  size 0.3 0.3 0.3
+}
+CardboardBox {
+  translation 1.47741 -4.40834 0.28
+  rotation 0 0 1 -0.785395307179586
+  name "cardboard box(5)"
+  size 0.3 0.3 0.3
+}
+PlatformCart {
+  translation 1.6398762994434 -4.330123675163965 -0.003007539460627151
+  rotation 0.0006598444417561307 0.0002745520210037909 0.9999997446132177 -2.3561954547269592
+}
+WoodenPalletStack {
+  translation 4.33683 1.57306 0
+}
+WoodenPalletStack {
+  translation 4.45255 2.90052 0
+  rotation 0 0 1 -1.5707953071795862
+  name "wooden pallet stack(1)"
+}
+WoodenPalletStack {
+  translation 4.32255 4.33052 0
+  rotation 0 0 1 -1.5707953071795862
+  name "wooden pallet stack(2)"
+}
+RubberDuck {
+  translation 1.39305 -1.36444 0.0598844
+  rotation 4.427828321196711e-07 -1.0689970128080243e-06 0.9999999999993305 0.7853820000004732
+  scale 3
+}
+Bed {
+  translation 0 1.97 0
+  rotation 0 0 1 -2.6179953071795863
+}
+Toilet {
+  translation 1.56477 -0.542039 0
+  rotation 0 0 1 -0.5236053071795865
+}
