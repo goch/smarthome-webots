@@ -7,10 +7,1405 @@ WorldInfo {
   title "Spot Robot demo"
 }
 Viewpoint {
-  orientation -0.08512090814903293 0.8407548754532955 0.5346827754822455 0.607864097436684
-  position -6.6310664824079995 -1.6183676532622537 5.812039278955824
+  orientation 0.04224090880418727 0.9817074987493757 0.18565045791120718 0.8369907865486328
+  position -4.696293493951815 -0.8775342328482396 7.473949066538725
   followType "None"
   followSmoothness 0
+}
+Robot {
+  translation -0.688571 2.37828 1.59
+  scale 3 3 3
+  children [
+    Receiver {
+    }
+    Emitter {
+    }
+    Solid {
+      children [
+        Shape {
+          appearance BrushedSteel {
+          }
+          geometry Box {
+            size 0.1 0.1 0.1
+          }
+        }
+      ]
+    }
+  ]
+  name "SMART_HOME_HANDLER"
+  controller "smart_home_controller"
+  supervisor TRUE
+}
+DEF SH_SHUTTER Robot {
+  translation 0.1 0 0.1
+  children [
+    Receiver {
+    }
+    Emitter {
+    }
+    Solid {
+      translation 2.35512 -0.911752 0
+      rotation 0 0 1 -0.523595307179586
+      children [
+        Solid {
+          translation 0 0 0.35
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/roughcast/roughcast_normal.png"
+                  ]
+                }
+              }
+              geometry Box {
+                size 0.2 0.8 0.7
+              }
+            }
+          ]
+          name "bottom wall"
+          boundingObject Box {
+            size 0.2 0.8 0.7
+          }
+        }
+        Solid {
+          translation 0 0 2.75
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/roughcast/roughcast_normal.png"
+                  ]
+                }
+              }
+              geometry Box {
+                size 0.2 0.8 1.3
+              }
+            }
+          ]
+          name "top wall"
+          boundingObject Box {
+            size 0.2 0.8 0.30000000000000004
+          }
+        }
+        Solid {
+          translation 0 0 1.4
+          children [
+            SliderJoint {
+              jointParameters JointParameters {
+              }
+              device [
+                LinearMotor {
+                  maxVelocity 0.1
+                  maxPosition 2
+                }
+              ]
+              endPoint Solid {
+                translation 0.05 0 0
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      roughness 1
+                    }
+                    geometry Box {
+                      size 0.05 0.79 1.3
+                    }
+                    isPickable FALSE
+                  }
+                ]
+              }
+            }
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8 0.8 0.8
+                transparency 0.85
+                metalness 0
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.025 0.38 0.65
+                    0.025 0.38 0.65
+                    0.025 0.38 -0.65
+                    -0.025 0.38 -0.65
+                    -0.025 -0.38 -0.65
+                    0.025 -0.38 -0.65
+                    0.025 -0.38 0.65
+                    -0.025 -0.38 0.65
+                    -0.025 -0.38 0.65
+                    0.025 -0.38 0.65
+                    0.025 0.38 0.65
+                    -0.025 0.38 0.65
+                    0.025 -0.38 -0.65
+                    -0.025 -0.38 -0.65
+                    -0.025 0.38 -0.65
+                    0.025 0.38 -0.65
+                    -0.025 -0.38 -0.65
+                    -0.025 -0.38 0.65
+                    -0.025 0.38 0.65
+                    -0.025 0.38 -0.65
+                    0.025 -0.38 0.65
+                    0.025 -0.38 -0.65
+                    0.025 0.38 -0.65
+                    0.025 0.38 0.65
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.038461538461538464 1
+                    0 1
+                    0 0
+                    0.038461538461538464 0
+                    0 0
+                    0.038461538461538464 0
+                    0.038461538461538464 1
+                    0 1
+                    0 0.038461538461538464
+                    0 0
+                    0.5846153846153846 0
+                    0.5846153846153846 0.038461538461538464
+                    0 0.038461538461538464
+                    0 0
+                    0.5846153846153846 0
+                    0.5846153846153846 0.038461538461538464
+                    0.5846153846153846 0
+                    0.5846153846153846 1
+                    0 1
+                    0 0
+                    0 1
+                    0 0
+                    0.5846153846153846 0
+                    0.5846153846153846 1
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "glass"
+          model "box"
+          boundingObject Box {
+            size 0.05 0.76 1.3
+          }
+        }
+        Solid {
+          translation 0 0 0.725
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.25 0.4 0.025
+                    0.25 0.4 0.025
+                    0.25 0.4 -0.025
+                    -0.25 0.4 -0.025
+                    -0.25 -0.4 -0.025
+                    0.25 -0.4 -0.025
+                    0.25 -0.4 0.025
+                    -0.25 -0.4 0.025
+                    -0.25 -0.4 0.025
+                    0.25 -0.4 0.025
+                    0.25 0.4 0.025
+                    -0.25 0.4 0.025
+                    0.25 -0.4 -0.025
+                    -0.25 -0.4 -0.025
+                    -0.25 0.4 -0.025
+                    0.25 0.4 -0.025
+                    -0.25 -0.4 -0.025
+                    -0.25 -0.4 0.025
+                    -0.25 0.4 0.025
+                    -0.25 0.4 -0.025
+                    0.25 -0.4 0.025
+                    0.25 -0.4 -0.025
+                    0.25 0.4 -0.025
+                    0.25 0.4 0.025
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.625 0.0625
+                    0 0.0625
+                    0 0
+                    0.625 0
+                    0 0
+                    0.625 0
+                    0.625 0.0625
+                    0 0.0625
+                    0 0.625
+                    0 0
+                    1 0
+                    1 0.625
+                    0 0.625
+                    0 0
+                    1 0
+                    1 0.625
+                    1 0
+                    1 0.0625
+                    0 0.0625
+                    0 0
+                    0 0.0625
+                    0 0
+                    1 0
+                    1 0.0625
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "sill"
+          model "box"
+          boundingObject Box {
+            size 0.5 0.8 0.05
+          }
+        }
+        Solid {
+          translation 0 0 0.775
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.15 0.38 0.025
+                    0.15 0.38 0.025
+                    0.15 0.38 -0.025
+                    -0.15 0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    0.15 -0.38 -0.025
+                    0.15 -0.38 0.025
+                    -0.15 -0.38 0.025
+                    -0.15 -0.38 0.025
+                    0.15 -0.38 0.025
+                    0.15 0.38 0.025
+                    -0.15 0.38 0.025
+                    0.15 -0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    -0.15 0.38 -0.025
+                    0.15 0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    -0.15 -0.38 0.025
+                    -0.15 0.38 0.025
+                    -0.15 0.38 -0.025
+                    0.15 -0.38 0.025
+                    0.15 -0.38 -0.025
+                    0.15 0.38 -0.025
+                    0.15 0.38 0.025
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.39473684210526316 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0
+                    0.39473684210526316 0
+                    0 0
+                    0.39473684210526316 0
+                    0.39473684210526316 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0.39473684210526316
+                    0 0
+                    1 0
+                    1 0.39473684210526316
+                    0 0.39473684210526316
+                    0 0
+                    1 0
+                    1 0.39473684210526316
+                    1 0
+                    1 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0
+                    0 0.06578947368421052
+                    0 0
+                    1 0
+                    1 0.06578947368421052
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "bottom frame"
+          model "box"
+          boundingObject Box {
+            size 0.3 0.76 0.05
+          }
+        }
+        Solid {
+          translation 0 0 2.0749999999999997
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.15 0.38 0.025
+                    0.15 0.38 0.025
+                    0.15 0.38 -0.025
+                    -0.15 0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    0.15 -0.38 -0.025
+                    0.15 -0.38 0.025
+                    -0.15 -0.38 0.025
+                    -0.15 -0.38 0.025
+                    0.15 -0.38 0.025
+                    0.15 0.38 0.025
+                    -0.15 0.38 0.025
+                    0.15 -0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    -0.15 0.38 -0.025
+                    0.15 0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    -0.15 -0.38 0.025
+                    -0.15 0.38 0.025
+                    -0.15 0.38 -0.025
+                    0.15 -0.38 0.025
+                    0.15 -0.38 -0.025
+                    0.15 0.38 -0.025
+                    0.15 0.38 0.025
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.39473684210526316 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0
+                    0.39473684210526316 0
+                    0 0
+                    0.39473684210526316 0
+                    0.39473684210526316 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0.39473684210526316
+                    0 0
+                    1 0
+                    1 0.39473684210526316
+                    0 0.39473684210526316
+                    0 0
+                    1 0
+                    1 0.39473684210526316
+                    1 0
+                    1 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0
+                    0 0.06578947368421052
+                    0 0
+                    1 0
+                    1 0.06578947368421052
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "top frame"
+          model "box"
+          boundingObject Box {
+            size 0.3 0.76 0.05
+          }
+        }
+        Solid {
+          translation 0 0.39 1.4
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.15 0.01 0.7
+                    0.15 0.01 0.7
+                    0.15 0.01 -0.7
+                    -0.15 0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    0.15 -0.01 -0.7
+                    0.15 -0.01 0.7
+                    -0.15 -0.01 0.7
+                    -0.15 -0.01 0.7
+                    0.15 -0.01 0.7
+                    0.15 0.01 0.7
+                    -0.15 0.01 0.7
+                    0.15 -0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    -0.15 0.01 -0.7
+                    0.15 0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    -0.15 -0.01 0.7
+                    -0.15 0.01 0.7
+                    -0.15 0.01 -0.7
+                    0.15 -0.01 0.7
+                    0.15 -0.01 -0.7
+                    0.15 0.01 -0.7
+                    0.15 0.01 0.7
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.2142857142857143 1
+                    0 1
+                    0 0
+                    0.2142857142857143 0
+                    0 0
+                    0.2142857142857143 0
+                    0.2142857142857143 1
+                    0 1
+                    0 0.2142857142857143
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 0.2142857142857143
+                    0 0.2142857142857143
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 0.2142857142857143
+                    0.014285714285714287 0
+                    0.014285714285714287 1
+                    0 1
+                    0 0
+                    0 1
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 1
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "right frame"
+          model "box"
+          boundingObject Box {
+            size 0.3 0.02 1.4
+          }
+        }
+        Solid {
+          translation 0 -0.39 1.4
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.15 0.01 0.7
+                    0.15 0.01 0.7
+                    0.15 0.01 -0.7
+                    -0.15 0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    0.15 -0.01 -0.7
+                    0.15 -0.01 0.7
+                    -0.15 -0.01 0.7
+                    -0.15 -0.01 0.7
+                    0.15 -0.01 0.7
+                    0.15 0.01 0.7
+                    -0.15 0.01 0.7
+                    0.15 -0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    -0.15 0.01 -0.7
+                    0.15 0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    -0.15 -0.01 0.7
+                    -0.15 0.01 0.7
+                    -0.15 0.01 -0.7
+                    0.15 -0.01 0.7
+                    0.15 -0.01 -0.7
+                    0.15 0.01 -0.7
+                    0.15 0.01 0.7
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.2142857142857143 1
+                    0 1
+                    0 0
+                    0.2142857142857143 0
+                    0 0
+                    0.2142857142857143 0
+                    0.2142857142857143 1
+                    0 1
+                    0 0.2142857142857143
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 0.2142857142857143
+                    0 0.2142857142857143
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 0.2142857142857143
+                    0.014285714285714287 0
+                    0.014285714285714287 1
+                    0 1
+                    0 0
+                    0 1
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 1
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "left frame"
+          model "box"
+          boundingObject Box {
+            size 0.3 0.02 1.4
+          }
+        }
+      ]
+      name "window"
+      model "window"
+    }
+  ]
+  name "SH_SHUTTER"
+  controller "ShutterController"
+}
+DEF SH_SHUTTER Robot {
+  translation 0.6 1 0.1
+  children [
+    Receiver {
+    }
+    Emitter {
+    }
+    Solid {
+      translation 2.35512 -0.911752 0
+      rotation 0 0 1 -0.523595307179586
+      children [
+        Solid {
+          translation 0 0 0.35
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/roughcast/roughcast_normal.png"
+                  ]
+                }
+              }
+              geometry Box {
+                size 0.2 0.8 0.7
+              }
+            }
+          ]
+          name "bottom wall"
+          boundingObject Box {
+            size 0.2 0.8 0.7
+          }
+        }
+        Solid {
+          translation 0 0 2.75
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/roughcast/roughcast_normal.png"
+                  ]
+                }
+              }
+              geometry Box {
+                size 0.2 0.8 1.3
+              }
+            }
+          ]
+          name "top wall"
+          boundingObject Box {
+            size 0.2 0.8 0.30000000000000004
+          }
+        }
+        Solid {
+          translation 0 0 1.4
+          children [
+            SliderJoint {
+              jointParameters JointParameters {
+              }
+              device [
+                LinearMotor {
+                  maxVelocity 0.1
+                  maxPosition 2
+                }
+              ]
+              endPoint Solid {
+                translation 0.05 0 0
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      roughness 1
+                    }
+                    geometry Box {
+                      size 0.05 0.79 1.3
+                    }
+                    isPickable FALSE
+                  }
+                ]
+              }
+            }
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8 0.8 0.8
+                transparency 0.85
+                metalness 0
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.025 0.38 0.65
+                    0.025 0.38 0.65
+                    0.025 0.38 -0.65
+                    -0.025 0.38 -0.65
+                    -0.025 -0.38 -0.65
+                    0.025 -0.38 -0.65
+                    0.025 -0.38 0.65
+                    -0.025 -0.38 0.65
+                    -0.025 -0.38 0.65
+                    0.025 -0.38 0.65
+                    0.025 0.38 0.65
+                    -0.025 0.38 0.65
+                    0.025 -0.38 -0.65
+                    -0.025 -0.38 -0.65
+                    -0.025 0.38 -0.65
+                    0.025 0.38 -0.65
+                    -0.025 -0.38 -0.65
+                    -0.025 -0.38 0.65
+                    -0.025 0.38 0.65
+                    -0.025 0.38 -0.65
+                    0.025 -0.38 0.65
+                    0.025 -0.38 -0.65
+                    0.025 0.38 -0.65
+                    0.025 0.38 0.65
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.038461538461538464 1
+                    0 1
+                    0 0
+                    0.038461538461538464 0
+                    0 0
+                    0.038461538461538464 0
+                    0.038461538461538464 1
+                    0 1
+                    0 0.038461538461538464
+                    0 0
+                    0.5846153846153846 0
+                    0.5846153846153846 0.038461538461538464
+                    0 0.038461538461538464
+                    0 0
+                    0.5846153846153846 0
+                    0.5846153846153846 0.038461538461538464
+                    0.5846153846153846 0
+                    0.5846153846153846 1
+                    0 1
+                    0 0
+                    0 1
+                    0 0
+                    0.5846153846153846 0
+                    0.5846153846153846 1
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "glass"
+          model "box"
+          boundingObject Box {
+            size 0.05 0.76 1.3
+          }
+        }
+        Solid {
+          translation 0 0 0.725
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.25 0.4 0.025
+                    0.25 0.4 0.025
+                    0.25 0.4 -0.025
+                    -0.25 0.4 -0.025
+                    -0.25 -0.4 -0.025
+                    0.25 -0.4 -0.025
+                    0.25 -0.4 0.025
+                    -0.25 -0.4 0.025
+                    -0.25 -0.4 0.025
+                    0.25 -0.4 0.025
+                    0.25 0.4 0.025
+                    -0.25 0.4 0.025
+                    0.25 -0.4 -0.025
+                    -0.25 -0.4 -0.025
+                    -0.25 0.4 -0.025
+                    0.25 0.4 -0.025
+                    -0.25 -0.4 -0.025
+                    -0.25 -0.4 0.025
+                    -0.25 0.4 0.025
+                    -0.25 0.4 -0.025
+                    0.25 -0.4 0.025
+                    0.25 -0.4 -0.025
+                    0.25 0.4 -0.025
+                    0.25 0.4 0.025
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.625 0.0625
+                    0 0.0625
+                    0 0
+                    0.625 0
+                    0 0
+                    0.625 0
+                    0.625 0.0625
+                    0 0.0625
+                    0 0.625
+                    0 0
+                    1 0
+                    1 0.625
+                    0 0.625
+                    0 0
+                    1 0
+                    1 0.625
+                    1 0
+                    1 0.0625
+                    0 0.0625
+                    0 0
+                    0 0.0625
+                    0 0
+                    1 0
+                    1 0.0625
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "sill"
+          model "box"
+          boundingObject Box {
+            size 0.5 0.8 0.05
+          }
+        }
+        Solid {
+          translation 0 0 0.775
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.15 0.38 0.025
+                    0.15 0.38 0.025
+                    0.15 0.38 -0.025
+                    -0.15 0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    0.15 -0.38 -0.025
+                    0.15 -0.38 0.025
+                    -0.15 -0.38 0.025
+                    -0.15 -0.38 0.025
+                    0.15 -0.38 0.025
+                    0.15 0.38 0.025
+                    -0.15 0.38 0.025
+                    0.15 -0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    -0.15 0.38 -0.025
+                    0.15 0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    -0.15 -0.38 0.025
+                    -0.15 0.38 0.025
+                    -0.15 0.38 -0.025
+                    0.15 -0.38 0.025
+                    0.15 -0.38 -0.025
+                    0.15 0.38 -0.025
+                    0.15 0.38 0.025
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.39473684210526316 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0
+                    0.39473684210526316 0
+                    0 0
+                    0.39473684210526316 0
+                    0.39473684210526316 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0.39473684210526316
+                    0 0
+                    1 0
+                    1 0.39473684210526316
+                    0 0.39473684210526316
+                    0 0
+                    1 0
+                    1 0.39473684210526316
+                    1 0
+                    1 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0
+                    0 0.06578947368421052
+                    0 0
+                    1 0
+                    1 0.06578947368421052
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "bottom frame"
+          model "box"
+          boundingObject Box {
+            size 0.3 0.76 0.05
+          }
+        }
+        Solid {
+          translation 0 0 2.0749999999999997
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.15 0.38 0.025
+                    0.15 0.38 0.025
+                    0.15 0.38 -0.025
+                    -0.15 0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    0.15 -0.38 -0.025
+                    0.15 -0.38 0.025
+                    -0.15 -0.38 0.025
+                    -0.15 -0.38 0.025
+                    0.15 -0.38 0.025
+                    0.15 0.38 0.025
+                    -0.15 0.38 0.025
+                    0.15 -0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    -0.15 0.38 -0.025
+                    0.15 0.38 -0.025
+                    -0.15 -0.38 -0.025
+                    -0.15 -0.38 0.025
+                    -0.15 0.38 0.025
+                    -0.15 0.38 -0.025
+                    0.15 -0.38 0.025
+                    0.15 -0.38 -0.025
+                    0.15 0.38 -0.025
+                    0.15 0.38 0.025
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.39473684210526316 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0
+                    0.39473684210526316 0
+                    0 0
+                    0.39473684210526316 0
+                    0.39473684210526316 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0.39473684210526316
+                    0 0
+                    1 0
+                    1 0.39473684210526316
+                    0 0.39473684210526316
+                    0 0
+                    1 0
+                    1 0.39473684210526316
+                    1 0
+                    1 0.06578947368421052
+                    0 0.06578947368421052
+                    0 0
+                    0 0.06578947368421052
+                    0 0
+                    1 0
+                    1 0.06578947368421052
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "top frame"
+          model "box"
+          boundingObject Box {
+            size 0.3 0.76 0.05
+          }
+        }
+        Solid {
+          translation 0 0.39 1.4
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.15 0.01 0.7
+                    0.15 0.01 0.7
+                    0.15 0.01 -0.7
+                    -0.15 0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    0.15 -0.01 -0.7
+                    0.15 -0.01 0.7
+                    -0.15 -0.01 0.7
+                    -0.15 -0.01 0.7
+                    0.15 -0.01 0.7
+                    0.15 0.01 0.7
+                    -0.15 0.01 0.7
+                    0.15 -0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    -0.15 0.01 -0.7
+                    0.15 0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    -0.15 -0.01 0.7
+                    -0.15 0.01 0.7
+                    -0.15 0.01 -0.7
+                    0.15 -0.01 0.7
+                    0.15 -0.01 -0.7
+                    0.15 0.01 -0.7
+                    0.15 0.01 0.7
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.2142857142857143 1
+                    0 1
+                    0 0
+                    0.2142857142857143 0
+                    0 0
+                    0.2142857142857143 0
+                    0.2142857142857143 1
+                    0 1
+                    0 0.2142857142857143
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 0.2142857142857143
+                    0 0.2142857142857143
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 0.2142857142857143
+                    0.014285714285714287 0
+                    0.014285714285714287 1
+                    0 1
+                    0 0
+                    0 1
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 1
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "right frame"
+          model "box"
+          boundingObject Box {
+            size 0.3 0.02 1.4
+          }
+        }
+        Solid {
+          translation 0 -0.39 1.4
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.8039 0.6745 0.5764
+                baseColorMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_base_color.jpg"
+                  ]
+                  filtering 5
+                }
+                roughnessMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_roughness.jpg"
+                  ]
+                  filtering 5
+                }
+                metalness 0
+                normalMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_normal.jpg"
+                  ]
+                  filtering 5
+                }
+                normalMapFactor 0.5
+                occlusionMap ImageTexture {
+                  url [
+                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/varnished_pine/varnished_pine_occlusion.jpg"
+                  ]
+                  filtering 5
+                }
+              }
+              geometry IndexedFaceSet {
+                coord Coordinate {
+                  point [
+                    -0.15 0.01 0.7
+                    0.15 0.01 0.7
+                    0.15 0.01 -0.7
+                    -0.15 0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    0.15 -0.01 -0.7
+                    0.15 -0.01 0.7
+                    -0.15 -0.01 0.7
+                    -0.15 -0.01 0.7
+                    0.15 -0.01 0.7
+                    0.15 0.01 0.7
+                    -0.15 0.01 0.7
+                    0.15 -0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    -0.15 0.01 -0.7
+                    0.15 0.01 -0.7
+                    -0.15 -0.01 -0.7
+                    -0.15 -0.01 0.7
+                    -0.15 0.01 0.7
+                    -0.15 0.01 -0.7
+                    0.15 -0.01 0.7
+                    0.15 -0.01 -0.7
+                    0.15 0.01 -0.7
+                    0.15 0.01 0.7
+                  ]
+                }
+                texCoord TextureCoordinate {
+                  point [
+                    0.2142857142857143 1
+                    0 1
+                    0 0
+                    0.2142857142857143 0
+                    0 0
+                    0.2142857142857143 0
+                    0.2142857142857143 1
+                    0 1
+                    0 0.2142857142857143
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 0.2142857142857143
+                    0 0.2142857142857143
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 0.2142857142857143
+                    0.014285714285714287 0
+                    0.014285714285714287 1
+                    0 1
+                    0 0
+                    0 1
+                    0 0
+                    0.014285714285714287 0
+                    0.014285714285714287 1
+                  ]
+                }
+                coordIndex [
+                  0, 1, 2, 3, -1, 4, 5, 6, 7, -1, 8, 9, 10, 11, -1, 12, 13, 14, 15, -1, 16, 17, 18, 19, -1, 20, 21, 22, 23, -1
+                ]
+                creaseAngle 1.5
+              }
+            }
+          ]
+          name "left frame"
+          model "box"
+          boundingObject Box {
+            size 0.3 0.02 1.4
+          }
+        }
+      ]
+      name "window"
+      model "window"
+    }
+  ]
+  name "SH_SHUTTER(1)"
+  controller "ShutterController"
+}
+DEF RGBLight FloorLight {
+  translation 1.41939 0.828448 3.55271e-15
+  rotation 0 1 0 0
+  pointLightIntensity 0
 }
 TexturedBackground {
   texture "factory"
@@ -27,7 +1422,7 @@ RectangleArena {
     }
   }
   wallThickness 0.1
-  wallHeight 3.4
+  wallHeight 0.5
   wallAppearance Roughcast {
     colorOverride 0.662745 0.662745 0.662745
     textureTransform TextureTransform {
@@ -35,18 +1430,10 @@ RectangleArena {
     }
   }
 }
-Window {
-  translation 2.35512 -0.911752 0
-  rotation 0 0 1 -0.523595307179586
+Shape {
 }
 ConstructionLamp {
   translation 0 -1.21 0.07
-}
-DEF RGBLight FloorLight {
-  translation 1.50055 1.22957 -4.70735e-14
-  supportColor 0 0 0
-  pointLightColor 0 0 0
-  pointLightIntensity 0
 }
 DEF lamp Solid {
   translation 0 0 0.52
@@ -59,25 +1446,6 @@ DEF lamp Solid {
       direction 0 1 1
     }
   ]
-}
-Robot {
-  translation -0.688571 2.37828 1.59
-  scale 3 3 3
-  children [
-    Solid {
-      children [
-        Shape {
-          appearance BrushedSteel {
-          }
-          geometry Box {
-            size 0.1 0.1 0.1
-          }
-        }
-      ]
-    }
-  ]
-  controller "<extern>"
-  supervisor TRUE
 }
 Spot {
   translation -0.00446062 0.150935 0.630999
@@ -211,8 +1579,8 @@ WoodenPalletStack {
   name "wooden pallet stack(2)"
 }
 RubberDuck {
-  translation 1.39305 -1.36444 0.0598844
-  rotation 4.427828321196711e-07 -1.0689970128080243e-06 0.9999999999993305 0.7853820000004732
+  translation 1.43441 -0.398087 0.379884
+  rotation -1.48153e-06 8.55377e-07 1 -0.5236153071795862
   scale 3
 }
 Bed {
@@ -220,6 +1588,6 @@ Bed {
   rotation 0 0 1 -2.6179953071795863
 }
 Toilet {
-  translation 1.56477 -0.542039 0
+  translation 1.40925 -0.371419 0
   rotation 0 0 1 -0.5236053071795865
 }

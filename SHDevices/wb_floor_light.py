@@ -1,51 +1,9 @@
-import json
-class SHDevice(object):
+from sh_device import SHDevice  
 
-    def __init__(self, name, device, states={}, fields={}):
-        self.device = device  
-        self.name = name
-        self.states = states
-        self.fields = fields
-
-    def add_state(self, name, value):
-        self.states[name] = value
-
-    def add_field(self, name,value):
-        self.fields[name] = value
-
-    def set_state(self, name,value):
-        print("setState "+name+": " +str(value))
-    
-    def reset(self):
-        print ("reset:"+name) 
-
-    # def set_SFColor(value):
-    #     for n in range(len(value)):
-    #         if value[n] != 0:
-    #             value[n] = 1.0/value[n]]
-
-    def toJSON(self):
-        return json.dumps({"name": self.name, "data": self.states})
-    
-
-    def __str__(self):
-        string = ""
-        for key, value in self.states.items():
-            string += key + ": " + str(value) +"\n"
-
-        string += "\n"
-        for key, value in self.fields.items() :
-            string += key + ": " + str(value) +"\n"
-        
-        return string
-
-
-
-    
 class WB_FloorLight(SHDevice):
 
-    def __init__(self,name, device,states={}, fields={}):
-        super().__init__(name,states,fields)
+    def __init__(self,name, device, emitter=None, receiver=None, states={}, fields={}):
+        super().__init__(name, device, emitter, receiver, states, fields)
         
         super().add_state('r',0)
         super().add_state('g',0)

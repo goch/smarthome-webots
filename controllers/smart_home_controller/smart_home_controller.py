@@ -1,15 +1,24 @@
 """smart_home_controller controller."""
 
 # You may need to import some classes of the controller module. Ex:
-#  from controller import Robot, Motor, DistanceSensor
-from controller import Robot
-from controller import Supervisor
+#  from controller import supervisor, Motor, DistanceSensor
+from controller import Supervisor, Robot
+import struct
 import json
 from sh_device import *
+from wb_floor_light import *
 #websocket Server
 import threading
 import logging
 from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
+
+class Device(object):
+    def __init__(self, name, channel):
+        self.name = name
+        self.channel = channel
+
+
+
 
 class WebsocketServer(WebSocket):
 
@@ -36,8 +45,8 @@ class WebsocketServer(WebSocket):
             # value = msg.get("value")
             # name = msg.get("property")
             # setRGBProperty(name,value)
-            # print(type(robot))
-            # rgbLight = robot.getFromDef("RGBLight")
+            # print(type(supervisor))
+            # rgbLight = supervisor.getFromDef("RGBLight")
             # print(type(rgbLight))
             # if msg.get("property") == 'brightness':
                     # rgbLight.getField("pointLightIntensity").setSFFloat(value)
@@ -90,48 +99,59 @@ def printMsg(msg):
     print(type(msg.get("value")))
     
 
+def getNode(scope):
+    nodes = scope.split(".")
+    print(nodes)
+    device = None
+    for node in nodes:
+        print("Looking for Node:" + node)
+        if device != None:
+            device = device.getField(node)
+        else:
+            device = supervisor.getFromDef(node)
+            
+    
+
+    return device
+
+
+
 wss = WebSocketThread()
 wss.start()
 
-#socket = wss.getSocket()
+# create the supervisor instance.
+global supervisor
+supervisor = Supervisor()
+#robot = Robot()
 
-#print("SendMessage")
-#socket.sendMessage("Hello Webots")
+emitter = supervisor.getDevice("emitter")  
+receiver = supervisor.getDevice("receiver")  
+receiver.enable(33)
 
-# create the Robot instance.
-global robot
-robot = Supervisor()
-
-#lamp = robot.getFromDef("lamp")
-#lamplight = robot.getFromDef("lamplight")
-#color = lamplight.getField("color")
-
-#setRGB("RGBLight",[1,0,0] ,10)
-
-#socket.sendMessage("Hello Webots")
-
-#color.setSFColor([0,1,0])
-
-# rgbdev = robot.getFromDef("RGBLight")
-# brightness = rgbLight.getField("pointLightIntensity")
-# brightness.setSFFloat(0)    
-
-
-# bulb = rgbLight.getField("bulbColor")
-# color = rgbLight.getField("pointLightColor")
-
-# c = [0,1,0]
-
-# bulb.setSFColor(c)
-# color.setSFColor(c)
 
 global DDB
 
 DDB ={}
 
-dev = robot.getFromDef("RGBLight")
-rgbLamp = WB_FloorLight("RGBLamp",dev)
+dev = supervisor.getFromDef("RGBLight")
+rgbLamp = WB_FloorLight(name="RGBLamp",device=dev)
 DDB[rgbLamp.name] = rgbLamp
+
+
+# print("---- SHUTTER ----")
+# shutter= supervisor.getFromDef("SH_SHUTTER")
+# motor = supervisor.getFromDef("SH_SHUTTER.WINDOW.GLASS.JOINT.MOTOR")
+# #motor = getNode("SH_SHUTTER.children.window.children.glass.children.sliderJoint")
+
+# linearm = supervisor.getFromDevice(motor)
+
+# print (type(shutter), shutter)
+# print (type(motor), motor.getTypeName())
+
+#print (linearm.getName(), type(linearm), linearm.getTypeName())
+#motor = motor.getDevice("")
+#motor.setPosition(1.3)
+
 
 print("DDB:")
 for name, device in DDB.items():
@@ -150,12 +170,12 @@ for name, device in DDB.items():
 
 
 # get the time step of the current world.
-timestep = int(robot.getBasicTimeStep())
+timestep = int(supervisor.getBasicTimeStep())
 
 # You should insert a getDevice-like function in order to get the
-# instance of a device of the robot. Something like:
-#  motor = robot.getDevice('motorname')
-#  ds = robot.getDevice('dsname')
+# instance of a device of the supervisor. Something like:
+#  motor = supervisor.getDevice('motorname')
+#  ds = supervisor.getDevice('dsname')
 #  ds.enable(timestep)
 
 
@@ -163,16 +183,25 @@ timestep = int(robot.getBasicTimeStep())
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
-while robot.step(timestep) != -1:
+while supervisor.step(timestep) != -1:
+    while receiver.getQueueLength() > 0:
+        msg = receiver.getData()
+        print("-- DATA PACKET RECEIVED! --")
+        print(msg)
+        
+        try:
+            data = json.loads(msg)
+            print(data["type"])
+            print("Send ACK to " + data["name"])
+            ack = "OK!"
+            #emitter.send(ack.encode("utf-8"))
+            
 
-    # Read the sensors:
-    # Enter here functions to read sensor data, like:
-    #  val = ds.getValue()
+        except Exception as e:
+            print("Error parsing json: " + str(e))
 
-    # Process sensor data here.
+        receiver.nextPacket()
 
-    # Enter here functions to send actuator commands, like:
-    #  motor.setPosition(10.0)
     pass
 
 # Enter here exit cleanup code.
