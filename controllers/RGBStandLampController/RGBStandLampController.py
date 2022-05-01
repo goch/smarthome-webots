@@ -46,7 +46,10 @@ timestep = int(robot.getBasicTimeStep())
 lamp = robot.getSelf().getField("children").getMFNode(0)
 
 # create connection object
-ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected ,close_cb=closed,message_cb=message_cb, error_cb=error)
+ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
+                                                 close_cb=closed,
+                                                 message_cb=message_cb,
+                                                 error_cb=error)
 ws.start()
 # create instance of SmartHome Device
 sh_device = WB_FloorLight(robot.getName(), connection=ws, device=lamp)
