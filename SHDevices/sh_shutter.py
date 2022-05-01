@@ -1,70 +1,98 @@
-from sh_device import SHDevice
+from SHDevices.sh_device import *
 
 class SH_Shutter(SHDevice):
 
-    def __init__(self,name, device, emitter=None, receiver=None, states={}, fields={}):
-        super().__init__(name, device, emitter, receiver, states, fields)        
+    def __init__(self,name, connection=None, device=None, states={}, fields={}):
+        super().__init__(name, connection, states, fields)        
 
-        super().add_state('setPostion',1.3)
+        self.motor = device.getDevice("linear motor")
+        self.motor.setPosition(self.motor.getMaxPosition())
+        self.log("geting devices")
+        self.motor_position = device.getDevice("position sensor")
+        self.motor_position.enable(64)
+
+
+        super().add_state('setPosition',self.motor.getMaxPosition())
         super().add_state('up',False)
         super().add_state('down',False)
         super().add_state('stop',True)
-        super().add_state('currentPosition',1.3)
+        super().add_state('currentPosition',self.motor.getMaxPosition())
 
         #super().add_field('position',device.getField("pointLightColor"))
         #super().add_field('velocity',device.getField("pointLightColor"))
 
-        self.motor = self.device.getDevice("linear motor")
-        self.motor.setPosition(1.3)
+        
     
         self.reset()
 
-    def set_state(self, name,value):
-        super().set_state(name,value)
+    def setPosition(self,target_position):
+        self.log("setPosition: " + str(target_position))
+        self.states['setPosition'] = target_position
+        self.motor.setPosition(target_position)
+        
+        self.states['stop'] = False
+        if self.motor_position.getValue() < target_position:
+              self.states['up'] = True
+              self.states['down'] = False
+              self.motor.setPosition(target_position)
+        elif self.motor_position.getValue() > target_position:
+            self.states['down'] = True
+            self.states['up'] = False
+            self.motor.setPosition(target_position)
+        else:
+            self.states['stop'] = True
+            self.states['down'] = False
+            self.states['up'] = False
+
+    def setDown(self, down):
+        if down:
+            self.setPosition(self.motor.getMinPosition())
+        else:
+            self.states['down'] = False
+            self.setStop(True)
+
+    
+    def setUp(self, up):
+        if up:
+            self.setPosition(self.motor.getMaxPosition())
+        else:
+            self.states['up'] = False
+            self.setStop(True)
+    
+    def setStop(self,stop):
+        if stop:
+            self.setPosition(self.motor_position.getValue())
+            self.states['stop'] = True
+
+    def updateCurrentPosition(self,position):
+        self.states['currentPosition'] = position
+        self.send(self.toJSON())
+        pass
+
+    def setState(self, name, value):
+        super().setState(name, value)
 
         match name:
-            case "r":
-                self.states['r'] = value
-                if self.states["on"]:
-                    self.fields['lcolor'].setSFColor([value,self.states['g'],self.states['b']])
-                    self.fields['bcolor'].setSFColor([value,self.states['g'],self.states['b']])
-            case "g":
-                self.states['g'] = value
-                if self.states["on"]:
-                    self.fields['lcolor'].setSFColor([self.states['r'],value,self.states['b']])
-                    self.fields['bcolor'].setSFColor([self.states['r'],value,self.states['b']])
-            case "b":
-                self.states['b'] = value
-                if self.states["on"]:
-                    self.fields['lcolor'].setSFColor([self.states['r'],self.states['g'],value])
-                    self.fields['bcolor'].setSFColor([self.states['r'],self.states['g'],value])
-            case "on":
-                self.states['on'] = value
-                if self.states['on']:
-                    self.fields['brightness'].setSFFloat(self.states['brightness'])
-                    self.fields['lcolor'].setSFColor([self.states['r'],self.states['g'],self.states['b']])
-                    self.fields['bcolor'].setSFColor([self.states['r'],self.states['g'],self.states['b']])
-                else:
-                    self.fields['brightness'].setSFFloat(0)
-                    self.fields['bcolor'].setSFColor([1,1,1])
-            case "brightness":
-                self.states['brightness'] = value 
-                self.fields['brightness'].setSFFloat(value)
-                if value >0:
-                    self.states['on'] = True
-
-                else:
-                    self.states['on'] = False
-                    self.fields['bcolor'].setSFColor([1,1,1])
-
+            case "setPosition":
+                self.setPosition(value)
+            case "up":
+                self.setUp(value)
+            case "down":
+                self.setDown(value)
+            case "stop":
+                self.setStop(value)
             case _:
-                print("state not found")
+                print("state not found or state is read only")
+
+        self.send(self.toJSON())
+
     
+    def register(self):
+        super().register()
+        self.connection.send(self.toJSON())
+
+
     def reset(self):
-        # self.set_state('r',1)
-        # self.set_state('g',1)
-        # self.set_state('b',1)
-        # self.set_state('brightness',1)
-        # self.set_state('on',False)
+        # self.set_state('setPosition',1.3)
         pass
             
