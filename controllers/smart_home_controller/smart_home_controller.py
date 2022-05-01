@@ -55,9 +55,10 @@ class WebsocketServer(WebSocket):
             # print(device.name)
             # device.set_state(msg.property,msg.value)
             
-            dev = DDB.get("RGBLamp")
-            dev.set_state(msg.get("property"),msg.get("value"))
+            # dev = DDB.get("RGBLamp")
+            # dev.set_state(msg.get("property"),msg.get("value"))
             #print (dev)
+            pass
                 
          
 
@@ -116,8 +117,8 @@ def getNode(scope):
 
 
 
-wss = WebSocketThread()
-wss.start()
+#wss = WebSocketThread()
+#wss.start()
 
 # create the supervisor instance.
 global supervisor
@@ -157,10 +158,10 @@ print("DDB:")
 for name, device in DDB.items():
     print("-- "+name+"--") 
     print (device)
-    print(device.toJSON())
-    data = json.loads(device.toJSON())
-    print (data["name"])
-    print (data["data"])
+    # print(device.toJSON())
+    # data = json.loads(device.toJSON())
+    # print (data["name"])
+    # print (data["data"])
 
 
 # dev = DDB.get("RGBLamp")
