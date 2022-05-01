@@ -1,9 +1,9 @@
-from sh_device import SHDevice  
+from SHDevices.sh_device import *
 
 class WB_FloorLight(SHDevice):
 
-    def __init__(self,name, device, emitter=None, receiver=None, states={}, fields={}):
-        super().__init__(name, device, emitter, receiver, states, fields)
+    def __init__(self, name, connection=None, device=None, states={}, fields={}):
+        super().__init__(name, connection, states, fields)        
         
         super().add_state('r',0)
         super().add_state('g',0)
@@ -11,14 +11,14 @@ class WB_FloorLight(SHDevice):
         super().add_state('brightness',0)
         super().add_state('on',False)
 
-        super().add_field('lcolor',device.getField("pointLightColor"))
-        super().add_field('bcolor',device.getField("bulbColor"))
-        super().add_field('brightness',device.getField("pointLightIntensity"))
+        super().add_field('lcolor', device.getField("pointLightColor"))
+        super().add_field('bcolor', device.getField("bulbColor"))
+        super().add_field('brightness', device.getField("pointLightIntensity"))
     
         self.reset()
 
-    def set_state(self, name,value):
-        super().set_state(name,value)
+    def setState(self, name,value):
+        super().setState(name,value)
 
         match name:
             case "r":
@@ -57,11 +57,17 @@ class WB_FloorLight(SHDevice):
 
             case _:
                 print("state not found")
+
+        self.send(self.toJSON())
+    
+    def register(self):
+        super().register()
+        self.connection.send(self.toJSON())
+
     
     def reset(self):
-        self.set_state('r',1)
-        self.set_state('g',1)
-        self.set_state('b',1)
-        self.set_state('brightness',1)
-        self.set_state('on',False)
-            
+        self.states['r'] =1
+        self.states['g'] =1    
+        self.states['b'] =1
+        self.states['brightness'] =1
+        self.states['on'] = False
