@@ -1391,13 +1391,33 @@ Robot {
   children [
     FloorLight {
       translation 1.18 0.78 0
-      pointLightColor 0 1 0.5
-      pointLightIntensity 0
     }
   ]
   name "RGBStandLamp"
   controller "RGBStandLampController"
   supervisor TRUE
+}
+Robot {
+  translation 0.212432 0.70422 1.81
+  rotation 3.875359999980389e-07 3.1576199999840213e-06 0.9999999999949396 1.0472
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Cone {
+        bottomRadius 0.05
+        height 0.1
+      }
+    }
+    LightSensor {
+      translation 0.3 0 0
+      rotation 0 1 0 0
+    }
+  ]
+  name "LightSensor"
+  controller "LightSensorController"
 }
 TexturedBackground {
   texture "factory"
