@@ -1,4 +1,4 @@
-from sh_device import SHDevice
+from SHDevices.sh_device import *
 
 class SH_Shutter(SHDevice):
 

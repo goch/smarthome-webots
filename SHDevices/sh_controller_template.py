@@ -45,15 +45,18 @@ timestep = int(robot.getBasicTimeStep())
 print(_CFG)
 
 
-# create instance of SmartHome Device
-# sh_device = SH_Shutter(robot.getName(),device=robot)
+
 
 # create connection object
-# ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected ,close_cb=closed,message_cb=message_cb, error_cb=error)
+# create connection object
+# ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
+#                                                  close_cb=closed,
+#                                                  message_cb=message_cb,
+#                                                  error_cb=error)
 # ws.start()
 
-# assign connection to SmartHome Device
-# sh_device.connection = ws
+# create instance of SmartHome Device
+# sh_device = SH_Shutter(robot.getName(), connection=ws, device=lamp)
 
 
 # Main loop:
