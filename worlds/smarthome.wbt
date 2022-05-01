@@ -7,36 +7,12 @@ WorldInfo {
   title "Spot Robot demo"
 }
 Viewpoint {
-  orientation 0.04224090880418727 0.9817074987493757 0.18565045791120718 0.8369907865486328
-  position -4.696293493951815 -0.8775342328482396 7.473949066538725
+  orientation 0.14173283518412785 0.9896369871782299 -0.02303121880111128 0.7622652304278167
+  position -6.5404739920686605 0.2331863984372432 8.19775098287807
   followType "None"
   followSmoothness 0
 }
 Robot {
-  translation -0.688571 2.37828 1.59
-  scale 3 3 3
-  children [
-    Receiver {
-    }
-    Emitter {
-    }
-    Solid {
-      children [
-        Shape {
-          appearance BrushedSteel {
-          }
-          geometry Box {
-            size 0.1 0.1 0.1
-          }
-        }
-      ]
-    }
-  ]
-  name "SMART_HOME_HANDLER"
-  controller "smart_home_controller"
-  supervisor TRUE
-}
-DEF SH_SHUTTER Robot {
   translation 0.1 0 0.1
   children [
     Receiver {
@@ -100,9 +76,13 @@ DEF SH_SHUTTER Robot {
               jointParameters JointParameters {
               }
               device [
+                PositionSensor {
+                }
+                Brake {
+                }
                 LinearMotor {
                   maxVelocity 0.1
-                  maxPosition 2
+                  maxPosition 1.3
                 }
               ]
               endPoint Solid {
@@ -719,8 +699,8 @@ DEF SH_SHUTTER Robot {
   name "SH_SHUTTER"
   controller "ShutterController"
 }
-DEF SH_SHUTTER Robot {
-  translation 0.6 1 0.1
+Robot {
+  translation 0.6 1 0.2
   children [
     Receiver {
     }
@@ -783,9 +763,13 @@ DEF SH_SHUTTER Robot {
               jointParameters JointParameters {
               }
               device [
+                PositionSensor {
+                }
+                Brake {
+                }
                 LinearMotor {
                   maxVelocity 0.1
-                  maxPosition 2
+                  maxPosition 1.3
                 }
               ]
               endPoint Solid {
@@ -1402,17 +1386,22 @@ DEF SH_SHUTTER Robot {
   name "SH_SHUTTER(1)"
   controller "ShutterController"
 }
-DEF RGBLight FloorLight {
-  translation 1.41939 0.828448 3.55271e-15
-  rotation 0 1 0 0
-  pointLightIntensity 0
+Robot {
+  translation 0.83972 0.369613 3.55271e-15
+  children [
+    FloorLight {
+      translation 1.18 0.78 0
+      pointLightColor 0 1 0.5
+      pointLightIntensity 0
+    }
+  ]
+  name "RGBStandLamp"
+  controller "RGBStandLampController"
+  supervisor TRUE
 }
 TexturedBackground {
   texture "factory"
   skybox FALSE
-}
-TexturedBackgroundLight {
-  texture "factory"
 }
 RectangleArena {
   floorSize 10 10
@@ -1434,18 +1423,6 @@ Shape {
 }
 ConstructionLamp {
   translation 0 -1.21 0.07
-}
-DEF lamp Solid {
-  translation 0 0 0.52
-  rotation 0 0 1 1.0472
-  children [
-    DEF lamplight SpotLight {
-      attenuation 0 0 1
-      beamWidth 0.7
-      color 0 1 0
-      direction 0 1 1
-    }
-  ]
 }
 Spot {
   translation -0.00446062 0.150935 0.630999
