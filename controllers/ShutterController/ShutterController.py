@@ -74,13 +74,19 @@ delta = (shutter.motor.getMaxPosition() - shutter.motor.getMinPosition()) / 25
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    
+
+    msg = robot.wwiReceiveText()
+    if msg:
+        shutter.log("WWW_Message: " + str(msg))
+        message_cb(None,msg)
+        
     currentPosition = shutter.motor_position.getValue()
     currentDelta = abs(lastPosition - currentPosition)
     
     if currentDelta >= delta:
         lastPosition = currentPosition
         shutter.updateCurrentPosition(currentPosition)
+
 
     pass
 

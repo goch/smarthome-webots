@@ -2,27 +2,40 @@
 
 <head>
   <script>
+
+    let _robotWindow = null
     window.onload = () => {
       // Initialize the robot window
-      const robotWindow = webots.window('shutter_window');
-
-      // Receive messages from the controller and show them in the robot window
-      robotWindow.receive = (message) => {
-        document.getElementById('counter').innerHTML = message;
-      };
-
-      // Send messages from the robot window to the controller
+      _robotWindow = webots.window('shutter_window');
       let counter = 0;
-      setInterval(() => {
-        robotWindow.send(counter++);
-      }, 1000);
+      // Receive messages from the controller and show them in the robot window
+      _robotWindow.receive = (message) => {
+        if (message != null){
+          counter++;
+          document.getElementById('message').innerHTML = message;
+          // Send messages from the robot window to the controller
+          //_robotWindow.send("WWW Hello")
+        }
+      };
     };
+
+    function sendState(stateName, val){
+      msg = {property: stateName, value: val}
+      _robotWindow.send(JSON.stringify(msg))
+    }
+
+
   </script>
 </head>
 
 <body>
-  <h1> Hello World! <h1>
-  <h1 id="counter"></h1>
+  <h1>Hello World</h1>
+  <p id="message"></p>
+
+  <button onclick="sendState('up',true)">Up</button> 
+  <button onclick="sendState('stop',true)">Stop</button> 
+  <button onclick="sendState('down',true)">Down</button> 
+  
 </body>
 
 </html>

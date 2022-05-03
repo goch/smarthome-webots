@@ -7,8 +7,8 @@ WorldInfo {
   title "Spot Robot demo"
 }
 Viewpoint {
-  orientation -0.20308896842773247 0.7592660212418976 0.6182798556401928 0.7403035682759895
-  position -0.6420784949634879 2.2620817623488243 2.2394967845194373
+  orientation -0.002816626715302 0.9994201365614196 -0.03393312908501123 0.8670707519432678
+  position -4.984890415188116 -1.647508115295301 5.986207002482525
   followType "None"
   followSmoothness 0
 }
@@ -698,6 +698,7 @@ Robot {
   ]
   name "SH_SHUTTER"
   controller "ShutterController"
+  window "shutter_window"
 }
 Robot {
   translation 0.6 1 0.2

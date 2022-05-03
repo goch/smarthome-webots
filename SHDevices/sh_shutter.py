@@ -3,7 +3,7 @@ from SHDevices.sh_device import *
 class SH_Shutter(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
-        super().__init__(name, connection, states, fields)        
+        super().__init__(name, connection, device, states, fields)        
 
         self.motor = device.getDevice("linear motor")
         self.motor.setPosition(self.motor.getMaxPosition())
@@ -82,7 +82,7 @@ class SH_Shutter(SHDevice):
             case "stop":
                 self.setStop(value)
             case _:
-                print("state not found or state is read only")
+                self.log("state not found or state is read only. Value ->" + str(value))
 
         self.send(self.toJSON())
 

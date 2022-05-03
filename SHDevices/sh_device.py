@@ -67,9 +67,10 @@ class WebSocketClient(threading.Thread):
 
 class SHDevice(object):
 
-    def __init__(self, name, connection=None, states={}, fields={}):
+    def __init__(self, name, connection=None,device=None, states={}, fields={}):
         self.name = name
-
+        self.device = device
+        
         self.states = states
         self.fields = fields
         self.connection = connection
@@ -91,7 +92,7 @@ class SHDevice(object):
         pass
 
     def reset(self):
-        print ("reset: "+name) 
+        print ("reset: "+ self.name) 
 
     # def set_SFColor(value):
     #     for n in range(len(value)):
@@ -106,9 +107,10 @@ class SHDevice(object):
             self.connection.send(message)
         else:
             self.log("Not Connected")
-             
-
         
+        if self.device is not None:
+            self.device.wwiSendText(message)             
+
 
     def __str__(self):
         string = ""
