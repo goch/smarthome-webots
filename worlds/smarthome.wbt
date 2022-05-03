@@ -7,8 +7,8 @@ WorldInfo {
   title "Spot Robot demo"
 }
 Viewpoint {
-  orientation 0.14173283518412785 0.9896369871782299 -0.02303121880111128 0.7622652304278167
-  position -6.5404739920686605 0.2331863984372432 8.19775098287807
+  orientation -0.20308896842773247 0.7592660212418976 0.6182798556401928 0.7403035682759895
+  position -0.6420784949634879 2.2620817623488243 2.2394967845194373
   followType "None"
   followSmoothness 0
 }
@@ -1418,6 +1418,48 @@ Robot {
   ]
   name "LightSensor"
   controller "LightSensorController"
+}
+Robot {
+  translation 1.09 3.73 1.11
+  rotation 0 1 0 0
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+            metalness 0
+          }
+          geometry TexturedBox {
+            size 0.1 0.05 0.1
+          }
+        }
+      ]
+    }
+  ]
+  name "WallHeatingThermostat"
+  controller "HeatingThermostatController"
+}
+Robot {
+  translation 0.506862 3.0749 1.04
+  rotation 0 0 1 -1.047195307179586
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0.666667 1
+            metalness 0
+          }
+          geometry TexturedBox {
+            size 0.1 0.025 0.1
+          }
+        }
+      ]
+    }
+  ]
+  name "2WayButton"
+  controller "ButtonController"
 }
 TexturedBackground {
   texture "factory"
