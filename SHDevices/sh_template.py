@@ -24,6 +24,7 @@ class SH_Shutter(SHDevice):
                 pass
             case "up":
                 # self.setUp(value)
+                pass
             case "down":
                 # self.setDown(value)
                 pass
