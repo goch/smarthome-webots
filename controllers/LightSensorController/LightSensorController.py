@@ -37,7 +37,7 @@ def message_cb(ws, message):
 TIME_STEP = 64
 robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
-print(_CFG)
+
 
 # create connection object
 ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
