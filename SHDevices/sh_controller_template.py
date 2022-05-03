@@ -9,11 +9,6 @@ from SHDevices.sh_device import *
 import json
 from config.definitions import ROOT_DIR, _CFG
 
-
-def log(msg):
-    global robot
-    print(robot.getName() + ":" + msg)
-
 def connected(ws):
     global sh_device
     sh_device.log("Connected")
