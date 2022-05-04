@@ -3,7 +3,7 @@ from SHDevices.sh_device import *
 class WB_FloorLight(SHDevice):
 
     def __init__(self, name, connection=None, device=None, states={}, fields={}):
-        super().__init__(name, connection, states, fields)        
+        super().__init__(name, connection, device, states, fields)        
         
         super().add_state('r',0)
         super().add_state('g',0)

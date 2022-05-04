@@ -3,7 +3,7 @@ from SHDevices.sh_device import *
 class SH_Shutter(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
-        super().__init__(name, connection, states, fields)
+        super().__init__(name, connection, device, states, fields)        
                 
         # add states
         # super().add_state('setPosition',1.3)
@@ -39,7 +39,7 @@ class SH_Shutter(SHDevice):
     
     def register(self):
         super().register()
-        self.connection.send(self.toJSON())
+        self.send(self.toJSON())
 
 
     def reset(self):

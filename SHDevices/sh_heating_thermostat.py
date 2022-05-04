@@ -3,7 +3,7 @@ from SHDevices.sh_device import *
 class SH_Heating_Thermostat(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
-        super().__init__(name, connection, states, fields)
+        super().__init__(name, connection, device, states, fields)        
                 
         # add states
         super().add_state('setTemperature',21.0)

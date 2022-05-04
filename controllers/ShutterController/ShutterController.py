@@ -31,6 +31,9 @@ def closed(ws, close_status_code, close_msg):
     log("Disconected")
     pass
 
+def web_message_cb(message):
+    message_cb(None, message)
+
 def message_cb(ws, message):
     global shutter
     log("new message -> " + message)
@@ -75,10 +78,7 @@ delta = (shutter.motor.getMaxPosition() - shutter.motor.getMinPosition()) / 25
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
 
-    msg = robot.wwiReceiveText()
-    if msg:
-        shutter.log("WWW_Message: " + str(msg))
-        message_cb(None,msg)
+    shutter.receive_webui(web_message_cb)
         
     currentPosition = shutter.motor_position.getValue()
     currentDelta = abs(lastPosition - currentPosition)

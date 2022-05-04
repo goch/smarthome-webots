@@ -70,7 +70,7 @@ class SHDevice(object):
     def __init__(self, name, connection=None,device=None, states={}, fields={}):
         self.name = name
         self.device = device
-        
+
         self.states = states
         self.fields = fields
         self.connection = connection
@@ -107,9 +107,19 @@ class SHDevice(object):
             self.connection.send(message)
         else:
             self.log("Not Connected")
-        
+
+        self.send_webui(message)
+
+    def send_webui(self,message):
         if self.device is not None:
-            self.device.wwiSendText(message)             
+            self.device.wwiSendText(message) 
+            pass
+
+    def receive_webui(self,callback):
+        msg = self.device.wwiReceiveText()
+        if msg:
+            self.log("WebUI ->" + str(msg))
+            callback(msg)
 
 
     def __str__(self):

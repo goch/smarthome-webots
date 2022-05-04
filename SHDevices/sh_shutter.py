@@ -89,7 +89,7 @@ class SH_Shutter(SHDevice):
     
     def register(self):
         super().register()
-        self.connection.send(self.toJSON())
+        self.send(self.toJSON())
 
 
     def reset(self):

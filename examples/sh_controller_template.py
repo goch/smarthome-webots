@@ -4,7 +4,7 @@ from controller import Robot
 from controller import Supervisor
 
 from SHDevices.sh_device import *
-# from SHDevices.sh_shutter import *
+from SHDevices.sh_shutter import *
 
 import json
 from config.definitions import ROOT_DIR, _CFG
@@ -24,6 +24,9 @@ def closed(ws, close_status_code, close_msg):
     sh_device.log("Disconected")
     pass
 
+def web_message_cb(message):
+    message_cb(None, message)
+
 def message_cb(ws, message):
     global sh_device
     sh_device.log("new message -> " + message)
@@ -37,27 +40,26 @@ def message_cb(ws, message):
 TIME_STEP = 64
 robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
-print(_CFG)
 
 
 
 
 # create connection object
-# create connection object
-# ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
-#                                                  close_cb=closed,
-#                                                  message_cb=message_cb,
-#                                                  error_cb=error)
-# ws.start()
+ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
+                                                 close_cb=closed,
+                                                 message_cb=message_cb,
+                                                 error_cb=error)
+ws.start()
 
 # create instance of SmartHome Device
-# sh_device = SH_Shutter(robot.getName(), connection=ws, device=lamp)
+sh_device = SH_Shutter(robot.getName(), connection=ws, device=robot)
 
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    
+    # check if messages are send from WebUI 
+    sh_device.receive_webui(web_message_cb)
     pass
 
 # cleanup on Exit
