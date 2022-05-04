@@ -1,8 +1,5 @@
 websocket:
   url: ws://192.168.10.126:3000
   
-2WayButtons:
-  buttons: 2
-
-6WaySwitch:
+6WayButton:
   buttons: 6

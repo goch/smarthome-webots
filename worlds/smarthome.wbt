@@ -7,8 +7,8 @@ WorldInfo {
   title "Spot Robot demo"
 }
 Viewpoint {
-  orientation -0.002816626715302 0.9994201365614196 -0.03393312908501123 0.8670707519432678
-  position -4.984890415188116 -1.647508115295301 5.986207002482525
+  orientation -0.23485174454576097 0.6231844872106551 0.7459797269254744 0.9355734157966143
+  position -2.4590954850821114 -2.504032775209434 4.606367712364114
   followType "None"
   followSmoothness 0
 }
@@ -1392,6 +1392,7 @@ Robot {
   children [
     FloorLight {
       translation 1.18 0.78 0
+      pointLightIntensity 0
     }
   ]
   name "RGBStandLamp"
@@ -1461,6 +1462,29 @@ Robot {
   ]
   name "2WayButton"
   controller "ButtonController"
+  window "button_window"
+}
+Robot {
+  translation 1.19392 1.87812 1.04
+  rotation 0 0 1 -1.047195307179586
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0.666667 1
+            metalness 0
+          }
+          geometry TexturedBox {
+            size 0.1 0.025 0.1
+          }
+        }
+      ]
+    }
+  ]
+  name "6WayButton"
+  controller "ButtonController"
+  window "button_window"
 }
 TexturedBackground {
   texture "factory"

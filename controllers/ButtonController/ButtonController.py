@@ -24,6 +24,9 @@ def closed(ws, close_status_code, close_msg):
     sh_device.log("Disconected")
     pass
 
+def web_message_cb(message):
+    message_cb(None, message)
+
 def message_cb(ws, message):
     global sh_device
     sh_device.log("new message -> " + message)
@@ -52,13 +55,13 @@ except Exception as e:
     numberOfButtons = 2
     
 # create instance of SmartHome Device
-sh_device = SH_Button(robot.getName(), connection=ws,buttonCount=numberOfButtons)
+sh_device = SH_Button(robot.getName(), connection=ws, device=robot, buttonCount=numberOfButtons)
 
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    
+    sh_device.receive_webui(web_message_cb)
     pass
 
 # cleanup on Exit
