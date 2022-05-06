@@ -5,7 +5,7 @@
   <script src="../_base/js/base.js"></script>
   
   <link href="style.css" rel="stylesheet"/>
-  <script src="device.js"></script>
+  
   
 </head>
 
@@ -14,10 +14,17 @@
     <h1 id="device_name">DeviceName</h1>
     
     <ul id="state_list"></ul>
+    <div class="btn-group">
+      <button style="width:50%" onmousedown="on_MouseDown('button1')" onmouseup="on_MouseUp('button1')">Button 1</button>
+      <button style="width:50%" onmousedown="on_MouseDown('button2')" onmouseup="on_MouseUp('button2')">Button 2</button>
+    </div>
+
+    <div class="fullwidth">
+      SensorValues
+    </div>
+
     
-    <button onmousedown="on_MouseDown('button1')" onmouseup="on_MouseUp('button1')">Button 1</button>
-    <button onmousedown="on_MouseDown('button2')" onmouseup="on_MouseUp('button2')">Button 2</button>
-  
+
     <p>
       The HTML file contains the page content.
       The CSS file contains the page style.
@@ -38,9 +45,11 @@
     <ul id="console"></ul>
 
   </div>
+  
+  <script src="device.js"></script>
 </body>  
-  
-  
+
+</html>
   
   
   
