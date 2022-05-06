@@ -5,15 +5,17 @@ class WB_FloorLight(SHDevice):
     def __init__(self, name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
         
+        self.lamp = device.getSelf().getField("children").getMFNode(0)
+
         super().add_state('r',0)
         super().add_state('g',0)
         super().add_state('b',0)
         super().add_state('brightness',0)
         super().add_state('on',False)
 
-        super().add_field('lcolor', device.getField("pointLightColor"))
-        super().add_field('bcolor', device.getField("bulbColor"))
-        super().add_field('brightness', device.getField("pointLightIntensity"))
+        super().add_field('lcolor', self.lamp.getField("pointLightColor"))
+        super().add_field('bcolor', self.lamp.getField("bulbColor"))
+        super().add_field('brightness', self.lamp.getField("pointLightIntensity"))
     
         self.reset()
 
@@ -62,7 +64,7 @@ class WB_FloorLight(SHDevice):
     
     def register(self):
         super().register()
-        self.connection.send(self.toJSON())
+        self.send(self.toJSON())
 
     
     def reset(self):
@@ -71,3 +73,4 @@ class WB_FloorLight(SHDevice):
         self.states['b'] =1
         self.states['brightness'] =1
         self.states['on'] = False
+

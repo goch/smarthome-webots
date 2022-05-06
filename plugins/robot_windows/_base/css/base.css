@@ -17,10 +17,50 @@ body {
   #console {
     border-radius: 3px;
     padding: 20px;
-    margin-left: 20px;
-    background-color: #F4F2BE;
-    color: #4B4B4B;
+    background-color: black;
+    color: green;
     list-style-type: none;
     font-style: italic;
   }
+
+  .btn-group{
+    width: 100%;
+  }
+
+  .fullwidth{
+    padding-top: 20px;
+    width: 100%;
+  }
   
+  .center{ 
+    text-align: center;
+  }
+
+  .btn-group button {
+    background-color: #00B0AB; /* Green background */
+    border: 1px solid #00A19C; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+  }
+  
+  .btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+  
+  /* Clear floats (clearfix hack) */
+  .btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Add a background color on hover */
+  .btn-group button:hover {
+    background-color: #00A19C;
+  }
+
+  #state_list{
+    font-weight: bold;
+} 

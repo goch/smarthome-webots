@@ -94,5 +94,6 @@ class SH_Shutter(SHDevice):
 
     def reset(self):
         # self.set_state('setPosition',1.3)
+        self.send(self.toJSON())
         pass
             

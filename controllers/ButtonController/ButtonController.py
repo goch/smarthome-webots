@@ -51,7 +51,6 @@ ws.start()
 try:
     numberOfButtons = _CFG[robot.getName()]["buttons"]
 except Exception as e:
-    print ("Warning: config value not found ->" + str(e) )
     numberOfButtons = 2
     
 # create instance of SmartHome Device

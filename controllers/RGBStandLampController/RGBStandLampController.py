@@ -27,6 +27,9 @@ def closed(ws, close_status_code, close_msg):
     sh_device.log("Disconected")
     pass
 
+def web_message_cb(message):
+    message_cb(None, message)
+
 def message_cb(ws, message):
     global sh_device
     sh_device.log("new message -> " + message)
@@ -43,7 +46,7 @@ timestep = int(robot.getBasicTimeStep())
 #print(_CFG)
 
 #get RGB Lamp
-lamp = robot.getSelf().getField("children").getMFNode(0)
+
 
 # create connection object
 ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
@@ -52,13 +55,14 @@ ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
                                                  error_cb=error)
 ws.start()
 # create instance of SmartHome Device
-sh_device = WB_FloorLight(robot.getName(), connection=ws, device=lamp)
+sh_device = WB_FloorLight(robot.getName(), connection=ws, device=robot)
 
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    
+    # check if messages are send from WebUI 
+    sh_device.receive_webui(web_message_cb)
     pass
 
 # cleanup on Exit

@@ -1,41 +1,38 @@
 <html>
 
 <head>
-  <script>
-
-    let _robotWindow = null
-    window.onload = () => {
-      // Initialize the robot window
-      _robotWindow = webots.window('shutter_window');
-      let counter = 0;
-      // Receive messages from the controller and show them in the robot window
-      _robotWindow.receive = (message) => {
-        if (message != null){
-          counter++;
-          document.getElementById('message').innerHTML = message;
-          // Send messages from the robot window to the controller
-          //_robotWindow.send("WWW Hello")
-        }
-      };
-    };
-
-    function sendState(stateName, val){
-      msg = {property: stateName, value: val}
-      _robotWindow.send(JSON.stringify(msg))
-    }
-
-
-  </script>
+  <link href="../_base/css/base.css" rel="stylesheet" />
+  <script src="../_base/js/base.js"></script>
+  
+  <link href="style.css" rel="stylesheet"/>
+  
 </head>
 
 <body>
-  <h1>Hello World</h1>
-  <p id="message"></p>
+  <div id="content">
+    <h1 id="device_name">DeviceName</h1>
+    
+    <ul id="state_list"></ul>
 
-  <button onclick="sendState('up',true)">Up</button> 
-  <button onclick="sendState('stop',true)">Stop</button> 
-  <button onclick="sendState('down',true)">Down</button> 
+    <div class="btn-group">
+      <button style="width:33.3%" onclick="sendState('up',true)">Up</button> 
+      <button style="width:33.3%" onclick="sendState('stop',true)">Stop</button> 
+      <button style="width:33.3%" onclick="sendState('down',true)">Down</button> 
+    </div>
+
+    <h2>Shutter Position</h2>
+    <div class="fullwidth">
+      <input class="fullwidth" type="range" id="shutter_slider" name="shutter_pos" min="0" max="100" value="50" step="5">
+      <label id="shutter_position" for="shutter_slider">position</label>
+    </div>
+<progress id="ShutterPositionProgressBar" value="0" max="100"></progress>
+
+
+    <h2>Logs</h2>
+    <ul id="console"></ul>
+
   
+    <script src="shutter.js"></script>
 </body>
 
 </html>

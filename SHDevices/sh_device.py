@@ -121,7 +121,6 @@ class SHDevice(object):
             self.log("WebUI ->" + str(msg))
             callback(msg)
 
-
     def __str__(self):
         string = ""
         for key, value in self.states.items():

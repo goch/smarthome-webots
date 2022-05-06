@@ -24,6 +24,9 @@ def closed(ws, close_status_code, close_msg):
     sh_device.log("Disconected")
     pass
 
+def web_message_cb(message):
+    message_cb(None, message)
+
 def message_cb(ws, message):
     global sh_device
     sh_device.log("new message -> " + message)
@@ -47,13 +50,17 @@ ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
 ws.start()
 
 # create instance of SmartHome Device
-sh_device = SH_Heating_Thermostat(robot.getName(), connection=ws)
+sh_device = SH_Heating_Thermostat(robot.getName(), connection=ws, device=robot)
 
 heatup_intervall = 0 
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
+    
+
+    # check if messages are send from WebUI 
+    sh_device.receive_webui(web_message_cb)
     
     heatup_intervall += timestep
     

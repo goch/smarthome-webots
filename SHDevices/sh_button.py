@@ -8,7 +8,7 @@ class SH_Button(SHDevice):
                 
 
         for x in range(1,buttonCount+1):
-            self.log("addState: button "+ str(x))
+            #self.log("addState: button "+ str(x))
             super().add_state('button'+ str(x) +'_pressed_short',False)
             super().add_state('button'+ str(x) +'_pressed_long',False)
             super().add_state('button'+ str(x) +'_pressed_double',False)
@@ -32,4 +32,5 @@ class SH_Button(SHDevice):
 
     def reset(self):
         # self.set_state('setPosition',1.3)
+        self.send(self.toJSON())
         pass

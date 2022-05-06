@@ -36,9 +36,10 @@ class SH_Light_Sensor(SHDevice):
     
     def register(self):
         super().register()
-        self.connection.send(self.toJSON())
+        self.send(self.toJSON())
 
 
     def reset(self):
         # self.set_state('setPosition',1.3)
+        self.send(self.toJSON())
         pass

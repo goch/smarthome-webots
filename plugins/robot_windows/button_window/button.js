@@ -33,6 +33,7 @@ function generateButtons(dict){
   log("Generating Buttons");
   let btnlist = document.getElementById('buttonlist');
   let last_name = "";
+  let btn_count = Object.keys(dict).length
   Object.entries(dict["data"]).forEach(entry => {
     const [key, value] = entry;
     
@@ -44,6 +45,7 @@ function generateButtons(dict){
     var btn = document.createElement('button');
     btn.setAttribute("onmousedown", 'on_MouseDown("'+ name +'")');
     btn.setAttribute("onmouseup", 'on_MouseUp("'+ name +'")');
+    btn.style.width = 100/btn_count +"%";
     btn.innerHTML = name;
     last_name = name;
     

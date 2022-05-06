@@ -9,20 +9,31 @@ WorldInfo {
 Viewpoint {
   orientation -0.23485174454576097 0.6231844872106551 0.7459797269254744 0.9355734157966143
   position -2.4590954850821114 -2.504032775209434 4.606367712364114
-  followType "None"
+  follow "WallHeatingThermostat"
   followSmoothness 0
 }
 Robot {
   translation 0.1 0 0.1
   children [
-    Receiver {
-    }
-    Emitter {
-    }
     Solid {
       translation 2.35512 -0.911752 0
       rotation 0 0 1 -0.523595307179586
       children [
+        Solid {
+          translation -0.09 0 2.24
+          scale 1.4 1.4 1.4
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.666667 0.333333 0
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+          name "Buttton"
+        }
         Solid {
           translation 0 0 0.35
           children [
@@ -1392,12 +1403,14 @@ Robot {
   children [
     FloorLight {
       translation 1.18 0.78 0
+      pointLightColor 1 1 0.19215686274509805
       pointLightIntensity 0
     }
   ]
   name "RGBStandLamp"
   controller "RGBStandLampController"
   supervisor TRUE
+  window "rgbd_window"
 }
 Robot {
   translation 0.212432 0.70422 1.81
@@ -1441,6 +1454,7 @@ Robot {
   ]
   name "WallHeatingThermostat"
   controller "HeatingThermostatController"
+  window "heating_thermostat_window"
 }
 Robot {
   translation 0.506862 3.0749 1.04
