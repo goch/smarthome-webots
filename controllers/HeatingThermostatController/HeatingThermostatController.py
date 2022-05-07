@@ -47,10 +47,10 @@ ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
                                                  close_cb=closed,
                                                  message_cb=message_cb,
                                                  error_cb=error)
-ws.start()
 
 # create instance of SmartHome Device
 sh_device = SH_Heating_Thermostat(robot.getName(), connection=ws, device=robot)
+sh_device.connect()
 
 heatup_intervall = 0 
 

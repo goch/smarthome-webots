@@ -46,7 +46,6 @@ ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
                                                  close_cb=closed,
                                                  message_cb=message_cb,
                                                  error_cb=error)
-ws.start()
 
 try:
     numberOfButtons = _CFG[robot.getName()]["buttons"]
@@ -55,8 +54,7 @@ except Exception as e:
     
 # create instance of SmartHome Device
 sh_device = SH_Button(robot.getName(), connection=ws, device=robot, buttonCount=numberOfButtons)
-
-
+sh_device.connect()
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:

@@ -59,6 +59,11 @@ class WebSocketClient(threading.Thread):
         print(error)
         if self.error_cb is not None:
             self.error_cb(ws, error)
+    
+    def connect(self):
+        self.start()
+        pass
+
 
 
     def run(self):
@@ -90,6 +95,9 @@ class SHDevice(object):
     def register(self):
         #send request to supervisor
         pass
+
+    def connect(self):
+        self.connection.connect()
 
     def reset(self):
         print ("reset: "+ self.name) 
