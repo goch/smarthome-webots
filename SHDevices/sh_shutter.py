@@ -7,7 +7,6 @@ class SH_Shutter(SHDevice):
 
         self.motor = device.getDevice("linear motor")
         self.motor.setPosition(self.motor.getMaxPosition())
-        self.log("geting devices")
         self.motor_position = device.getDevice("position sensor")
         self.motor_position.enable(64)
 
@@ -23,7 +22,7 @@ class SH_Shutter(SHDevice):
 
         
     
-        self.reset()
+        # self.reset()
 
     def setPosition(self,target_position):
         self.log("setPosition: " + str(target_position))
@@ -93,6 +92,7 @@ class SH_Shutter(SHDevice):
 
 
     def reset(self):
+        super().reset()
         # self.set_state('setPosition',1.3)
         self.send(self.toJSON())
         pass

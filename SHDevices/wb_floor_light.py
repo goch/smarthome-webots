@@ -7,17 +7,17 @@ class WB_FloorLight(SHDevice):
         
         self.lamp = device.getSelf().getField("children").getMFNode(0)
 
-        super().add_state('r',0)
-        super().add_state('g',0)
-        super().add_state('b',0)
-        super().add_state('brightness',0)
+        super().add_state('r',1)
+        super().add_state('g',1)
+        super().add_state('b',1)
+        super().add_state('brightness',1)
         super().add_state('on',False)
 
         super().add_field('lcolor', self.lamp.getField("pointLightColor"))
         super().add_field('bcolor', self.lamp.getField("bulbColor"))
         super().add_field('brightness', self.lamp.getField("pointLightIntensity"))
     
-        self.reset()
+        # self.reset()
 
     def setState(self, name,value):
         super().setState(name,value)
@@ -68,6 +68,7 @@ class WB_FloorLight(SHDevice):
 
     
     def reset(self):
+        super().reset()
         self.states['r'] =1
         self.states['g'] =1    
         self.states['b'] =1

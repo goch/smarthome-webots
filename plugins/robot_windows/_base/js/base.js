@@ -5,6 +5,7 @@ window.onload = function() {
     window.robotWindow = webots.window();
     window.robotWindow.setTitle('Custom HTML robot window');
     window.robotWindow.receive = on_message;
+    window.robotWindow.send("---- WINDOW LOADED ----");
 };
   
 function log(message) {
@@ -18,7 +19,6 @@ function sendState(stateName, val){
     msg = {property: stateName, value: val}
     window.robotWindow.send(JSON.stringify(msg))
 }
-
 
 function showStates(dict){
     var ul = document.getElementById('state_list');

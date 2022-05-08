@@ -28,7 +28,11 @@ def closed(ws, close_status_code, close_msg):
     pass
 
 def web_message_cb(message):
-    message_cb(None, message)
+    global sh_device
+    if message == "---- WINDOW LOADED ----":
+        sh_device.register()
+    else:
+        message_cb(None, message)
 
 def message_cb(ws, message):
     global sh_device

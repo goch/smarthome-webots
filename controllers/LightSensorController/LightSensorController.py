@@ -24,6 +24,13 @@ def closed(ws, close_status_code, close_msg):
     sh_device.log("Disconected")
     pass
 
+def web_message_cb(message):
+    global sh_device
+    if message == "---- WINDOW LOADED ----":
+        sh_device.register()
+    else:
+        message_cb(None, message)
+
 def message_cb(ws, message):
     global sh_device
     sh_device.log("new message -> " + message)

@@ -12,7 +12,7 @@ class SH_Heating_Thermostat(SHDevice):
         #super().add_field('position',device.getField("pointLightColor"))
 
 
-        self.reset()    
+        # self.reset()    
 
     
     def setTemperature(self,value):
@@ -50,6 +50,7 @@ class SH_Heating_Thermostat(SHDevice):
 
 
     def reset(self):
+        super().reset()
         # self.set_state('setPosition',1.3)
         self.send(self.toJSON())
         pass

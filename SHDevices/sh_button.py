@@ -14,7 +14,7 @@ class SH_Button(SHDevice):
             super().add_state('button'+ str(x) +'_pressed_double',False)
 
 
-        self.reset()    
+        # self.reset()    
 
     def setState(self, name, value):    
         
@@ -31,6 +31,7 @@ class SH_Button(SHDevice):
 
 
     def reset(self):
+        super().reset()
         # self.set_state('setPosition',1.3)
         self.send(self.toJSON())
         pass

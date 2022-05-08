@@ -32,7 +32,12 @@ def closed(ws, close_status_code, close_msg):
     pass
 
 def web_message_cb(message):
-    message_cb(None, message)
+    global shutter
+    if message == "---- WINDOW LOADED ----":
+        shutter.register()
+    else:
+        message_cb(None, message)
+
 
 def message_cb(ws, message):
     global shutter
@@ -64,11 +69,9 @@ timestep = int(robot.getBasicTimeStep())
 # motor.setPosition(1.3)
 #position.enable(TIME_STEP)
 
-shutter = SH_Shutter(robot.getName(),device=robot)
-
 ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected ,close_cb=closed,message_cb=message_cb, error_cb=error)
-ws.start()
-shutter.connection = ws
+shutter = SH_Shutter(robot.getName(),connection=ws,device=robot)
+shutter.connect()
 
 
 lastPosition = 0 

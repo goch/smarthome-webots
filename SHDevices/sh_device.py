@@ -93,14 +93,15 @@ class SHDevice(object):
         print("setState "+name+": " +str(value))
     
     def register(self):
-        #send request to supervisor
+        self.log("REGISTER")
+
         pass
 
     def connect(self):
         self.connection.connect()
 
     def reset(self):
-        print ("reset: "+ self.name) 
+        self.log("RESET") 
 
     # def set_SFColor(value):
     #     for n in range(len(value)):
@@ -120,7 +121,9 @@ class SHDevice(object):
 
     def send_webui(self,message):
         if self.device is not None:
-            self.device.wwiSendText(message) 
+            self.device.wwiSendText(message)
+        else:
+            self.log("webui not loaded"); 
             pass
 
     def receive_webui(self,callback):

@@ -65,7 +65,9 @@ function on_message(message) {
             showStates(device);
             generateButtons(device);
             document.getElementById('device_name').innerHTML = device['name'];
-        } catch (e) {}
+        } catch (e) {
+          log("!JSON:" + message)
+        }
       }
 }
 
