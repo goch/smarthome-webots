@@ -10,10 +10,6 @@ class SH_Shutter(SHDevice):
 
         # add fields
         #super().add_field('position',device.getField("pointLightColor"))
-
-
-        self.reset()    
-
     # 
     def setState(self, name, value):    
         super().setState(name, value)
@@ -43,6 +39,7 @@ class SH_Shutter(SHDevice):
 
 
     def reset(self):
+        super().reset()
         # self.set_state('setPosition',1.3)
         self.send(self.toJSON())
         pass

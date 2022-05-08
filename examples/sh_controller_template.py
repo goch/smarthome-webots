@@ -25,7 +25,11 @@ def closed(ws, close_status_code, close_msg):
     pass
 
 def web_message_cb(message):
-    message_cb(None, message)
+    global sh_device
+    if message == "---- WINDOW LOADED ----":
+        sh_device.register()
+    else:
+        message_cb(None, message)
 
 def message_cb(ws, message):
     global sh_device
@@ -49,11 +53,10 @@ ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
                                                  close_cb=closed,
                                                  message_cb=message_cb,
                                                  error_cb=error)
-ws.start()
 
 # create instance of SmartHome Device
 sh_device = SH_Shutter(robot.getName(), connection=ws, device=robot)
-
+sh_device.connect()
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
