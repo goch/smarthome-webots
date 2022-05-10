@@ -7,13 +7,13 @@ WorldInfo {
   title "Spot Robot demo"
 }
 Viewpoint {
-  orientation -0.23485174454576097 0.6231844872106551 0.7459797269254744 0.9355734157966143
-  position -2.4590954850821114 -2.504032775209434 4.606367712364114
+  orientation 0.24098234576203878 -0.6853395154172331 -0.687195210721595 5.795159962585709
+  position -4.931555116135954 -1.15380528777879 3.606476987569276
   follow "WallHeatingThermostat"
   followSmoothness 0
 }
 Robot {
-  translation 0.1 0 0.1
+  translation 0.1 0 0
   children [
     Solid {
       translation 2.35512 -0.911752 0
@@ -712,16 +712,27 @@ Robot {
   window "shutter_window"
 }
 Robot {
-  translation 0.6 1 0.2
+  translation 0.6 1 0
   children [
-    Receiver {
-    }
-    Emitter {
-    }
     Solid {
       translation 2.35512 -0.911752 0
       rotation 0 0 1 -0.523595307179586
       children [
+        Solid {
+          translation -0.09 0 2.24
+          scale 1.4 1.4 1.4
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.666667 0.333333 0
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+          name "Buttton"
+        }
         Solid {
           translation 0 0 0.35
           children [
@@ -1397,14 +1408,13 @@ Robot {
   ]
   name "SH_SHUTTER(1)"
   controller "ShutterController"
+  window "shutter_window"
 }
 Robot {
   translation 0.83972 0.369613 3.55271e-15
   children [
     FloorLight {
       translation 1.18 0.78 0
-      pointLightColor 1 1 0.19215686274509805
-      pointLightIntensity 0
     }
   ]
   name "RGBStandLamp"
@@ -1413,31 +1423,38 @@ Robot {
   window "rgbd_window"
 }
 Robot {
-  translation 0.212432 0.70422 1.81
-  rotation 3.875359999980389e-07 3.1576199999840213e-06 0.9999999999949396 1.0472
+  translation 6.26078 1.05613 0.1
   children [
-    Shape {
-      appearance Appearance {
-        material Material {
-        }
-      }
-      geometry Cone {
-        bottomRadius 0.05
-        height 0.1
-      }
-    }
-    LightSensor {
-      translation 0.3 0 0
-      rotation 0 1 0 0
+    FloorLight {
+      translation -3.03 -2.57 0
+      pointLightIntensity 0
     }
   ]
-  name "LightSensor"
-  controller "LightSensorController"
+  name "RGBStandLamp(1)"
+  controller "RGBStandLampController"
+  supervisor TRUE
+  window "rgbd_window"
 }
 Robot {
   translation 1.09 3.73 1.11
   rotation 0 1 0 0
   children [
+    Transform {
+      rotation 1 0 0 1.5707996938995747
+      scale 0.8 0.8 0.7
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.05
+          }
+        }
+      ]
+    }
     Solid {
       children [
         Shape {
@@ -1499,6 +1516,92 @@ Robot {
   name "6WayButton"
   controller "ButtonController"
   window "button_window"
+}
+Robot {
+  translation 2.02289 1.16006 2.08
+  rotation -0.500000924843357 0.8660248698251969 1.961659705137029e-07 -3.1415853071795863
+  children [
+    Transform {
+      translation 0 0 -0.03
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 0.1 0.05
+          }
+        }
+      ]
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.333333 1
+        metalness 0.1
+      }
+      geometry Cone {
+        bottomRadius 0.05
+        height 0.1
+      }
+    }
+    LightSensor {
+      rotation 0 1 0 -1.5708003061004252
+      lookupTable [
+        0 0 0
+        1 1 0
+        10 10 0
+      ]
+    }
+  ]
+  name "LightSensor"
+  controller "LightSensorController"
+  window "light_sensor_window"
+}
+Robot {
+  translation 0.759986 -0.262391 0.75
+  rotation -0.7745950284760504 -0.44721501644074235 -0.44721501644074235 -1.8234853071795865
+  children [
+    Transform {
+      translation 0 0.025 0
+      children [
+        Transform {
+          translation 0 0 0.01
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.02 0.02 0.01
+              }
+            }
+          ]
+        }
+        DistanceSensor {
+          translation 0 0 0.02
+          rotation 0 1 0 -1.5707996938995747
+          lookupTable [
+            0 0 0
+            0.1 0.1 0
+            10 10 0
+          ]
+        }
+      ]
+    }
+    Shape {
+      appearance PBRAppearance {
+        metalness 0
+      }
+      geometry Box {
+        size 0.025 0.1 0.025
+      }
+    }
+  ]
+  name "ContactSensor"
+  controller "DistanceSensorController"
+  window "distance_sensor_window"
 }
 TexturedBackground {
   texture "factory"
