@@ -4,7 +4,12 @@ class SH_Shutter(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
-                
+
+        # add Devices
+        # self.motor_position = device.getDevice("position sensor")
+        # self.motor_position.enable(64)
+
+
         # add states
         # super().add_state('setPosition',1.3)
 
