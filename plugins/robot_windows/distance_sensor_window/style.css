@@ -26,3 +26,7 @@ button.input_btn{
     cursor: pointer; /* Pointer/hand icon */
     font-size: 36px;
 }
+
+#label_triggered{
+    font-size: 36px;
+}
