@@ -10,14 +10,16 @@
 <body>
   <div id="content">
     <h1 id="device_name">DeviceName</h1>
-    
     <ul id="state_list"></ul>
+    
+    <h2>Current Temperature</h2>
     <div class="fullwidth center" id="label_currentTemp"> CurrentTemperature </div>
 
+    <h2>Set Temperature</h2>
     <div class="fullwidth center">
-    <button class="input_btn" style="width:20%" onclick="incrementSetTemp(0.1)">+</button> 
-    <input class="temperature_input" type="text" id="input_setTemp" name="input_setTemp">
-    <button class="input_btn" style="width:20%" onclick="incrementSetTemp(-0.1)">-</button> 
+      <button class="input_btn" style="width:20%" onclick="incrementSetTemp(-0.1)">-</button> 
+      <input class="temperature_input" type="text" id="input_setTemp" name="input_setTemp">
+      <button class="input_btn" style="width:20%" onclick="incrementSetTemp(0.1)">+</button> 
     </div>
 
     <h2>Log</h2>
