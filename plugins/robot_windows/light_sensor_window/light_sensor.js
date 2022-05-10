@@ -6,6 +6,9 @@ const label_luminosity = document.querySelector("#label_luminosity");
 
 
 
+function setLuminosity(value){
+    label_luminosity.innerHTML = value.toFixed(2) + " W/m²";
+}
 
 // A message coming from the robot has been received.
 function on_message(message) {
@@ -17,9 +20,10 @@ function on_message(message) {
             label_device_name.innerHTML = msg['name'];
             let luminosity = msg['data']['luminosity'];
             if (!isNaN(luminosity)){
-                log(luminosity.toFixed(2));
-                label_luminosity.innerHTML = luminosity.toFixed(2);
-            }
+                setLuminosity(luminosity);
+                
+            }else
+                setLuminosity(-1);
         } catch (e) {}
     }
 }
