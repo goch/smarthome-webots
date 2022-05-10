@@ -1,6 +1,7 @@
 import json
+from sqlite3 import connect
 import struct
-import threading
+import threading, time
 import websocket
 
 
@@ -11,6 +12,7 @@ class WebSocketClient(threading.Thread):
                             message_cb=None,
                             error_cb=None,
                             close_cb=None):
+        self.uri = uri
 
         self.open_cb = open_cb
         self.message_cb = message_cb
@@ -20,11 +22,7 @@ class WebSocketClient(threading.Thread):
         threading.Thread.__init__(self)
         self.port = 3000
         self.connected = False
-        self.server = websocket.WebSocketApp("ws://192.168.10.126:3000",
-                              on_open=self.on_open,
-                              on_message=self.on_message,
-                              on_error=self.on_error,
-                              on_close=self.on_close)
+        
 
     def is_connected(self):
         return self.connected
@@ -61,8 +59,20 @@ class WebSocketClient(threading.Thread):
             self.error_cb(ws, error)
     
     def connect(self):
+        self.server = websocket.WebSocketApp(self.uri,
+                              on_open=self.on_open,
+                              on_message=self.on_message,
+                              on_error=self.on_error,
+                              on_close=self.on_close)
+        self.deamon = True
         self.start()
         pass
+
+    def reconnect(self):
+        print ("Retry : %s" % time.ctime())
+        time.sleep(3)
+        self.connect()
+
 
 
 
