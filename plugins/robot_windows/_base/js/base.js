@@ -5,8 +5,12 @@ window.onload = function() {
     window.robotWindow = webots.window();
     window.robotWindow.setTitle('Custom HTML robot window');
     window.robotWindow.receive = on_message;
-    window.robotWindow.send("---- WINDOW LOADED ----");
+    send("---- WINDOW LOADED ----");
 };
+
+function send(data){
+  window.robotWindow.send(data);
+}
   
 function log(message) {
     var ul = document.getElementById('console');
