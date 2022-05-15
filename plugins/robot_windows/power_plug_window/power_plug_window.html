@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+  <link href="../_base/css/base.css" rel="stylesheet" />
+  <script src="../_base/js/base.js"></script>
+  
+  <link href="style.css" rel="stylesheet"/>
+  
+  
+</head>
+
+<body>
+  <div id="content">
+    <h1 id="device_name">DeviceName</h1>
+    
+    <ul id="state_list"></ul>
+    <h2>PowerConsumption</h2>
+    <div class="fullwidth center text-large" id="currentPowerConsumption"></div>
+    <div class="fullwidth center text-medium" id="totalPowerConsumotion"></div>
+    
+    <h2>State</h2>
+    <div class="fullwidth center text-large" id="label_state"></div>
+
+    <h2> Reset Energy Counter</h2>
+    <div class="btn-group center">
+      <button class="input_btn" id="btn_switch" style="width: 70%;" onclick="switchState()">Switch On</button> 
+      <button class="input_btn" id="btn_reset" style="width: 30%;" onclick="resetEnergyCounter()">RESET</button> 
+    </div>
+
+
+    
+    <h2>Log</h2>
+    <ul id="console"></ul>
+
+  </div>
+  
+  <script src="power_switch.js"></script>
+</body>  
+
+</html>
+  
+  
+  
+
+  
+
+  
+</body>
+
+</html>
