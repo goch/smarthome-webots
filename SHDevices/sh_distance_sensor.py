@@ -27,7 +27,10 @@ class SH_Distance_Sensor(SHDevice):
         return self.states["trigger_distance"]
         
     def getDistance(self):
-        return self.sensor.getValue()
+        return self.states["distance"]
+
+    def setDistance(self,value):
+        self.states["distance"] = value
 
     def setTriggered(self, triggered):
         if self.triggered != triggered:
@@ -37,8 +40,10 @@ class SH_Distance_Sensor(SHDevice):
             self.send(self.toJSON())
 
     def updateCurrentDistance(self):
-        self.states['distance'] = self.sensor.getValue()
-        self.send(self.toJSON())
+        distance = self.sensor.getValue()
+        if self.getDistance() != distance:
+            self.setDistance(distance)
+            self.send(self.toJSON())
 
         
     def setState(self, name, value):    
