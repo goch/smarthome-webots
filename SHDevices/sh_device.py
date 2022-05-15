@@ -3,6 +3,8 @@ from sqlite3 import connect
 import struct
 import threading, time
 import websocket
+import struct
+
 
 
 class WebSocketClient(threading.Thread):
