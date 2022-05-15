@@ -64,3 +64,15 @@ body {
   #state_list{
     font-weight: bold;
 } 
+
+.text-large{
+  font-size: 72px;
+}
+
+.text-medium{
+  font-size: 36px;
+}
+
+.text-small{
+  font-size: 12px;
+}
