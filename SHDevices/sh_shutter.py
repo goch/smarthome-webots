@@ -1,5 +1,6 @@
 from SHDevices.sh_device import *
 
+
 class SH_Shutter(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
@@ -10,6 +11,9 @@ class SH_Shutter(SHDevice):
         self.motor_position = device.getDevice("position sensor")
         self.motor_position.enable(64)
 
+        self.emitter = device.getDevice("emitter")
+
+        self.window_open = False
 
         super().add_state('setPosition',self.motor.getMaxPosition())
         super().add_state('up',False)
@@ -50,7 +54,14 @@ class SH_Shutter(SHDevice):
             self.states['down'] = False
             self.setStop(True)
 
-    
+    def emitt(self,state):
+        if self.window_open != state:
+            self.window_open = state
+            self.log("Emitting ->" + str(state))
+            tf = self.device.getSelf().getField("translation").getSFVec3f() 
+            msg = struct.pack("?ddd",state,tf[0],tf[1],tf[2])
+            self.emitter.send(msg)
+        
     def setUp(self, up):
         if up:
             self.setPosition(self.motor.getMaxPosition())

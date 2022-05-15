@@ -35,6 +35,10 @@ def web_message_cb(message):
     global shutter
     if message == "---- WINDOW LOADED ----":
         shutter.register()
+    elif message =="WINDOW_OPEN":
+        shutter.emitt(True)
+    elif message =="WINDOW_CLOSED":
+        shutter.emitt(False)
     else:
         message_cb(None, message)
 
