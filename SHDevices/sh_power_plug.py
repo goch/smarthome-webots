@@ -39,9 +39,11 @@ class SH_Power_Plug(SHDevice):
         return self.states["currentPowerConsumption"]
 
     def addEnergyCounter(self,value):
+        if value == 0:
+            return
+
         self.states['energyCounter'] += value
         self.send(self.toJSON())
-
 
     def updateEnergyCounter(self, deltaTime):
         currentPower = self.getCurrentPower()
