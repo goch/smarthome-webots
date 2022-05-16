@@ -6,13 +6,68 @@ const slider = document.querySelector("#shutter_slider");
 const slider_output = document.querySelector("#shutter_position");
 const progressbar = document.querySelector("#ShutterPositionProgressBar");
 
+const btn_open = document.querySelector('#btn_open');
+const btn_close = document.querySelector('#btn_close');
+const btn_up = document.querySelector('#btn_up');
+const btn_down = document.querySelector('#btn_down');
+const btn_stop = document.querySelector('#btn_stop');
+
+// A message coming from the robot has been received.
+// new object message received
+function on_ObjectMessage(message){
+  initUI();
+}
+
+// new state message received
+function on_StateMessage(message){
+updateUI();
+}
+
+// new reset message received
+function on_ResetMessage(message){
+
+}
+
+//setup User Interface
+function initUI(){
+  
+  updateUI();
+}
+
+//update User Interface
+function updateUI(){
+  setSlider( to_percent( getStateValue('setPosition')));
+  setProgressBar( to_percent(getStateValue('currentPosition')));
+}
+
 slider.addEventListener ("change", function () {
   log("changeEvent triggered -> " + this.value);
   setSlider(this.value);
-  sendState('setPosition', to_motor(this.value));
+  setStateValue('setPosition', to_motor(this.value));
 });
 
-function setSlider(value){
+
+btn_up.addEventListener ("click", function () {
+  setStateValue('up',true);
+});
+
+btn_down.addEventListener ("click", function () {
+  setStateValue('down',true);
+});
+
+btn_stop.addEventListener ("click", function () {
+  setStateValue('stop',true);
+});
+
+btn_open.addEventListener ("click", function () {
+  sendText('WINDOW_OPEN');
+});
+
+btn_close.addEventListener ("click", function () {
+  sendText('WINDOW_CLOSED');
+});
+
+  function setSlider(value){
   slider.value = value;
 }
 
@@ -32,38 +87,3 @@ function to_percent(value){
 function to_motor(value){
   return (value/100) * 1.3;
 }
-
-
-  // The window user has toggled the "Stop motors" checkbox.
-  // This information is sent to the robot.
-function toggleStopCheckbox(obj) {
-    if (obj.checked) {
-      obj.parentNode.classList.add('checked');
-      obj.parentNode.lastChild.innerHTML = 'Start Motors';
-      window.robotWindow.send('stop motors');
-      log('Stop motors.');
-    } else {
-      obj.parentNode.classList.remove('checked');
-      obj.parentNode.lastChild.innerHTML = 'Stop Motors';
-      window.robotWindow.send('release motors');
-      log('Release motors.');
-    }
-  }
-  
-  // A message coming from the robot has been received.
-function on_message(message) {
-    if (message != null){
-        try {
-            msg = JSON.parse(message)
-            window.robotWindow.setTitle(msg['name']);
-            showStates(msg);
-            log(msg["data"]["currentPosition"])
-            setSlider(to_percent(msg["data"]["setPosition"]))
-            setProgressBar(to_percent(msg["data"]["currentPosition"]))
-
-            document.getElementById('device_name').innerHTML = msg['name'];
-        } catch (e) {}
-    }
-}
-
-

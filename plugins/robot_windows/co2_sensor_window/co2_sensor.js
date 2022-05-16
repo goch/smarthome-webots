@@ -1,10 +1,33 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
 
-const label_device_name = document.querySelector("#device_name");
 const label_air_quality = document.querySelector("#label_airQuality");
 const label_co2_concentration = document.querySelector("#label_CO2Concentration");
 
+// A message coming from the robot has been received.
+// new object message received
+function on_ObjectMessage(message){
+    initUI();
+}
+  // new state message received
+  function on_StateMessage(message){
+    updateUI();
+  }
+  // new reset message received
+  function on_ResetMessage(message){
+  
+  }
+
+//setup User Interface
+function initUI(){
+    
+    updateUI();
+}
+//update User Interface
+function updateUI(){
+    setAirQuality(getStateValue('air_quality'));
+    setCO2Concentration(getStateValue('co2_concentration'));    
+}
 
 function setCO2Concentration(value){
     label_co2_concentration.innerHTML = value + " ppm";
@@ -23,28 +46,8 @@ function setAirQuality(quality){
         case "CRITICAL":
             label_air_quality.style.background = "red";
             break;
-    
-    
         default:
             label_air_quality.style.background = "grey";
             break;
     }
-    
-    
 }
-
-
-// A message coming from the robot has been received.
-function on_message(message) {
-    if (message != null){
-        try {
-            msg = JSON.parse(message)
-            window.robotWindow.setTitle(msg['name']);
-            showStates(msg);
-            label_device_name.innerHTML = msg['name'];
-            setAirQuality(msg["data"]['air_quality']);
-            setCO2Concentration(msg["data"]['co2_concentration']);
-        } catch (e) {}
-    }
-}
-

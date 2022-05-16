@@ -1,13 +1,40 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
 
-const label_device_name = document.querySelector("#device_name");
 const label_current_distance = document.querySelector("#currentDistance");
 const input_trigger_distance = document.querySelector("#input_triggerDistance");
 const label_triggered = document.querySelector("#label_triggered");
 
 let trigger_distance = -1.0
 
+// A message coming from the robot has been received.
+// new object message received
+function on_ObjectMessage(message){
+    initUI();
+}
+  
+  // new state message received
+  function on_StateMessage(message){
+    updateUI();
+
+
+  }
+  // new reset message received
+  function on_ResetMessage(message){
+  
+  }
+
+//setup User Interface
+function initUI(){
+    
+    updateUI();
+}
+//update User Interface
+function updateUI(){
+    setDistance(getStateValue('distance'));
+    setInputText(getStateValue('trigger_distance'));
+    setTriggered(getStateValue('triggered'));
+}
 
 function setTriggered(triggered){
     label_triggered.innerHTML = triggered.toString();
@@ -28,21 +55,6 @@ function setInputText(value){
 }
 
 function incrementTriggerDistance(value){
-    sendState('trigger_distance', parseFloat((trigger_distance + value).toFixed(3)));
+    setStateValue('trigger_distance', parseFloat((trigger_distance + value).toFixed(3)));
     setInputText(trigger_distance + value);
-}
-
-// A message coming from the robot has been received.
-function on_message(message) {
-    if (message != null){
-        try {
-            msg = JSON.parse(message)
-            window.robotWindow.setTitle(msg['name']);
-            showStates(msg);
-            label_device_name.innerHTML = msg['name'];
-            setDistance(msg['data']["distance"]);
-            setInputText(msg['data']["trigger_distance"])
-            setTriggered(msg['data']['triggered'])
-        } catch (e) {}
-    }
 }

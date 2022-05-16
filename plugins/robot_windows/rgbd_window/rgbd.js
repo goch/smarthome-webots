@@ -1,28 +1,38 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
 
+// const label_device_name = document.querySelector("#device_name");
 
+// A message coming from the robot has been received.
+// new object message received
+function on_ObjectMessage(message){
+    initUI();
+}
+  
+// new state message received
+function on_StateMessage(message){
+  updateUI();
+}
 
-const label_device_name = document.querySelector("#device_name");
+// new reset message received
+function on_ResetMessage(message){
+  
+}
+
+//setup User Interface
+function initUI(){
+    
+    updateUI();
+}
+//update User Interface
+function updateUI(){
+    
+}
 
 function rgbOn(state){
     log("RGBOn:" + state);   
-    sendState('on', state);
+    setStateValue('on', state);
 }
-
-
-// A message coming from the robot has been received.
-function on_message(message) {
-    if (message != null){
-        try {
-            msg = JSON.parse(message)
-            window.robotWindow.setTitle(msg['name']);
-            showStates(msg);
-            label_device_name.innerHTML = msg['name'];
-        } catch (e) {}
-    }
-}
-
 
 // Box & hue slider
 var boxPicker = new iro.ColorPicker("#boxPicker", {
@@ -94,9 +104,9 @@ var kelvinPicker = new iro.ColorPicker("#kelvinPicker", {
         log("new Color: " + color.rgb.r + "," + color.rgb.g + "," + color.rgb.b )
         
         //TODO send all data at once
-        sendState("r", color.rgb.r/255 );
-        sendState("g", color.rgb.g/255 );
-        sendState("b", color.rgb.b/255 );
+        setStateValue("r", color.rgb.r/255 );
+        setStateValue("g", color.rgb.g/255 );
+        setStateValue("b", color.rgb.b/255 );
         
         
         //setState(lampid+'.brightness',parseInt(color.hsv.v));

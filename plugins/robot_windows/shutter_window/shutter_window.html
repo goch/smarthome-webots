@@ -15,9 +15,9 @@
     <ul id="state_list"></ul>
 
     <div class="btn-group">
-      <button style="width:33.3%" onclick="sendState('up',true)">Up</button> 
-      <button style="width:33.3%" onclick="sendState('stop',true)">Stop</button> 
-      <button style="width:33.3%" onclick="sendState('down',true)">Down</button> 
+      <button style="width:33.3%" id="btn_up">Up</button> 
+      <button style="width:33.3%" id="btn_stop">Stop</button> 
+      <button style="width:33.3%" id="btn_down">Down</button> 
     </div>
 
     <h2>Shutter Position</h2>
@@ -29,8 +29,8 @@
 
 <h2>Open/Close Window</h2>
 <div class="btn-group">
-  <button style="width:50%" onclick="send('WINDOW_OPEN')">Open</button> 
-  <button style="width:50%" onclick="send('WINDOW_CLOSED')">Close</button> 
+  <button style="width:50%" id="btn_open">Open</button> 
+  <button style="width:50%" id="btn_close">Close</button> 
 </div>
 
 

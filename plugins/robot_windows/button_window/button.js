@@ -1,7 +1,7 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
 
-      // Initialize the robot window
+// Initialize the robot window
 let last_pressed = -1;
 let long_pressed_duration = 500;
 let multipress_timeout = 250;
@@ -10,22 +10,29 @@ let multipress_count = 0;
 let buttons_generated = false;
 
 
+// new object message received
+function on_ObjectMessage(message){
+  initUI(message.data);
+}
+
+// new state message received
+function on_StateMessage(message){
+  updateUI();
+}
+// new reset message received
+function on_ResetMessage(message){
+
+}
+
+//setup User Interface
+function initUI(data){
+  generateButtons(data);  
+  updateUI();
+}
+//update User Interface
+function updateUI(){
   
-  // The window user has toggled the "Stop motors" checkbox.
-  // This information is sent to the robot.
-function toggleStopCheckbox(obj) {
-    if (obj.checked) {
-      obj.parentNode.classList.add('checked');
-      obj.parentNode.lastChild.innerHTML = 'Start Motors';
-      window.robotWindow.send('stop motors');
-      log('Stop motors.');
-    } else {
-      obj.parentNode.classList.remove('checked');
-      obj.parentNode.lastChild.innerHTML = 'Stop Motors';
-      window.robotWindow.send('release motors');
-      log('Release motors.');
-    }
-  }
+}
   
 function generateButtons(dict){
   if (buttons_generated) return;
@@ -34,7 +41,7 @@ function generateButtons(dict){
   let btnlist = document.getElementById('buttonlist');
   let last_name = "";
   let btn_count = Object.keys(dict).length
-  Object.entries(dict["data"]).forEach(entry => {
+  Object.entries(dict).forEach(entry => {
     const [key, value] = entry;
     
     let name = key.split('_')[0];
@@ -56,29 +63,12 @@ function generateButtons(dict){
 
 }
 
-  // A message coming from the robot has been received.
-function on_message(message) {
-    if (message != null){
-        try {
-            let device = JSON.parse(message);
-            window.robotWindow.setTitle(device['name']);
-            showStates(device);
-            generateButtons(device);
-            document.getElementById('device_name').innerHTML = device['name'];
-        } catch (e) {
-          log("!JSON:" + message)
-        }
-      }
-}
-
 function on_MouseDown(button){
     last_pressed = new Date().getTime();
-    //log(button + ": MouseDown");
 }
 
 function on_MouseUp(button){
     current_pressed = new Date().getTime();
-    //log(button + ": MouseUp");
     multipress_count++;
 
     let time_since_press = current_pressed - last_pressed;
@@ -87,7 +77,7 @@ function on_MouseUp(button){
         name = button +"_pressed_long";
         multipress_count = 0;
         log(name);
-        sendState(name,true);
+        setStateValue(name,true);
         reset_button(name,200);
     
     }else if (timeout == null){
@@ -101,7 +91,7 @@ function on_MouseUp(button){
           }
 
           log(name);
-          sendState(name,true);
+          setStateValue(name,true);
           reset_button(name,200);
 
           timeout = null;
@@ -115,6 +105,6 @@ function on_MouseUp(button){
 
 function reset_button(name,duration){
     setTimeout(() => {
-        sendState(name, false)
+      setStateValue(name, false)
     }, duration);
 }

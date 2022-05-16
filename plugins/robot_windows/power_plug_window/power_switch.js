@@ -1,7 +1,6 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
 
-const label_device_name = document.querySelector("#device_name");
 const lbl_currentPower = document.querySelector("#currentPowerConsumption");
 const lbl_state = document.querySelector("#label_state");
 const lbl_totalPower = document.querySelector("#totalPowerConsumotion");
@@ -13,6 +12,34 @@ let reset_counter = 0;
 let default_btn_background = null;
 let default_btn_text = null;
 let state_on = false; 
+
+// A message coming from the robot has been received.
+// new object message received
+function on_ObjectMessage(message){
+    initUI();
+}
+  
+// new state message received
+function on_StateMessage(message){
+  updateUI();
+}
+
+// new reset message received
+function on_ResetMessage(message){
+  
+}
+
+//setup User Interface
+function initUI(){
+    
+    updateUI();
+}
+//update User Interface
+function updateUI(){
+    setCurrentPower(getStateValue('currentPowerConsumption'));
+    setTotalPower(getStateValue('energyCounter'));
+    setState(getStateValue('on'));
+}
 
 
 function setCurrentPower(value){
@@ -36,7 +63,7 @@ function setState(state){
     }
 }
 function switchState(){
-    sendState('on',!state_on)
+    setStateValue('on',!state_on)
 }
 
 function resetEnergyCounter(){
@@ -54,29 +81,9 @@ function resetEnergyCounter(){
         }, 3000);
         
     }else{
-        sendState("resetEnergyCounter",true);
+        setStateValue('resetEnergyCounter',true);
         btn_reset.style.background = "green";
         btn_reset.innerHTML = "RESET OK!";
-    }
-
-
-
-
-}
-// A message coming from the robot has been received.
-function on_message(message) {
-    if (message != null){
-        try {
-            msg = JSON.parse(message)
-            window.robotWindow.setTitle(msg['name']);
-            showStates(msg);
-            data = msg['data'];
-            label_device_name.innerHTML = msg['name']; 
-            setCurrentPower(data["currentPowerConsumption"]);
-            setTotalPower(data["energyCounter"]);
-            setState(data["on"]);
-            
-        } catch (e) {}
     }
 }
 
