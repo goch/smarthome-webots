@@ -24,51 +24,41 @@ class SH_Distance_Sensor(SHDevice):
     # 
 
     def getTriggerDistance(self):
-        return self.states["trigger_distance"]
+        return self.getStateValue('trigger_distance')
         
     def getDistance(self):
-        return self.states["distance"]
+        return self.getStateValue('distance')
 
     def setDistance(self,value):
-        self.states["distance"] = value
+        self.setStateValue('distance', value)
 
     def setTriggered(self, triggered):
         if self.triggered != triggered:
             self.triggered = triggered
             self.log("triggered -> " + str(triggered))
-            self.states["triggered"] = triggered
-            self.send(self.toJSON())
+            self.setStateValue('triggered', triggered) 
+
 
     def updateCurrentDistance(self):
         distance = self.sensor.getValue()
         if self.getDistance() != distance:
             self.setDistance(distance)
-            self.send(self.toJSON())
-
         
     def setState(self, name, value):    
-        super().setState(name, value)
 
         match name:
             case "trigger_distance":
-                self.states[name] = value
-                pass
-            case "distance":
-                self.states[name] = value
+                self.setStateValue(name, value)
                 pass
             case _:
                 print("state not found or state is read only")
                 pass
-
-        self.send(self.toJSON())
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
 
 
     def reset(self):
         super().reset()
-        # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass

@@ -27,49 +27,50 @@ class SH_CO2_Sensor(SHDevice):
         return self.device.getSelf().getField("translation").getSFVec3f()
 
     def updateCO2Concentration(self,value):
+        # TODO MOVE to min max of State Class
         if value < self.min:
             value = self.min
         elif value > self.max:
             value = self.max
 
-        if value < self.threshholds[0]:
-            self.states['air_quality'] = "GOOD"
+        if value < self.threshholds[0]:            
+            self.setAirQuality("GOOD")
         elif value < self.threshholds[1]:
-            self.states['air_quality'] = "BAD"
+            self.setAirQuality("BAD")
         else:
-            self.states['air_quality'] = "CRITICAL"
+            self.setAirQuality("CRITICAL")
 
         if value != self.getCO2Concentration():
-            self.log(self.states['air_quality'] + " CO2 concentration -> " + str(value) + "ppm")
+            self.log(self.getAirQuality() + " CO2 concentration -> " + str(value) + "ppm")
             self.setCO2Concentration(value)
-            self.send(self.toJSON())
 
     def getCO2Concentration(self):
-        return self.states['co2_concentration']
+        return self.getStateValue('co2_concentration')
 
     def setCO2Concentration(self,value):
-        self.states['co2_concentration'] = value
+        self.setStateValue('co2_concentration', value)
+
+    def setAirQuality(self,value):
+        self.setStateValue('air_quality',value)
+
+    def getAirQuality(self):
+        return self.getStateValue('air_quality')
 
     def setState(self, name, value):    
-        super().setState(name, value)
 
         match name:
             case "co2_concentration":
-                self.states['co2_concentration'] = value
+                self.setCO2Concentration(value)
                 pass
             case _:
                 print("state not found or state is read only")
                 pass
-
-        self.send(self.toJSON())
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
-
 
     def reset(self):
         super().reset()
         # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass

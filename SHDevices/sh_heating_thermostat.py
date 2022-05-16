@@ -16,23 +16,21 @@ class SH_Heating_Thermostat(SHDevice):
 
     
     def setTemperature(self,value):
-        self.states['setTemperature'] = value    
+        self.setStateValue('setTemperature', value)
 
     def getSetTemperature(self):
-        return self.states['setTemperature']
+        return self.getStateValue('setTemperature')
     
     def getCurrentTemperature(self):
-        return self.states['currentTemperature']
+        return self.getStateValue('currentTemperature')
 
 
     def updateCurrentTemperature(self,temperature):
         self.log("Update Temperature: " + str(temperature) + "/" + str(self.getSetTemperature()))
-        self.states['currentTemperature'] = temperature
-        self.send(self.toJSON())
+        self.setStateValue('currentTemperature', temperature)
         pass
 
     def setState(self, name, value):    
-        super().setState(name, value)
 
         match name:
             case "setTemperature":
@@ -41,16 +39,12 @@ class SH_Heating_Thermostat(SHDevice):
             case _:
                 print("state not found or state is read only")
                 pass
-
-        self.send(self.toJSON())
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
 
 
     def reset(self):
         super().reset()
-        # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass

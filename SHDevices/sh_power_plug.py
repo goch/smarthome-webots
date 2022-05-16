@@ -22,7 +22,7 @@ class SH_Power_Plug(SHDevice):
 
     def turnOn(self,state):
         self.setLED(state)
-        self.states["on"] = state
+        self.setStateValue('on',state)
         if state:
             self.setCurrentPower(9000)
         else:
@@ -33,17 +33,16 @@ class SH_Power_Plug(SHDevice):
         self.led.set(int(state))
 
     def setCurrentPower(self,value):
-        self.states["currentPowerConsumption"] = value
+        self.setStateValue('currentPowerConsumption',value)
     
     def getCurrentPower(self):
-        return self.states["currentPowerConsumption"]
+        return self.getStateValue('currentPowerConsumption')
 
     def addEnergyCounter(self,value):
         if value == 0:
             return
 
-        self.states['energyCounter'] += value
-        self.send(self.toJSON())
+        self.setStateValue('energyCounter', self.getStateValue('energyCounter') + value) 
 
     def updateEnergyCounter(self, deltaTime):
         currentPower = self.getCurrentPower()
@@ -53,34 +52,28 @@ class SH_Power_Plug(SHDevice):
         self.addEnergyCounter( totalpower)
 
     def resetEnergyCounter(self):
-        self.states["resetEnergyCounter"] = False
-        self.states["energyCounter"] = 0.0
+        self.setStateValue('resetEnergyCounter', False)
+        self.setStateValue('energyCounter', 0.0)
 
     def setState(self, name, value):    
-        super().setState(name, value)
 
         match name:
             case "on":
-                # self.setPosition(value)
                 self.turnOn(value)
                 pass
             case "resetEnergyCounter":
-                # self.setUp(value)
                 self.resetEnergyCounter()
                 pass
             case _:
                 print("state not found or state is read only")
                 pass
 
-        self.send(self.toJSON())
+
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
-
 
     def reset(self):
         super().reset()
-        # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass

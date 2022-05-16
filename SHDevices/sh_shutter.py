@@ -30,28 +30,28 @@ class SH_Shutter(SHDevice):
 
     def setPosition(self,target_position):
         self.log("setPosition: " + str(target_position))
-        self.states['setPosition'] = target_position
+        self.setStateValue('setPosition', target_position)
         self.motor.setPosition(target_position)
         
-        self.states['stop'] = False
+        self.setStateValue('stop', False)
         if self.motor_position.getValue() < target_position:
-              self.states['up'] = True
-              self.states['down'] = False
+              self.setStateValue('up',True)
+              self.setStateValue('down', False)
               self.motor.setPosition(target_position)
         elif self.motor_position.getValue() > target_position:
-            self.states['down'] = True
-            self.states['up'] = False
+            self.setStateValue('down', True)
+            self.setStateValue('up', False)
             self.motor.setPosition(target_position)
         else:
-            self.states['stop'] = True
-            self.states['down'] = False
-            self.states['up'] = False
+            self.setStateValue('stop', True)
+            self.setStateValue('down', False)
+            self.setStateValue('up', False)
 
     def setDown(self, down):
         if down:
             self.setPosition(self.motor.getMinPosition())
         else:
-            self.states['down'] = False
+            self.setStateValue('down', False)
             self.setStop(True)
 
     def emitt(self,state):
@@ -66,21 +66,19 @@ class SH_Shutter(SHDevice):
         if up:
             self.setPosition(self.motor.getMaxPosition())
         else:
-            self.states['up'] = False
+            self.setStateValue('up', False)
             self.setStop(True)
     
     def setStop(self,stop):
         if stop:
             self.setPosition(self.motor_position.getValue())
-            self.states['stop'] = True
+            self.setStateValue('stop', True)
 
     def updateCurrentPosition(self,position):
-        self.states['currentPosition'] = position
-        self.send(self.toJSON())
+        self.setStateValue('currentPosition', position)
         pass
 
     def setState(self, name, value):
-        super().setState(name, value)
 
         match name:
             case "setPosition":
@@ -94,17 +92,12 @@ class SH_Shutter(SHDevice):
             case _:
                 self.log("state not found or state is read only. Value ->" + str(value))
 
-        self.send(self.toJSON())
-
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
-
 
     def reset(self):
         super().reset()
-        # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass
             

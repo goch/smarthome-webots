@@ -17,21 +17,18 @@ class SH_Button(SHDevice):
         # self.reset()    
 
     def setState(self, name, value):    
-        
+
         if name in self.states:
-            super().setState(name, value)
-            self.states[name] = value
-            self.send(self.toJSON())
+            self.setStateValue(name, value)
         else: 
             self.log("State:" + name + " not in states")
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
 
 
     def reset(self):
         super().reset()
         # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass

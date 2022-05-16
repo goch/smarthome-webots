@@ -40,28 +40,28 @@ class SH_Sim_Time(SHDevice):
 
 
     def setHour(self,value):
-        self.states['hour'] = value % 12
+        self.setStateValue('hour', value % 12)
         pass
 
     def setMinute(self,value):
-        self.states['minute'] = value % 60
+        self.setStateValue('minute', value % 60)
         pass
 
     def setSecond(self,value):
-        self.states['second'] = value % 60 
+        self.setStateValue('second', value % 60)
         pass
 
     def getHour(self):
-        return self.states['hour']
+        return self.getStateValue('hour')
 
     def getMinute(self):
-        return self.states['minute']
+        return self.getStateValue('minute')
 
     def getSecond(self):
-        return self.states['second']
+        return self.getStateValue('second')
 
     def getTimeStamp(self):
-        return self.states['timestamp']
+        return self.getStateValue('timestamp')
 
     def updateClock(self, deltatime):
         deltaSeconds = (deltatime/1000)
@@ -74,14 +74,9 @@ class SH_Sim_Time(SHDevice):
         self.second_motor.setPosition( self.getSecond() * self.second_step) 
         self.minute_motor.setPosition( self.getMinute() * self.minute_step)
         self.hour_motor.setPosition( self.getHour() * self.hour_step)
-
-
-
-        self.send(self.toJSON())
         pass
 
     def setState(self, name, value):    
-        super().setState(name, value)
 
         match name:
             case "timestamp":
@@ -99,16 +94,11 @@ class SH_Sim_Time(SHDevice):
             case _:
                 print("state not found or state is read only")
                 pass
-
-        self.send(self.toJSON())
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
-
 
     def reset(self):
         super().reset()
-        # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass

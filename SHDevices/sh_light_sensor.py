@@ -18,11 +18,9 @@ class SH_Light_Sensor(SHDevice):
 
     def updateLuminosity(self,value):
         self.log("new Luminosity -> " + str(value))
-        self.states['luminosity'] = value
-        self.send(self.toJSON())
+        self.setStateValue('luminosity', value)
 
     def setState(self, name, value):    
-        super().setState(name, value)
 
         match name:
             case "luminosity":
@@ -31,16 +29,12 @@ class SH_Light_Sensor(SHDevice):
             case _:
                 print("state not found or state is read only")
                 pass
-
-        self.send(self.toJSON())
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
 
 
     def reset(self):
         super().reset()
-        # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass

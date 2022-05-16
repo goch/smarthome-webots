@@ -24,12 +24,12 @@ class SH_Motion_Sensor(SHDevice):
     # 
 
     def setNumberOfTargets(self,number):
-        if number != self.states["targets"]:
-            self.states["targets"] = number
-            self.send(self.toJSON())
+        if number != self.getStateValue('targets'):
+            self.setStateValue('targets', number)
         pass
 
     def getMotionDetected(self):
+
         motion_detected = False
         target_count = self.radar.getNumberOfTargets()
         self.setNumberOfTargets(target_count)
@@ -44,9 +44,8 @@ class SH_Motion_Sensor(SHDevice):
             motion_detected = False
             
         if motion_detected != self.motionDetected:
-            self.states["motion_detected"] = motion_detected
+            self.setStateValue('motion_detected', motion_detected)
             self.motionDetected = motion_detected
-            self.send(self.toJSON())
 
         return motion_detected
 
@@ -54,7 +53,6 @@ class SH_Motion_Sensor(SHDevice):
         return self.radar.getTargets()
 
     def setState(self, name, value):    
-        super().setState(name, value)
 
         match name:
             case "setPosition":
@@ -63,16 +61,12 @@ class SH_Motion_Sensor(SHDevice):
             case _:
                 print("state not found or state is read only")
                 pass
-
-        self.send(self.toJSON())
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
 
 
     def reset(self):
         super().reset()
-        # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass
