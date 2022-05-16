@@ -1,5 +1,6 @@
 """SH Controller Template controller."""
 
+from os import times
 from controller import Robot
 from controller import Supervisor
 
@@ -45,6 +46,7 @@ TIME_STEP = 64
 robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
 
+deltaTime = 0
 
 
 
@@ -61,8 +63,16 @@ sh_device.connect()
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
+    deltaTime += timestep
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
+
+    # do something every 500ms
+    # if deltaTime > 500:
+    #     sh_device.log("Hello World -> " + str(deltaTime))
+    #     deltaTime = 0
+    # pass
+
     pass
 
 # cleanup on Exit
