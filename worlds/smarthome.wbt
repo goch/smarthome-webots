@@ -8,8 +8,8 @@ WorldInfo {
   FPS 30
 }
 Viewpoint {
-  orientation 0.1825723734106254 -0.34374864711323605 -0.9211428749521059 5.42358223148821
-  position -5.784735650640166 -5.784495816410963 4.064392538476312
+  orientation 0.1347248728922509 -0.2272957666117675 -0.9644614264471835 5.456188819016111
+  position -5.028007121851881 -6.965086964822826 2.8274761512716773
   follow "WallHeatingThermostat"
   followSmoothness 0
 }
@@ -177,7 +177,8 @@ Robot {
   window "sim_time_window"
 }
 Robot {
-  translation 0.1 0 0
+  translation 0.633549 -0.433503 0
+  rotation 0 0 1 0.523598
   children [
     Emitter {
       channel 1
@@ -881,6 +882,7 @@ Robot {
 }
 Robot {
   translation 0.6 1 0
+  rotation 0 0 1 0.523599
   children [
     Emitter {
       channel 1
@@ -1587,6 +1589,7 @@ Robot {
   children [
     FloorLight {
       translation 1.18 0.78 0
+      pointLightIntensity 0
     }
   ]
   name "RGBStandLamp"
@@ -1731,7 +1734,7 @@ Robot {
   window "light_sensor_window"
 }
 Robot {
-  translation -2.91417 0.369037 2.01
+  translation -2.38417 -0.410963 2.01
   rotation -0.9999999999944966 -2.830819999984421e-06 1.7301199999904786e-06 3.14159
   children [
     Transform {
@@ -1777,8 +1780,8 @@ Robot {
   window "distance_sensor_window"
 }
 Robot {
-  translation 2.31056 -0.88371 0.6
-  rotation 0 0 1 2.61799
+  translation 3.01056 0.0162882 0.6
+  rotation 0 0 1 3.14159
   children [
     Radar {
       rotation 0 1 0 4.692820414042842e-06
@@ -1913,6 +1916,62 @@ Robot {
   controller "PowerPlugController"
   window "power_plug_window"
 }
+Robot {
+  translation 1.11955 -2.1274 0.17
+  rotation 0.7071062811861605 1.7947507136961948e-07 -0.7071072811865582 3.14158
+  children [
+    PointLight {
+      attenuation 0 0 1
+      color 1 0 0
+      intensity 0
+      location 0 0 0.05
+    }
+    DistanceSensor {
+      translation 0 0.05 0.075
+      rotation 0.5773500897298334 0.577350358919501 0.577350358919501 2.09439
+      lookupTable [
+        0 -1 0
+        0.01 0.01 0
+        1.5 1.5 0
+      ]
+    }
+    Transform {
+      children [
+        Transform {
+          translation 0 0 0.1
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 1 0 0
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 0.05
+          children [
+            Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  name "Alarm"
+  controller "alarm_controller"
+  supervisor TRUE
+  window "alarm_window"
+}
 TexturedBackground {
   texture "factory"
   skybox FALSE
@@ -1934,7 +1993,7 @@ RectangleArena {
   }
 }
 DEF HUMAN Solid {
-  translation 1.43441 -0.398087 0.469884
+  translation 1.83441 0.29472 0.469884
   rotation -1.48153e-06 8.55377e-07 1 -0.5236153071795862
   scale 3 3 3
   children [
@@ -2107,7 +2166,7 @@ DEF HUMAN Solid {
   ]
 }
 Door {
-  translation -2.73 0 0
+  translation -2.2 3.89349e-06 0
   rotation 0 0 1 -3.1415853071795863
   position 0.0004991042388036371
 }
@@ -2222,8 +2281,8 @@ CardboardBox {
   size 0.3 0.3 0.3
 }
 CardboardBox {
-  translation 1.47741 -4.40834 0.28
-  rotation 0 0 1 -0.785395307179586
+  translation 1.03942 -3.21733 0.16
+  rotation 0 0 -1 -5.307179586466759e-06
   name "cardboard box(5)"
   size 0.3 0.3 0.3
 }
@@ -2239,6 +2298,6 @@ Bed {
   rotation 0 0 1 -2.6179953071795863
 }
 Toilet {
-  translation 1.40925 -0.371419 0
+  translation 1.75925 0.234791 0
   rotation 0 0 1 -0.5236053071795865
 }
