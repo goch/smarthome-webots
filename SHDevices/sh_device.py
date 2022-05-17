@@ -105,17 +105,19 @@ class SHDevice(object):
 
     def receive_webui(self,callback):
         msg = self.device.wwiReceiveText()
+        data = None
         if msg:
-            self.log("WebUI -> " + str(msg))
             if msg == "---- WINDOW LOADED ----":
                 self.init_webui()
-            else:
-                try:
-                    message = json.loads(msg)
-                    callback(message)
-                except Exception as e:
-                    self.log("WebUIError" + str(e))
-                    return
+                return
+
+            self.log("WebUI -> " + str(msg))
+            try:
+                data = json.loads(msg)
+            except Exception as e:
+                self.log("NOT JSON: " + str(e))
+                
+            callback(data)
                 
     def __str__(self):
         string = ""
