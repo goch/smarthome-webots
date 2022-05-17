@@ -51,20 +51,24 @@ sh_device = SH_Distance_Sensor(robot.getName(), connection=ws, device=robot)
 sh_device.connect()
 
 
-delta = 0.05
+deltaTime = 0
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
+    deltaTime += timestep
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
-    sh_device.updateCurrentDistance()
 
-    if sh_device.getDistance() <= sh_device.getTriggerDistance():
-        sh_device.setTriggered(True)
-    else: 
-        sh_device.setTriggered(False)
-    
+    # do something every 500ms
+    if deltaTime > 500:
+        deltaTime = 0
+        sh_device.updateCurrentDistance()
+
+        if sh_device.getDistance() <= sh_device.getTriggerDistance():
+            sh_device.setTriggered(True)
+        else:
+            sh_device.setTriggered(False)
     pass
 
 # cleanup on Exit
