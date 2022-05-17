@@ -32,20 +32,13 @@ def closed(ws, close_status_code, close_msg):
 
 def web_message_cb(message):
     global sh_device
-    if message == "---- WINDOW LOADED ----":
-        sh_device.register()
-    else:
-        message_cb(None, message)
+    message_cb(None, message)
 
 def message_cb(ws, message):
     global sh_device
-    sh_device.log("new message -> " + message)
-    try:
-        msg = json.loads(message)
-        sh_device.setState(msg["property"], msg["value"])
-    except Exception as e:
-        sh_device.log(str("Message Error: " + str(e)))
-        return
+    sh_device.log("new message -> " + str(message))
+    sh_device.setState(message["property"], message["value"])
+
 
 TIME_STEP = 64
 robot = Supervisor()

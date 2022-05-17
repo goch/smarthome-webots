@@ -12,30 +12,25 @@ from SHDevices.sh_shutter import *
 import json
 
 
-def log(msg):
-    global robot
-    print(robot.getName() + ":" + msg)
+
 
 def connected(ws):
     global shutter
-    log("Connected")
+    shutter.log("Connected")
     shutter.register()
-    #msg = device.toJSON()
     
 def error(ws, error):
     global shutter
-    shutter.log("Connection Error -> " + str(error))
+    shutter.log("Error -> " + str(error))
 
 def closed(ws, close_status_code, close_msg):
     global shutter
-    log("Disconected")
+    shutter.log("Disconected")
     pass
 
 def web_message_cb(message):
     global shutter
-    if message == "---- WINDOW LOADED ----":
-        shutter.register()
-    elif message =="WINDOW_OPEN":
+    if message =="WINDOW_OPEN":
         shutter.emitt(True)
     elif message =="WINDOW_CLOSED":
         shutter.emitt(False)
@@ -45,13 +40,9 @@ def web_message_cb(message):
 
 def message_cb(ws, message):
     global shutter
-    log("new message -> " + message)
-    try:
-        msg = json.loads(message)
-        shutter.setState(msg["property"], msg["value"])
-    except Exception as e:
-        log(str("Message Error: " + str(e)))
-        return
+    shutter.log("new message -> " + str(message))
+    shutter.setState(message["property"], message["value"])
+    
 
 TIME_STEP = 64
 # create the Robot instance.

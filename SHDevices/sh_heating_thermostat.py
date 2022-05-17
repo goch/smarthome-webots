@@ -24,7 +24,6 @@ class SH_Heating_Thermostat(SHDevice):
     def getCurrentTemperature(self):
         return self.getStateValue('currentTemperature')
 
-
     def updateCurrentTemperature(self,temperature):
         self.log("Update Temperature: " + str(temperature) + "/" + str(self.getSetTemperature()))
         self.setStateValue('currentTemperature', temperature)
@@ -42,7 +41,6 @@ class SH_Heating_Thermostat(SHDevice):
     
     def register(self):
         super().register()
-
 
     def reset(self):
         super().reset()

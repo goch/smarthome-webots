@@ -39,8 +39,14 @@ class WebSocketClient(threading.Thread):
 
     def on_message(self, ws, message):
         #print("WebSocket thread: %s" % message)
+        try:
+            msg = json.loads(message)
+        except Exception as e:
+            self.on_error(None,e)
+        
+            return
         if self.message_cb is not None:
-            self.message_cb(ws,message)
+            self.message_cb(ws,msg)
 
     def on_open(self, ws):
         #print("Connected!")
@@ -167,7 +173,9 @@ class SHDevice(object):
         self.send(data)
         pass
 
-
+    def init_webui(self):
+        self.send_webui(self.toDict())
+    
     def send_webui(self,message):
         if self.device is not None:
             self.device.wwiSendText(json.dumps(message))
@@ -178,9 +186,17 @@ class SHDevice(object):
     def receive_webui(self,callback):
         msg = self.device.wwiReceiveText()
         if msg:
-            self.log("WebUI ->" + str(msg))
-            callback(msg)
-
+            self.log("WebUI -> " + str(msg))
+            if msg == "---- WINDOW LOADED ----":
+                self.init_webui()
+            else:
+                try:
+                    message = json.loads(msg)
+                    callback(message)
+                except Exception as e:
+                    self.log("WebUIError" + str(e))
+                    return
+                
     def __str__(self):
         string = ""
         for key, value in self.states.items():
