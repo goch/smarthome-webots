@@ -12,7 +12,7 @@ class SH_Shutter(SHDevice):
         self.motor_position.enable(64)
 
         self.emitter = device.getDevice("emitter")
-
+        self.finalPositionReached = False
         self.window_open = False
 
         super().add_state('setPosition',self.motor.getMaxPosition())
@@ -49,6 +49,7 @@ class SH_Shutter(SHDevice):
 
     def setDown(self, down):
         if down:
+            self.finalPositionReached = False
             self.setPosition(self.motor.getMinPosition())
         else:
             self.setStateValue('down', False)
@@ -64,6 +65,7 @@ class SH_Shutter(SHDevice):
         
     def setUp(self, up):
         if up:
+            self.finalPositionReached = False
             self.setPosition(self.motor.getMaxPosition())
         else:
             self.setStateValue('up', False)
@@ -71,11 +73,25 @@ class SH_Shutter(SHDevice):
     
     def setStop(self,stop):
         if stop:
-            self.setPosition(self.motor_position.getValue())
+            self.updateCurrentPosition()
             self.setStateValue('stop', True)
+            self.setStateValue('up', False)
+            self.setStateValue('down', False)
 
-    def updateCurrentPosition(self,position):
-        self.setStateValue('currentPosition', position)
+
+    def updateCurrentPosition(self):
+
+        targetPosition = self.getStateValue('setPosition')
+        currentPosition = self.getStateValue('currentPosition')
+
+        if targetPosition != currentPosition:
+            self.setStateValue('currentPosition', self.motor_position.getValue())
+            self.log("Shutter:" + str(self.getStateValue('currentPosition')))
+        elif  not self.finalPositionReached:
+            self.finalPositionReached = True
+            self.setStateValue('currentPosition', self.motor_position.getValue())
+            self.setStop(True)
+
         pass
 
     def setState(self, name, value):

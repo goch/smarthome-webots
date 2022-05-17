@@ -51,6 +51,7 @@ robot = Supervisor()
 # get the time step of the current world.
 timestep = int(robot.getBasicTimeStep())
 
+deltaTime = 0
 
 # You should insert a getDevice-like function in order to get the
 # instance of a device of the robot. Something like:
@@ -69,22 +70,20 @@ shutter = SH_Shutter(robot.getName(),connection=ws,device=robot)
 shutter.connect()
 
 
-lastPosition = 0 
-delta = (shutter.motor.getMaxPosition() - shutter.motor.getMinPosition()) / 25
+lastPosition = 0
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-
+    deltaTime += timestep
     shutter.receive_webui(web_message_cb)
         
-    currentPosition = shutter.motor_position.getValue()
-    currentDelta = abs(lastPosition - currentPosition)
     
-    if currentDelta >= delta:
-        lastPosition = currentPosition
-        shutter.updateCurrentPosition(currentPosition)
-
+    # TODO ALSO UPDATE CURRENT POSITION IF TARGET POSITION REACHED
+    # do something every 1000ms
+    if deltaTime > 1000: 
+        shutter.updateCurrentPosition()
+        deltaTime = 0
 
     pass
 

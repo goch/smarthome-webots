@@ -1,13 +1,11 @@
 """SH Controller Template controller."""
 
-from os import times
 from controller import Robot
 from controller import Supervisor
 
-from SHDevices.sh_device import *
 from SHDevices.sh_shutter import *
+from SHDevices.iobroker_websocket import *
 
-import json
 from config.definitions import ROOT_DIR, _CFG
 
 def connected(ws):
@@ -27,20 +25,12 @@ def closed(ws, close_status_code, close_msg):
 
 def web_message_cb(message):
     global sh_device
-    if message == "---- WINDOW LOADED ----":
-        sh_device.register()
-    else:
-        message_cb(None, message)
+    message_cb(None, message)
 
 def message_cb(ws, message):
     global sh_device
-    sh_device.log("new message -> " + message)
-    try:
-        msg = json.loads(message)
-        sh_device.setState(msg["property"], msg["value"])
-    except Exception as e:
-        sh_device.log(str("Message Error: " + str(e)))
-        return
+    sh_device.log("new message -> " + str(message))
+    sh_device.setState(message["property"], message["value"])
 
 TIME_STEP = 64
 robot = Supervisor()
