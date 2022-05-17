@@ -1,7 +1,7 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
 
-const label_device_name = document.querySelector("#device_name");
+const console_element = document.querySelector("#console");
 
 // A message coming from the robot has been received.
 // new object message received

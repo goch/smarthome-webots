@@ -1,6 +1,6 @@
 from SHDevices.sh_device import *
 
-class SH_Shutter(SHDevice):
+class SH_Template(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
@@ -17,7 +17,6 @@ class SH_Shutter(SHDevice):
         #super().add_field('position',device.getField("pointLightColor"))
     # 
     def setState(self, name, value):    
-        super().setState(name, value)
 
         match name:
             case "setPosition":
@@ -35,16 +34,11 @@ class SH_Shutter(SHDevice):
             case _:
                 print("state not found or state is read only")
                 pass
-
-        self.send(self.toJSON())
     
     def register(self):
         super().register()
-        self.send(self.toJSON())
-
 
     def reset(self):
         super().reset()
-        # self.set_state('setPosition',1.3)
-        self.send(self.toJSON())
+        self.sendReset()
         pass

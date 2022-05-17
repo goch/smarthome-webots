@@ -59,9 +59,8 @@ while robot.step(timestep) != -1:
 
     # do something every 500ms
     # if deltaTime > 500:
-    #     sh_device.log("Hello World -> " + str(deltaTime))
     #     deltaTime = 0
-    # pass
+    #     sh_device.log("Hello World -> " + str(deltaTime))
 
     pass
 
