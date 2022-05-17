@@ -4,10 +4,9 @@ from os import times
 from controller import Robot
 from controller import Supervisor
 
-from SHDevices.sh_device import *
 from SHDevices.sh_co2_sensor import *
+from SHDevices.iobroker_websocket import *
 
-import json
 from math import sqrt, pow
 from config.definitions import ROOT_DIR, _CFG
 

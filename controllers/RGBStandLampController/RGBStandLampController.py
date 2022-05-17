@@ -3,6 +3,7 @@ from controller import Supervisor
 
 
 from SHDevices.wb_floor_light import *
+from SHDevices.iobroker_websocket import *
 
 import json
 from config.definitions import ROOT_DIR, _CFG

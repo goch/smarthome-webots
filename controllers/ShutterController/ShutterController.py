@@ -7,9 +7,9 @@ from controller import Supervisor
 
 import os
 from config.definitions import ROOT_DIR, _CFG
-from SHDevices.sh_device import *
+
 from SHDevices.sh_shutter import *
-import json
+from SHDevices.iobroker_websocket import *
 
 
 

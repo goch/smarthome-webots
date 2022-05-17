@@ -3,8 +3,8 @@
 from controller import Robot
 from controller import Supervisor
 
-from SHDevices.sh_device import *
 from SHDevices.sh_heating_thermostat import *
+from SHDevices.iobroker_websocket import *
 
 import json
 from config.definitions import ROOT_DIR, _CFG
