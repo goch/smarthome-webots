@@ -45,7 +45,7 @@ ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
                                                  error_cb=error)
 
 # create instance of SmartHome Device
-sh_device = SH_Sim_Time(robot.getName(), connection=ws, device=robot)
+sh_device = SH_Sim_Time(robot.getName(), connection=ws, device=robot,  hour=_CFG['simtime']['hour'], minute=_CFG['simtime']['minute'], second=_CFG['simtime']['second'] )
 sh_device.connect()
 
 # Main loop:

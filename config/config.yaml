@@ -1,3 +1,8 @@
+simtime:
+  hour: 21
+  minute: 45
+  second: 30
+
 websocket:
   url: ws://192.168.10.126:3000
   

@@ -4,7 +4,7 @@ from SHDevices.sh_device import *
 
 class SH_Sim_Time(SHDevice):
 
-    def __init__(self,name, connection=None, device=None, states={}, fields={}):
+    def __init__(self,name, connection=None, device=None, states={}, fields={}, hour=0, minute=0, second=0):
         super().__init__(name, connection, device, states, fields)        
 
         # add Devices
@@ -20,13 +20,15 @@ class SH_Sim_Time(SHDevice):
 
         # add states
         super().add_state('timestamp',0)
-        super().add_state('hour',6)
-        super().add_state('minute',15)
-        super().add_state('second',0)
+        super().add_state('hour',hour + minute / 60 + second / 3600)
+        super().add_state('minute',minute + second / 60)
+        super().add_state('second',second)
 
         # add fields
         #super().add_field('position',device.getField("pointLightColor"))
     # 
+
+
     def setTimeStamp(self,value):
         self.states['timestamp'] = value
         pass
@@ -66,14 +68,19 @@ class SH_Sim_Time(SHDevice):
     def updateClock(self, deltatime):
         deltaSeconds = (deltatime/1000)
 
-        self.setHour( self.getHour() + (deltaSeconds / 3600) )
-        self.setMinute( self.getMinute() + (deltaSeconds / 60) )
         self.setSecond( self.getSecond() + (deltaSeconds))
+        self.setMinute( self.getMinute() + (deltaSeconds / 60) )
+        self.setHour( self.getHour() + (deltaSeconds / 3600) )
+
         self.updateTimeStamp()
         
+        hour12 = self.getHour() - 12
+        if hour12 < 0:
+            hour12 = self.getHour()
+
         self.second_motor.setPosition( self.getSecond() * self.second_step) 
         self.minute_motor.setPosition( self.getMinute() * self.minute_step)
-        self.hour_motor.setPosition( self.getHour() * self.hour_step)
+        self.hour_motor.setPosition( hour12 * self.hour_step)
         pass
 
     def setState(self, name, value):    

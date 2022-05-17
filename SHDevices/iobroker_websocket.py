@@ -4,7 +4,7 @@ import websocket
 
 class WebSocketClient(threading.Thread):
 
-    def __init__(self, uri="ws://192.168.10.126:3000",
+    def __init__(self, uri="ws://localhost:3000",
                             open_cb=None,
                             message_cb=None,
                             error_cb=None,
