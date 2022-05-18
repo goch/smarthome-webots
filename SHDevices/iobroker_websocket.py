@@ -75,6 +75,10 @@ class WebSocketClient(threading.Thread):
         time.sleep(3)
         self.connect()
 
+    def disconnect(self):
+        self.server.close()
+
+
     def run(self):
         #print("Connecting to Websocket Server!")
         self.server.run_forever()

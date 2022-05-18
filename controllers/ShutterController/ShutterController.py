@@ -87,3 +87,5 @@ while robot.step(timestep) != -1:
 
     pass
 
+shutter.log("---- CLEANUP ----")
+shutter.disconnect()

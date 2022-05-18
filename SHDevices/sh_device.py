@@ -41,6 +41,8 @@ class SHDevice(object):
     def connect(self):
         self.connection.connect()
 
+    def disconnect(self):
+        self.connection.disconnect()
     def reset(self):
         self.log("RESET") 
 

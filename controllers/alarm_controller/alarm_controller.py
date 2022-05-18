@@ -72,3 +72,5 @@ while robot.step(timestep) != -1:
 
 
 # cleanup on Exit
+sh_device.log("---- CLEANUP ----")
+sh_device.disconnect()
