@@ -34,6 +34,7 @@ function setStateValue(name, value, send=true){
   states[name].value = value;
   
   if (send){
+    log("Sending " + name + " -> " + value )
     sendState(name,value)
   }
 }
