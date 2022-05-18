@@ -25,24 +25,24 @@ class WB_FloorLight(SHDevice):
             case "r":
                 self.setStateValue('r', value)
                 if self.states["on"]:
-                    self.fields['lcolor'].setSFColor([value,self.states['g'],self.states['b']])
-                    self.fields['bcolor'].setSFColor([value,self.states['g'],self.states['b']])
+                    self.fields['lcolor'].setSFColor([value,self.getStateValue('g'),self.getStateValue('b')])
+                    self.fields['bcolor'].setSFColor([value,self.getStateValue('g'),self.getStateValue('b')])
             case "g":
                 self.setStateValue('g', value)
                 if self.getStateValue('on'):
-                    self.fields['lcolor'].setSFColor([self.states['r'],value,self.states['b']])
-                    self.fields['bcolor'].setSFColor([self.states['r'],value,self.states['b']])
+                    self.fields['lcolor'].setSFColor([self.getStateValue('r'),value,self.getStateValue('b')])
+                    self.fields['bcolor'].setSFColor([self.getStateValue('r'),value,self.getStateValue('b')])
             case "b":
                 self.setStateValue('b', value)
                 if self.getStateValue('on'):
-                    self.fields['lcolor'].setSFColor([self.states['r'],self.states['g'],value])
-                    self.fields['bcolor'].setSFColor([self.states['r'],self.states['g'],value])
+                    self.fields['lcolor'].setSFColor([self.getStateValue('r'),self.getStateValue('g'),value])
+                    self.fields['bcolor'].setSFColor([self.getStateValue('r'),self.getStateValue('g'),value])
             case "on":
                 self.setStateValue('on', value)
                 if self.getStateValue('on'):
-                    self.fields['brightness'].setSFFloat(self.states['brightness'])
-                    self.fields['lcolor'].setSFColor([self.states['r'],self.states['g'],self.states['b']])
-                    self.fields['bcolor'].setSFColor([self.states['r'],self.states['g'],self.states['b']])
+                    self.fields['brightness'].setSFFloat(self.getStateValue('brightness'))
+                    self.fields['lcolor'].setSFColor([self.getStateValue('r'),self.getStateValue('g'),self.getStateValue('b')])
+                    self.fields['bcolor'].setSFColor([self.getStateValue('r'),self.getStateValue('g'),self.getStateValue('b')])
                 else:
                     self.fields['brightness'].setSFFloat(0)
                     self.fields['bcolor'].setSFColor([1,1,1])
@@ -64,9 +64,9 @@ class WB_FloorLight(SHDevice):
     
     def reset(self):
         super().reset()
-        # self.states['r'] =1
+        # self.getStateValue('r') =1
         # self.states['g'] =1    
-        # self.states['b'] =1
+        # self.getStateValue('b') =1
         # self.states['brightness'] =1
         # self.states['on'] = False
         self.sendReset()
