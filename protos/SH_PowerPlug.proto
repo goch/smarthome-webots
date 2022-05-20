@@ -1,0 +1,96 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart Home Switchable Plug with Power Meter
+# template language: javascript
+
+PROTO SH_PowerPlug [
+    field SFString      name "PowerPlug"
+    field SFVec3f       translation 0 0 0.3
+    field SFRotation    rotation    0 1 0 0
+    unconnectedField SFFloat  PowerConsumption 9000
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+    
+  children [
+    LED {
+      translation 0 -0.04 0
+      children [
+        PointLight {
+          attenuation 0 0 1
+          color 0 0 0
+          intensity 0.08
+          on FALSE
+          radius 0.03
+        }
+      ]
+      color [
+        0 1 0
+      ]
+    }
+    Connector {
+    }
+    Shape {
+      appearance PBRAppearance {
+        metalness 0
+      }
+      geometry Box {
+        size 0.07 0.07 0.07
+      }
+    }
+    Transform {
+      translation 0 0 0.035
+      children [
+        Transform {
+          translation -0.015 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.008
+                radius 0.005
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0.015 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.008
+                radius 0.005
+              }
+            }
+          ]
+        }
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.627451 0.627451 0.627451
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.005
+            radius 0.03
+          }
+        }
+      ]
+    }
+  ]
+  controller "PowerPlugController"
+  window "power_plug_window"
+    
+    }
+
+}

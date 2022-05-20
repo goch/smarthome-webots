@@ -18,11 +18,12 @@ class SH_Alarm(SHDevice):
         super().add_state('brightness',4.0)
         
 
-        self.alarm_lamp = device.getSelf().getField("children").getMFNode(0)
+        self.alarm_lamp = device.getSelf()
+
         # add fields
         super().add_field('on', self.alarm_lamp.getField("on"))
-        super().add_field('brightness', self.alarm_lamp.getField("intensity"))
-        super().add_field('location', self.alarm_lamp.getField("location"))
+        super().add_field('brightness', self.alarm_lamp.getField("brightness"))
+        super().add_field('location', self.alarm_lamp.getField("lightLocation"))
 
         self.fields['brightness'].setSFFloat(4.0)
         self.fields['on'].setSFBool(False)

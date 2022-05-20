@@ -1,0 +1,64 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart Home Contact Sensor. Door and Window Contact which Triggers at a specific Distance
+# template language: javascript
+
+PROTO SH_ContactSensor [
+    field SFString      name "ContactSensor"
+    field SFVec3f       translation 0 0 2.02
+    field SFRotation    rotation    1 0 0 3.14159
+    unconnectedField SFFloat triggerDistance  0.1
+    unconnectedField SFFloat detectionDistance 2.0
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+    
+  children [
+    Transform {
+      translation 0 0.025 0
+      children [
+        Transform {
+          translation 0 0 0.01
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.02 0.02 0.01
+              }
+            }
+          ]
+        }
+        DistanceSensor {
+          translation 0 0 0.02
+          rotation 0 1 0 -1.5707996938995747
+          lookupTable [
+            0 0 0
+            0.1 0.1 0
+            %<= fields.detectionDistance.value >% %<=fields.detectionDistance.value>% 0 
+          ]
+        }
+      ]
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 0
+        metalness 0
+      }
+      geometry Box {
+        size 0.025 0.1 0.025
+      }
+    }
+  ]
+  controller "DistanceSensorController"
+  window "distance_sensor_window"
+    
+    }
+
+}

@@ -1,0 +1,36 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart HomeFireDetector with Siren
+# template language: javascript
+
+PROTO SH_FireDetector [
+    field SFString      name "FireSmokeDetector"
+    field SFVec3f       translation 0 0 0
+    field SFRotation    rotation    0 1 0 0
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+    
+  children [
+    Receiver {
+    }
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry Cylinder {
+        height 0.05
+        radius 0.1
+      }
+    }
+  ]
+  controller "SmokeDetectorController"
+  window "smoke_detector_window"
+
+    
+    }
+
+}

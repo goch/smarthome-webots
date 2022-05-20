@@ -4,21 +4,23 @@
 # Publiushes Simulation Time to Smart Home Manager. ADD ONLY ONCE!
 # template language: javascript
 
-PROTO SimulationTime [
+PROTO SH_SimulationTime [
     field SFVec3f       translation 0 0 1.5
     field SFRotation    rotation    0 1 0 -1.5708
+    field SFFloat       size       0.8
     unconnectedField SFFloat  hour 21
     unconnectedField SFFloat  minute 45
     unconnectedField SFFloat  second 30
   ]
 {
     Robot {
+    name IS name
     translation IS translation
     rotation IS rotation
       children [
     Transform {
       translation -0.1 0 0
-      scale 0.8 0.8 1
+      scale %<= fields.size.value >% %<=fields.size.value>% 1 
       children [
         HingeJoint {
           jointParameters HingeJointParameters {
@@ -171,7 +173,6 @@ PROTO SimulationTime [
       ]
     }
   ]
-  name "SimulationTime"
   controller "SimTimeController"
   window "sim_time_window"
   }

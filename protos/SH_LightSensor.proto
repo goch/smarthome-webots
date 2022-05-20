@@ -1,0 +1,57 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart Home Light Sensor
+# template language: javascript
+
+PROTO SH_LightSensor [
+    field SFString      name "LightSensor"
+    field SFVec3f       translation 0 0 2.4
+    field SFRotation    rotation    0 1 0 3.14
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+    
+   children [
+    Transform {
+      translation 0 0 -0.03
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.666667 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1 0.1 0.05
+          }
+        }
+      ]
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.333333 1
+        metalness 0.1
+      }
+      geometry Cone {
+        bottomRadius 0.05
+        height 0.1
+      }
+    }
+    LightSensor {
+      rotation 0 1 0 -1.5708003061004252
+      lookupTable [
+        0 0 0
+        1 1 0
+        1000 1000 0
+      ]
+    }
+  ]
+  controller "LightSensorController"
+  window "light_sensor_window"
+    
+    }
+
+}

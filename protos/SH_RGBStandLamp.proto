@@ -1,23 +1,29 @@
 #VRML_SIM R2022a utf8
 # licence: MIT
 # license url: https://choosealicense.com/licenses/mit/
-# INSERT DESCRIPTION HERE
+# Smart Home RGB Standlamp
 # template language: javascript
 
-PROTO FIRE [
-    field SFString      name "SH_DEVICE"
+PROTO SH_RGBStandLamp [
+    field SFString      name "RGBStandLamp"
     field SFVec3f       translation 0 0 0
     field SFRotation    rotation    0 1 0 0
-    unconnectedField SFFloat  parameter 10
   ]
 {
     Robot {
     name IS name
     translation IS translation
     rotation IS rotation
-    
-    #INSERT ROBOT HERE
-    
+  children [
+    FloorLight {
+      translation 1.18 0.78 0
+      pointLightIntensity 0
+    }
+  ]
+  controller "RGBStandLampController"
+  supervisor TRUE
+  window "rgbd_window"
+
     }
 
 }

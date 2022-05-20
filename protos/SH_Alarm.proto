@@ -1,0 +1,80 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# INSERT DESCRIPTION HERE
+# template language: javascript
+
+PROTO SH_Alarm [
+    field SFString      name "Alarm"
+    field SFVec3f       translation 0 0 1
+    field SFRotation    rotation    0 1 0 0
+    field SFFloat       detectionDistance 1.0
+    field SFVec3f       laserPosition 0 0.05 0.075
+    field SFBool on FALSE
+    field SFFloat brightness 4
+    field SFVec3f lightLocation 0 0 0.05
+    field SFColor lightColor 1 0 0
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+
+      children [
+    PointLight {
+      attenuation 0 0 1
+      color IS lightColor
+      intensity IS brightness
+      location IS lightLocation
+      on IS on
+    }
+    DistanceSensor {
+      translation IS laserPosition
+      rotation 0.5773500897298334 0.577350358919501 0.577350358919501 2.09439
+      lookupTable [
+        0 -1 0
+        0.01 0.01 0
+        %<= fields.detectionDistance.value >% %<=fields.detectionDistance.value>% 0 
+      ]
+    }
+    Transform {
+      children [
+        Transform {
+          translation 0 0 0.1
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 1 0 0
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 0.05
+          children [
+            Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  controller "alarm_controller"
+  supervisor TRUE
+  window "alarm_window"
+
+    
+    }
+
+}

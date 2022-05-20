@@ -1,0 +1,38 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart Home pressable Button
+# template language: javascript
+
+PROTO SH_Button [
+    field SFString      name "Button"
+    field SFVec3f       translation 0 0 1.2
+    field SFRotation    rotation    0 1 0 0
+    unconnectedField SFFloat  buttonCount 2
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0.666667 1
+            metalness 0
+          }
+          geometry TexturedBox {
+            size 0.1 0.025 0.1
+          }
+        }
+      ]
+    }
+  ]
+  controller "ButtonController"
+  window "button_window"
+    }
+
+}

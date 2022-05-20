@@ -1,0 +1,39 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# INSERT DESCRIPTION HERE
+# template language: javascript
+
+PROTO SH_CO2Sensor [
+    field SFString      name "CO2Sensor"
+    field SFVec3f       translation 0 0 2.4
+    field SFRotation    rotation    0 1 0 0
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+    
+  children [
+    Receiver {
+      channel 1
+    }
+    Shape {
+      appearance PBRAppearance {
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.05
+        radius 0.1
+      }
+    }
+  ]
+  controller "CO2Controller"
+  supervisor TRUE
+  window "co2_sensor_window"
+
+    
+    }
+
+}

@@ -4,9 +4,9 @@
 # Radar Based Motion Sensor for Smart Home Simulation
 # template language: javascript
 
-PROTO MotionSensor [
+PROTO SH_MotionSensor [
     field SFString      name "MotionSensor"
-    field SFVec3f       translation 0 0 0
+    field SFVec3f       translation 0 0 2
     field SFRotation    rotation    0 1 0 0
     field SFFloat       minRange 0.5
     field SFFloat       maxRange 20
@@ -17,6 +17,7 @@ PROTO MotionSensor [
 {
 
 Robot {
+    name IS name
     translation IS translation
     rotation IS rotation
   children [

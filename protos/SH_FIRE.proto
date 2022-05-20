@@ -4,7 +4,7 @@
 # Spawn a Fire to test smoke detectors
 # template language: javascript
 
-PROTO FIRE [
+PROTO SH_FIRE [
   field SFVec3f    translation  0 0 0
   field SFFloat    size  0.1
   unconnectedField SFFloat    maxSize 10
@@ -12,6 +12,7 @@ PROTO FIRE [
   ]
 {
     Robot {
+    name IS name
     scale IS scale
     translation IS translation
     children [
