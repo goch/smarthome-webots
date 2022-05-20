@@ -1,0 +1,60 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Radar Based Motion Sensor for Smart Home Simulation
+# template language: javascript
+
+PROTO MotionSensor [
+    field SFString      name "MotionSensor"
+    field SFVec3f       translation 0 0 0
+    field SFRotation    rotation    0 1 0 0
+    field SFFloat       minRange 0.5
+    field SFFloat       maxRange 20
+    field SFFloat       horizontalFieldOfView 1
+    field SFFloat       verticalFieldOfView 0.15
+    field SFBool        occlusion FALSE
+  ]
+{
+
+Robot {
+    translation IS translation
+    rotation IS rotation
+  children [
+    Radar {
+      rotation 0 1 0 0
+      minRange IS minRange
+      maxRange IS maxRange
+      horizontalFieldOfView IS horizontalFieldOfView 
+      verticalFieldOfView IS verticalFieldOfView
+      occlusion IS occlusion
+    }
+    Transform {
+      translation 0.025 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            metalness 0
+          }
+          geometry Sphere {
+            radius 0.025
+          }
+        }
+      ]
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0.666667 0
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.1 0.1
+      }
+    }
+  ]
+  name IS name
+  controller "MotionSensorController"
+  supervisor TRUE
+  window "motion_sensor_window"
+}
+
+}

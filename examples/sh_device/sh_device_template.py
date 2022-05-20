@@ -7,15 +7,19 @@ class SH_Template(SHDevice):
 
         # add Devices
         # self.motor_position = device.getDevice("position sensor")
-        # self.motor_position.enable(64)
-
+        # self.motor_position.enable(device.getBasicTimeStep())
 
         # add states
         # super().add_state('setPosition',1.3)
 
         # add fields
         #super().add_field('position',device.getField("pointLightColor"))
-    # 
+    
+    # get Transform from Device
+    def getTransform(self):
+        return self.device.getSelf().getField("translation").getSFVec3f()
+    
+    # message received
     def setState(self, name, value):    
 
         match name:

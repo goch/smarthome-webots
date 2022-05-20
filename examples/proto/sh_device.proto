@@ -1,0 +1,21 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# INSERT DESCRIPTION HERE
+# template language: javascript
+
+PROTO FIRE [
+    field SFString      name "SH_DEVICE"
+    field SFVec3f       translation 0 0 0
+    field SFRotation    rotation    0 1 0 0
+    unconnectedField SFFloat  parameter 10
+  ]
+{
+    Robot {
+    translation IS translation
+    rotation IS rotation
+
+    #INSERT ROBOT HERE
+    }
+
+}

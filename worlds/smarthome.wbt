@@ -8,8 +8,8 @@ WorldInfo {
   FPS 30
 }
 Viewpoint {
-  orientation 0.1347248728922509 -0.2272957666117675 -0.9644614264471835 5.456188819016111
-  position -5.028007121851881 -6.965086964822826 2.8274761512716773
+  orientation 0.10086931520549096 -0.14315485372765493 -0.9845466312492207 5.446217653638758
+  position -6.747519045348115 -8.347160360253328 2.8581039518595004
   follow "WallHeatingThermostat"
   followSmoothness 0
 }
@@ -1839,6 +1839,24 @@ Robot {
   window "co2_sensor_window"
 }
 Robot {
+  translation 0 0 1.83
+  children [
+    Receiver {
+    }
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry Cylinder {
+        height 0.05
+        radius 0.1
+      }
+    }
+  ]
+  name "FireSmokeDetector"
+  controller "SmokeDetectorController"
+  window "smoke_detector_window"
+}
+Robot {
   translation 1.36 3.86 1.24
   children [
     LED {
@@ -1923,8 +1941,9 @@ Robot {
     PointLight {
       attenuation 0 0 1
       color 1 0 0
-      intensity 0
+      intensity 4
       location 0 0 0.05
+      on FALSE
     }
     DistanceSensor {
       translation 0 0.05 0.075
@@ -2292,6 +2311,8 @@ PlatformCart {
 }
 WoodenPalletStack {
   translation 4.33683 1.57306 0
+}
+FIRE {
 }
 Bed {
   translation 0 1.97 0

@@ -1,0 +1,37 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# licence-url: https://choosealicense.com/licenses/mit/
+# Spawn a Fire to test smoke detectors
+# template language: javascript
+
+PROTO FIRE [
+  field SFVec3f    translation  0 0 0
+  field SFFloat    size  0.1
+  unconnectedField SFFloat    maxSize 10
+  unconnectedField SFFloat    growth 0.001
+  ]
+{
+    Robot {
+    scale IS scale
+    translation IS translation
+    children [
+        Shape {
+        appearance PBRAppearance {
+            baseColor 1 0.666667 0
+        }
+        geometry Sphere {
+            radius IS size
+        }
+        }
+    Emitter {
+      range -1
+      channel 5
+    }
+
+    ]
+    controller "FireController"
+    supervisor TRUE
+
+    }
+
+}
