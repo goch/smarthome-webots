@@ -8,6 +8,7 @@ PROTO SH_CO2Sensor [
     field SFString      name "CO2Sensor"
     field SFVec3f       translation 0 0 2.4
     field SFRotation    rotation    0 1 0 0
+    unconnectedField SFVec3f       threshholds 1000 1500 5000
   ]
 {
     Robot {

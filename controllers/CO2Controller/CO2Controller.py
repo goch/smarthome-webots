@@ -58,26 +58,19 @@ sh_device.connect()
 
 sensor_intervall = 0
 
-receiver = robot.getDevice("receiver")
-receiver.enable(timestep)
-
-window_open_count = 0
-
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
 
     sensor_intervall += timestep
     
-    # TODO: make heating system configurable
     # measure data every 10s
     if sensor_intervall % 1000 == 0:
-        sensor_intervall = 0
-        
+        sensor_intervall = 0    
 
         # check if WINDOW send OPEN/CLOSE
-        if receiver.getQueueLength() > 0:
-            msg = receiver.getData()
+        if sh_device.receiver.getQueueLength() > 0:
+            msg = sh_device.receiver.getData()
             data = struct.unpack("?ddd",msg)
             # sh_device.log(str(data))
         
@@ -87,14 +80,13 @@ while robot.step(timestep) != -1:
             if getDistance(sensor_pos[0],sensor_pos[1],data[1],data[2]) < sh_device.sensor_range:
                 sh_device.log(str(data[0]))
                 if data[0] == True:  
-                    window_open_count +=1
-                elif window_open_count > 0:
-                    window_open_count -=1
+                    sh_device.window_open_count +=1
+                elif sh_device.window_open_count > 0:
+                    sh_device.window_open_count -=1
                 
-                receiver.nextPacket()
+                sh_device.receiver.nextPacket()
 
         humans = sh_device.device.getFromDef("HUMAN")
-        # sh_device.log(str(type(humans)))
         # human_name = humans.getField("name").getSFString()
         
         co2_level = sh_device.getCO2Concentration()
@@ -113,7 +105,7 @@ while robot.step(timestep) != -1:
             pass    
  
          # decrease co2 if windows open     
-        co2_level -= 10 * window_open_count               
+        co2_level -= 10 * sh_device.window_open_count               
         sh_device.updateCO2Concentration(co2_level)    
 
 

@@ -7,16 +7,14 @@ class SH_CO2_Sensor(SHDevice):
 
 
         self.sensor_range = 3
-        self.threshholds = [1000,1500,2000]
-        self.min = 500
-        self.max = 5000
-
+        self.threshholds = device.getSelf().getField('threshholds').getSFVec3f()
+        self.window_open_count = 0
         # add Devices
-        # self.motor_position = device.getDevice("position sensor")
-        # self.motor_position.enable(64)
+        self.receiver = device.getDevice("receiver")
+        self.receiver.enable(int(device.getBasicTimeStep()))
         
         # add states
-        super().add_state('co2_concentration',800)
+        super().add_state('co2_concentration',800, min=500, max=5000)
         super().add_state('air_quality','GOOD')
 
         # add fields
@@ -27,28 +25,22 @@ class SH_CO2_Sensor(SHDevice):
         return self.device.getSelf().getField("translation").getSFVec3f()
 
     def updateCO2Concentration(self,value):
-        # TODO MOVE to min max of State Class
-        if value < self.min:
-            value = self.min
-        elif value > self.max:
-            value = self.max
+        self.setCO2Concentration(value)
+        set_value = self.getCO2Concentration()
 
-        if value < self.threshholds[0]:            
+        if set_value < self.threshholds[0]:            
             self.setAirQuality("GOOD")
-        elif value < self.threshholds[1]:
+        elif set_value < self.threshholds[1]:
             self.setAirQuality("BAD")
         else:
             self.setAirQuality("CRITICAL")
 
-        if value != self.getCO2Concentration():
-            self.log(self.getAirQuality() + " CO2 concentration -> " + str(value) + "ppm")
-            self.setCO2Concentration(value)
 
     def getCO2Concentration(self):
         return self.getStateValue('co2_concentration')
 
     def setCO2Concentration(self,value):
-        self.setStateValue('co2_concentration', value)
+        self.setStateValue('co2_concentration', value, ignoreSame=True)
 
     def setAirQuality(self,value):
         self.setStateValue('air_quality',value)
