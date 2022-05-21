@@ -86,7 +86,6 @@ class SH_Shutter(SHDevice):
 
         if targetPosition != currentPosition:
             self.setStateValue('currentPosition', self.motor_position.getValue())
-            self.log("Shutter:" + str(self.getStateValue('currentPosition')))
         elif  not self.finalPositionReached:
             self.finalPositionReached = True
             self.setStateValue('currentPosition', self.motor_position.getValue())
