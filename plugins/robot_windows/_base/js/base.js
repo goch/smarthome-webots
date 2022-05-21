@@ -67,7 +67,7 @@ function on_message(message){
         break;
     }
   } catch (e) {
-    log("EXCEPTION:  " + e)
+    log("EXCEPTION:  " + e + " -> " + message)
   }
 
 }
