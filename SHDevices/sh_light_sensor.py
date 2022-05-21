@@ -16,9 +16,8 @@ class SH_Light_Sensor(SHDevice):
 
         # self.reset()    
 
-    def updateLuminosity(self,value):
-        self.log("new Luminosity -> " + str(value))
-        self.setStateValue('luminosity', value)
+    def updateLuminosity(self):
+        self.setStateValue('luminosity', self.sensor.getValue(), ignoreSame=False)
 
     def setState(self, name, value):    
 

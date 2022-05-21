@@ -13,7 +13,6 @@ def connected(ws):
     sh_device.log("Connected")
     sh_device.register()
 
-    
 def error(ws, error):
     global sh_device
     sh_device.log("Connection Error -> " + str(error))
@@ -36,6 +35,7 @@ def message_cb(ws, message):
 TIME_STEP = 64
 robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
+deltaTime = 0
 
 
 # create connection object
@@ -48,22 +48,17 @@ ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
 sh_device = SH_Light_Sensor(robot.getName(), connection=ws,device=robot)
 sh_device.connect()
 
-last_luminosity = -1
-
-
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    
-    current_luminosity = sh_device.sensor.getValue()
+    deltaTime += timestep
+    # check if messages are send from WebUI 
+    sh_device.receive_webui(web_message_cb)
 
-    if current_luminosity != last_luminosity:
-        last_luminosity = current_luminosity
-        sh_device.updateLuminosity(current_luminosity)
-         
-    
-    
-    pass
+    # do something every 250ms
+    if deltaTime > 250:
+        deltaTime = 0
+        sh_device.updateLuminosity()
 
 # cleanup on Exit
 sh_device.log("---- CLEANUP ----")
