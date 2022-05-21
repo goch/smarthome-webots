@@ -9,8 +9,8 @@ WorldInfo {
   lineScale 1
 }
 Viewpoint {
-  orientation 0.2762541955911921 0.14864281108569016 -0.9495203705717995 2.1969272159064115
-  position 16.022305421581642 18.66433538156588 12.623979987993023
+  orientation -0.3254128869846526 -0.19405798213071068 0.9254447323074838 4.150168596094722
+  position 10.579833284179264 13.168467581758815 10.116202361710394
   near 0.5
 }
 TexturedBackground {
@@ -89,8 +89,9 @@ SH_PowerPlug {
   rotation 0.5773509358560258 -0.577349935856137 0.577349935856137 -2.094395307179586
 }
 SH_Alarm {
-  translation 9.76 3.93 2.18
+  translation 9.72 3.96 2.18
   rotation 0 0 1 1.5708
+  detectionDistance 1.1
   laserPosition -0.08 0.1 -1.5
 }
 SH_MotionSensor {
@@ -100,9 +101,6 @@ SH_MotionSensor {
   maxRange 3.4
   horizontalFieldOfView 0.9
   verticalFieldOfView 1.57
-}
-SH_CO2Sensor {
-  translation 6.15 3.29 2.44
 }
 SH_Button {
   translation 0.43 0.02 1
@@ -324,7 +322,7 @@ Door {
 }
 Door {
   translation 3.1 5.3 0
-  rotation 0 0 1 -1.570796
+  rotation 0 0 1 1.5708
   name "door(3)"
   jointAtLeft FALSE
   doorHandle DoorLever {
@@ -419,17 +417,17 @@ Sofa {
   rotation 0 0 1 -1.5707953071795862
 }
 SH_LightSensor {
-  name "LightSensor Living Room"
+  name "LightSensorLivingRoom"
   translation 6.06 1.47 2.25
   rotation 0 1 0 3.14159
 }
 SH_LightSensor {
-  name "LightSensor DiningRoom"
+  name "LightSensorDiningRoom"
   translation 7.91 6.04 2.4
   rotation 0 1 0 3.14159
 }
 SH_LightSensor {
-  name "LightSensor Kitchen"
+  name "LightSensorKitchen"
   translation 5.89 6.04 2.4
   rotation 0 1 0 3.14159
 }
@@ -894,6 +892,6 @@ Door {
   translation -0.1 0.5 0
   name "door(1)"
 }
-TexturedBackgroundLight {
-  luminosity 0.5
+SH_CO2Sensor {
+  translation 6.19 2.93 2.4
 }
