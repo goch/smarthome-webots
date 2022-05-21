@@ -29,9 +29,13 @@ class SHDevice(object):
     def getStateValue(self,name):
         return self.getState(name).getValue()
 
-    def setStateValue(self, name, value):
-        self.getState(name).setValue(value)
-        self.sendState(self.getState(name))
+    def setStateValue(self, name, value ,ignoreSame=True):        
+        oldValue = self.getStateValue(name)    
+        if ignoreSame == True or oldValue != value:
+            self.getState(name).setValue(value)
+            self.sendState(self.getState(name))
+        # else: 
+        #     self.log("NOT SENDING SAME VALUE: " + str(value))
     
     def register(self):
         self.log("REGISTER")
