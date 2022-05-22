@@ -19,14 +19,16 @@ class SH_Shutter(SHDevice):
         super().add_state('up',False)
         super().add_state('down',False)
         super().add_state('stop',True)
-        super().add_state('currentPosition',self.motor.getMaxPosition())
+        super().add_state('currentPosition',self.motor.getMinPosition())
 
-        #super().add_field('position',device.getField("pointLightColor"))
+        super().add_field('transparency',self.device.getSelf().getField("ShutterTransparency"))
         #super().add_field('velocity',device.getField("pointLightColor"))
-
+        self.setShutterTransparency(0.0)
         
     
         # self.reset()
+    def setShutterTransparency(self, transparency):
+        self.fields['transparency'].setSFFloat(transparency)
 
     def setPosition(self,target_position):
         self.log("setPosition: " + str(target_position))
@@ -49,6 +51,7 @@ class SH_Shutter(SHDevice):
 
     def setDown(self, down):
         if down:
+            self.setShutterTransparency(0.0)
             self.finalPositionReached = False
             self.setPosition(self.motor.getMinPosition())
         else:
@@ -65,6 +68,7 @@ class SH_Shutter(SHDevice):
         
     def setUp(self, up):
         if up:
+            self.fields.ShutterTransparency.setSFFloat(0.0)
             self.finalPositionReached = False
             self.setPosition(self.motor.getMaxPosition())
         else:
@@ -90,6 +94,8 @@ class SH_Shutter(SHDevice):
             self.finalPositionReached = True
             self.setStateValue('currentPosition', self.motor_position.getValue())
             self.setStop(True)
+        elif currentPosition == self.motor.getMaxPosition():
+            self.setShutterTransparency(0.7)
 
         pass
 
