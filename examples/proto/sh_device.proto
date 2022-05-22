@@ -15,6 +15,7 @@ PROTO FIRE [
     name IS name
     translation IS translation
     rotation IS rotation
+    supervisor TRUE
     
     #INSERT ROBOT HERE
     
