@@ -6,17 +6,18 @@
 
 PROTO SH_RGBSpotLight [
     field SFString      name "RGBLight"
-    field SFVec3f       translation 0 0 2.4
+    field SFVec3f       translation 0 0 2.3
     field SFRotation    rotation    0 1 0 0
-    field SFColor       color 0.5 0.8 0.8
-    field SFFloat       brightness 1
-    field SFFloat       beamWidth 0.7
+    field SFColor       color 1 1 0.8
+    field SFFloat       brightness 5
     field SFFloat       cutOffAngle 0.785
+    field SFFloat       beamWidth 0.7
     field SFFloat       height 0.01
     field SFFloat       radius 0.05
     field SFBool        castShadows TRUE 
     field SFBool        hideMesh FALSE
     field SFFloat emissionIntensity 0
+    field MFNode mesh [] # holds mesh of lamp, Optional
   ]
 {
 
@@ -31,6 +32,7 @@ PROTO SH_RGBSpotLight [
 
 >%
 
+
     Robot {
     name IS name
     translation IS translation
@@ -38,18 +40,23 @@ PROTO SH_RGBSpotLight [
   children [
     SpotLight {
       attenuation 0 0 1
-      location 0 0 %<= fields.height.value * -1 >%
+      location 0 0 %<= fields.height.value * -0.51 >%
       color IS color
       intensity IS brightness
       beamWidth IS beamWidth
-      cutOffAngle <%= fields.beamWidth.value + 0.2 >%
+      cutOffAngle IS cutOffAngle
       castShadows IS castShadows
       
+    }
+     DEF EXT_LampMesh Transform {
+        translation 0 0 0.01
+        children IS mesh
     }
     Shape {
       appearance PBRAppearance {
         baseColor IS color
         emissiveColor IS color
+        emissiveIntensity IS emissionIntensity
         transparency %<= mesh_transparency >%
 
       }
