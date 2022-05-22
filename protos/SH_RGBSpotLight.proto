@@ -1,0 +1,68 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart Home RGB Pointlight
+# template language: javascript
+
+PROTO SH_RGBSpotLight [
+    field SFString      name "RGBLight"
+    field SFVec3f       translation 0 0 2.4
+    field SFRotation    rotation    0 1 0 0
+    field SFColor       color 0.5 0.8 0.8
+    field SFFloat       brightness 1
+    field SFFloat       beamWidth 0.7
+    field SFFloat       cutOffAngle 0.785
+    field SFFloat       height 0.01
+    field SFFloat       radius 0.05
+    field SFBool        castShadows TRUE 
+    field SFBool        hideMesh FALSE
+    field SFFloat emissionIntensity 0
+  ]
+{
+
+%<
+ let mesh_transparency = 0;
+ if (fields.hideMesh.value){
+  mesh_transparency = 1;
+ } else{ 
+  mesh_transparency = 0;
+ }  
+ console.log("HideMesh" + mesh_transparency + fields.hideMesh.value);
+
+>%
+
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+  children [
+    SpotLight {
+      attenuation 0 0 1
+      location 0 0 %<= fields.height.value * -1 >%
+      color IS color
+      intensity IS brightness
+      beamWidth IS beamWidth
+      cutOffAngle <%= fields.beamWidth.value + 0.2 >%
+      castShadows IS castShadows
+      
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor IS color
+        emissiveColor IS color
+        transparency %<= mesh_transparency >%
+
+      }
+      geometry Cylinder {
+        height IS height
+        radius IS radius
+      }
+    }
+  ]
+  controller "RGBSpotLightController"
+  supervisor TRUE
+  window "rgbd_window"
+
+    }
+
+}

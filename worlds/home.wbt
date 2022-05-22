@@ -9,8 +9,8 @@ WorldInfo {
   lineScale 1
 }
 Viewpoint {
-  orientation -0.3254128869846526 -0.19405798213071068 0.9254447323074838 4.150168596094722
-  position 10.579833284179264 13.168467581758815 10.116202361710394
+  orientation -0.29843267330246015 -0.19393129596148803 0.9345205144630293 4.146679071018359
+  position 10.34831172206522 15.676058821315754 11.092606013675406
   near 0.5
 }
 TexturedBackground {
@@ -418,18 +418,18 @@ Sofa {
 }
 SH_LightSensor {
   name "LightSensorLivingRoom"
-  translation 6.06 1.47 2.25
-  rotation 0 1 0 3.14159
+  translation 6.34 0.03 2.25
+  rotation 9.381857096790023e-07 -0.7071067811862364 -0.7071067811862364 3.14159
 }
 SH_LightSensor {
   name "LightSensorDiningRoom"
-  translation 7.91 6.04 2.4
-  rotation 0 1 0 3.14159
+  translation 7.91 7.17 2.3
+  rotation 9.381857096790023e-07 0.7071067811862364 -0.7071067811862364 3.14159
 }
 SH_LightSensor {
   name "LightSensorKitchen"
-  translation 5.89 6.04 2.4
-  rotation 0 1 0 3.14159
+  translation 5.89 7.17 2.3
+  rotation 9.381857096790023e-07 0.7071067811862364 -0.7071067811862364 3.14159
 }
 Armchair {
   translation 4.7 1.4 0
@@ -441,31 +441,6 @@ Armchair {
 }
 Fridge {
   translation 4.15 6.85 0
-}
-Cabinet {
-  translation 3.8 5.84 0
-  name "cabinet(1)"
-  outerThickness 0.02
-  rowsHeights [
-    0.21, 0.21, 0.22
-  ]
-  columnsWidths [
-    0.43, 0.43, 0.43
-  ]
-  layout [
-    "LeftSidedDoor (1,  1, 1, 3, 1.5)"
-    "LeftSidedDoor (3, 1, 1, 3, 1.5)"
-    "RightSidedDoor (2, 1, 1, 3, 1.5)"
-    "Shelf (1, 2, 3, 0)"
-    "Shelf (2, 3, 2, 0)"
-    "Shelf (2, 1, 0, 1)"
-    "Shelf (1, 1, 0, 3)"
-  ]
-  handle CabinetHandle {
-    translation 0 0.2 0
-    handleLength 0.09
-    handleRadius 0.008
-  }
 }
 Cabinet {
   translation 3.8 4.96 0
@@ -894,4 +869,43 @@ Door {
 }
 SH_CO2Sensor {
   translation 6.19 2.93 2.4
+}
+SH_Shutter {
+  name "ShutterLivingRoomSide"
+  translation 6.9 -0.1 0.09
+  rotation 0 0 1 -1.5707953071795862
+  ShutterHeight 2
+  ShutterWidth 3
+}
+SH_Shutter {
+  name "ShutterKitchen"
+  translation 5.1 7.3 0.79
+  rotation 0 0 1 1.5708
+}
+SH_Shutter {
+  name "ShutterDiningRoom"
+  translation 7.6 7.3 0.69
+  rotation 0 0 1 1.5708
+  ShutterWidth 1.6
+}
+SH_Shutter {
+  name "ShutterLivingRoomBalcony"
+  translation 8.5 2 0.09
+  ShutterControllerPosition -0.12 2.1 1
+  ShutterHeight 2
+  ShutterWidth 4
+  up FALSE
+  down FALSE
+}
+Transform {
+  translation 2.86 1.3 0.45
+  children [
+    SpotLight {
+      attenuation 0 0 1
+      beamWidth 1.4
+      cutOffAngle 1.5
+      direction 0 1 -1
+      on FALSE
+    }
+  ]
 }
