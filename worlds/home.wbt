@@ -9,8 +9,8 @@ WorldInfo {
   lineScale 1
 }
 Viewpoint {
-  orientation -0.29843267330246015 -0.19393129596148803 0.9345205144630293 4.146679071018359
-  position 10.34831172206522 15.676058821315754 11.092606013675406
+  orientation 0.06944465511786395 -0.050189238982095506 -0.9963224779989455 4.541284708397818
+  position 8.629313134658815 -7.26952634838275 1.9877527581948253
   near 0.5
 }
 TexturedBackground {
@@ -84,6 +84,13 @@ DEF GROUND Solid {
     ]
   }
 }
+SH_RGBSpotLight {
+  name "RGBLight(1)"
+  translation 1.31 3.18 2.4
+  brightness 0
+  cutOffAngle 1.5707963267948966
+  beamWidth 1.3
+}
 SH_PowerPlug {
   translation 2.61 2.19 0.53
   rotation 0.5773509358560258 -0.577349935856137 0.577349935856137 -2.094395307179586
@@ -91,7 +98,7 @@ SH_PowerPlug {
 SH_Alarm {
   translation 9.72 3.96 2.18
   rotation 0 0 1 1.5708
-  detectionDistance 1.1
+  detectionDistance 1.005
   laserPosition -0.08 0.1 -1.5
 }
 SH_MotionSensor {
@@ -418,17 +425,17 @@ Sofa {
 }
 SH_LightSensor {
   name "LightSensorLivingRoom"
-  translation 6.34 0.03 2.25
+  translation 6.34 0.03 2.04
   rotation 9.381857096790023e-07 -0.7071067811862364 -0.7071067811862364 3.14159
 }
 SH_LightSensor {
   name "LightSensorDiningRoom"
-  translation 7.91 7.17 2.3
+  translation 7.91 7.17 0.85
   rotation 9.381857096790023e-07 0.7071067811862364 -0.7071067811862364 3.14159
 }
 SH_LightSensor {
   name "LightSensorKitchen"
-  translation 5.89 7.17 2.3
+  translation 4.17 6.47 0.92
   rotation 9.381857096790023e-07 0.7071067811862364 -0.7071067811862364 3.14159
 }
 Armchair {
@@ -874,6 +881,7 @@ SH_Shutter {
   name "ShutterLivingRoomSide"
   translation 6.9 -0.1 0.09
   rotation 0 0 1 -1.5707953071795862
+  ShutterControllerPosition -0.1025 -1.7 1
   ShutterHeight 2
   ShutterWidth 3
 }
@@ -891,7 +899,7 @@ SH_Shutter {
 SH_Shutter {
   name "ShutterLivingRoomBalcony"
   translation 8.5 2 0.09
-  ShutterControllerPosition -0.12 2.1 1
+  ShutterControllerPosition -0.1025 2.1 1
   ShutterHeight 2
   ShutterWidth 4
   up FALSE
@@ -906,6 +914,52 @@ Transform {
       cutOffAngle 1.5
       direction 0 1 -1
       on FALSE
+    }
+  ]
+}
+SH_RGBSpotLight {
+  name "LightLivingRoom"
+  translation 6.1 1.43 2.35
+  color 1 1 1
+  cutOffAngle 1.5
+  beamWidth 1
+  height 0.05
+  radius 0.7
+  mesh [
+    Shape {
+      geometry Box {
+        size 0.1 0.1 0.1
+      }
+    }
+  ]
+}
+SH_RGBSpotLight {
+  name "LightKitchenR"
+  translation 3.85 6.02 2.3
+  rotation 0 1 0 -0.261795307179586
+  cutOffAngle 0.5
+  beamWidth 0.4
+  height 0.1
+}
+SH_RGBSpotLight {
+  name "LightKitchenL"
+  translation 3.85 5.08 2.3
+  rotation 0 1 0 -0.262
+  cutOffAngle 0.5
+  beamWidth 0.4
+  height 0.1
+}
+SH_RGBSpotLight {
+  translation 7.95 6.09 1.92
+  cutOffAngle 1.2
+  beamWidth 1
+  mesh [
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 0.1 1 0.1
+      }
     }
   ]
 }
