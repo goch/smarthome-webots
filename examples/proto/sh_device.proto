@@ -4,21 +4,37 @@
 # INSERT DESCRIPTION HERE
 # template language: javascript
 
-PROTO FIRE [
+PROTO Template [
     field SFString      name "SH_DEVICE"
     field SFVec3f       translation 0 0 0
     field SFRotation    rotation    0 1 0 0
+    field SFVec3f       size 0.1 0.1 0.1
+    field SFColor       color 1 1 1
     unconnectedField SFFloat  parameter 10
   ]
 {
     Robot {
     name IS name
+    scale IS scale
     translation IS translation
     rotation IS rotation
+    children [
+        Shape {
+        appearance PBRAppearance {
+            baseColor IS color
+            metalness 0
+        }
+        geometry Box {
+            size IS size
+        }
+        }
+
+    ]
+    controller "TemplateController"
+    window "Template_window"
     supervisor TRUE
-    
-    #INSERT ROBOT HERE
-    
+
     }
+
 
 }
