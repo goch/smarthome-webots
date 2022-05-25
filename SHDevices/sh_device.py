@@ -47,14 +47,9 @@ class SHDevice(object):
 
     def disconnect(self):
         self.connection.disconnect()
+    
     def reset(self):
         self.log("RESET") 
-
-    # def set_SFColor(value):
-    #     for n in range(len(value)):
-    #         if value[n] != 0:
-    #             value[n] = 1.0/value[n]]
-
 
     def toDict(self):
         msg = {}
