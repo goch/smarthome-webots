@@ -1,11 +1,13 @@
 import json
 class SH_State(object):
 
-    def __init__(self, name, value, dataType=None, min=None, max=None, read=True, write=True ):
+    def __init__(self, name, value, unit="", description="", dataType=None, min=None, max=None, read=True, write=True ):
         self.name = name
+        self.description = description
         self.min = min
         self.max = max
         self.value = value
+        self.unit = unit
         self.read = read
         self.write = write
         self.setType(dataType)
@@ -16,6 +18,12 @@ class SH_State(object):
     def setName(self,name):
         self.min = name
     
+    def getDescription(self):
+        return self.description
+
+    def getUnit(self):
+        return self.unit
+
     def getMin(self):
         return self.min
 
@@ -66,8 +74,10 @@ class SH_State(object):
         data['value'] = self.getValue()
         
         if full:
+            data['description'] = self.getDescription()
             data['min'] = self.getMin()
             data['max'] = self.getMax()
+            data['unit'] = self.getUnit()
             data['read'] = self.getRead()
             data['write'] = self.getWrite()
             data['type'] = self.getType()
