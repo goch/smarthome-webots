@@ -4,7 +4,10 @@ simtime:
   second: 30
 
 websocket:
-  url: ws://192.168.10.126:3000
+  url: ws://localhost:3000
   
 6WayButton:
+  buttons: 6
+
+EntranceSwitch:
   buttons: 6
