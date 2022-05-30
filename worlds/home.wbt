@@ -9,11 +9,13 @@ WorldInfo {
   lineScale 1
 }
 Viewpoint {
-  orientation 0.06944465511786395 -0.050189238982095506 -0.9963224779989455 4.541284708397818
-  position 8.629313134658815 -7.26952634838275 1.9877527581948253
+  orientation 0.0189120708933023 -0.005955353911267253 -0.9998034143441991 4.374234357222073
+  position 9.221013566428605 -5.774734482425218 1.296912308286154
   near 0.5
 }
 TexturedBackground {
+  texture "dusk"
+  luminosity 0.1
 }
 DEF GROUND Solid {
   children [
@@ -85,7 +87,7 @@ DEF GROUND Solid {
   }
 }
 SH_RGBSpotLight {
-  name "RGBLight(1)"
+  name "LightBathroom"
   translation 1.31 3.18 2.4
   brightness 0
   cutOffAngle 1.5707963267948966
@@ -110,7 +112,9 @@ SH_MotionSensor {
   verticalFieldOfView 1.57
 }
 SH_Button {
+  name "EntranceSwitch"
   translation 0.43 0.02 1
+  buttonCount 6
 }
 DEF CEIL Solid {
   children [
@@ -216,7 +220,7 @@ Wall {
   size 0.2 5.6 2.4
 }
 SH_Button {
-  name "Button(1)"
+  name "BathroomSwitch"
   translation 2.62 3.98 1.13
   rotation 0 0 1 1.5708
 }
@@ -950,6 +954,7 @@ SH_RGBSpotLight {
   height 0.1
 }
 SH_RGBSpotLight {
+  name "LightDiningRoom"
   translation 7.95 6.09 1.92
   cutOffAngle 1.2
   beamWidth 1
