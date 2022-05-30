@@ -5,6 +5,7 @@
 # template language: javascript
 
 PROTO SH_SimulationTime [
+    field SFString      name "SimTime"
     field SFVec3f       translation 0 0 1.5
     field SFRotation    rotation    0 1 0 -1.5708
     field SFFloat       size       0.8
