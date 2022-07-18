@@ -1,0 +1,40 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# IKEA TRADFRI Dimmer Switch E1734
+# template language: javascript
+
+PROTO IKEA_tradfri_dimmer_switch_E1734 [
+    field SFString      name "IKEA_tradfri_dimmer_switch_E1734"
+    field SFVec3f       translation 0 0 0
+    field SFRotation    rotation    0 1 0 0
+    field SFVec3f       size 0.1 0.1 0.1
+    field SFColor       color 1 1 1
+    unconnectedField SFFloat  parameter 10
+  ]
+{
+    Robot {
+    name IS name
+    scale IS scale
+    translation IS translation
+    rotation IS rotation
+    children [
+        Shape {
+        appearance PBRAppearance {
+            baseColor IS color
+            metalness 0
+        }
+        geometry Box {
+            size IS size
+        }
+        }
+
+    ]
+    controller "IKEA_tradfri_dimmer_switch_E1734Controller"
+    window "IKEA_tradfri_dimmer_switch_E1734_window"
+    supervisor TRUE
+
+    }
+
+
+}

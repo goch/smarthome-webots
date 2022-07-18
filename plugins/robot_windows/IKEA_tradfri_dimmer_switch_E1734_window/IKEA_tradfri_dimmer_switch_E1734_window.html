@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<head>
+  <link href="../_base/css/base.css" rel="stylesheet" />
+  <script src="../_base/js/base.js"></script>
+  
+  <link href="style.css" rel="stylesheet"/>
+  
+  
+</head>
+
+<body>
+  <div id="content">
+    <h1 id="device_name">DeviceName</h1>
+    
+    <ul id="state_list"></ul>
+    <div class="btn-group">
+      <button style="width:50%" onmousedown="on_MouseDown('up_button')" onmouseup="on_MouseUp('up_button')">I</button>
+      <button style="width:50%" onmousedown="on_MouseDown('down_button')" onmouseup="on_MouseUp('down_button')">O</button>
+    </div>
+
+    <h2>Sample Log Element</h2>
+    <p>JavaScript logs data in this widget:</p>
+    <ul id="console"></ul>
+
+  </div>
+  
+  <script src="IKEA_tradfri_dimmer_switch.js"></script>
+</body>  
+
+</html>
