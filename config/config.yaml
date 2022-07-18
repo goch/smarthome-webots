@@ -3,7 +3,10 @@ simtime:
   minute: 45
   second: 30
 
+connection: websocket
+
 websocket:
+  type: iobroker-websocket
   url: ws://localhost:3000
   
 6WayButton:

@@ -16,10 +16,17 @@ class WebSocketClient(threading.Thread):
         self.error_cb = error_cb
         self.close_cb = close_cb
 
+
+
         threading.Thread.__init__(self)
         self.port = 3000
         self.connected = False
         
+    def register_callbacks(self, open_cb, close_cb, error_cb, message_cb):
+        self.open_cb = open_cb
+        self.message_cb = message_cb
+        self.error_cb = error_cb
+        self.close_cb = close_cb
 
     def is_connected(self):
         return self.connected
@@ -82,3 +89,12 @@ class WebSocketClient(threading.Thread):
     def run(self):
         #print("Connecting to Websocket Server!")
         self.server.run_forever()
+
+
+class iobroker_websocketBuilder:
+    def __init__(self):
+        pass
+
+    def __call__(self, url, **_ignored):
+        return WebSocketClient(uri=url)
+        
