@@ -10,7 +10,7 @@ class SH_Template(SHDevice):
         # self.motor_position.enable(device.getBasicTimeStep())
 
         # add states
-        # super().add_state('setPosition',1.3)
+        # super().add_state(name='battery',value=99, description="Battery percent", min=0, max=100, unit='%')
 
         # add fields
         #super().add_field('position',device.getField("pointLightColor"))

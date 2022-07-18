@@ -17,8 +17,8 @@ class SHDevice(object):
     def log(self, message):
         print(self.name + ": " + message)
 
-    def add_state(self, name, value, min=None, max=None, type=None ):
-        self.states[name] = SH_State(name=name, value=value, min=min, max=max, dataType=type )
+    def add_state(self, name, value, min=None, max=None, type=None, description=None, unit=None):
+        self.states[name] = SH_State(name=name, value=value, min=min, max=max, dataType=type, description=description, unit=unit )
 
     def add_field(self, name,value):
         self.fields[name] = value
