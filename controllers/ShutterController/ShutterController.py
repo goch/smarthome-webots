@@ -5,11 +5,11 @@
 from controller import Robot
 from controller import Supervisor
 
-import os
-from config.definitions import ROOT_DIR, _CFG
+from config.definitions import CONFIG
+from SHConnection.sh_connection import CONECTION
 
 from SHDevices.sh_shutter import *
-from SHDevices.iobroker_websocket import *
+
 
 
 
@@ -53,20 +53,12 @@ timestep = int(robot.getBasicTimeStep())
 
 deltaTime = 0
 
-# You should insert a getDevice-like function in order to get the
-# instance of a device of the robot. Something like:
-#  motor = robot.getDevice('motorname')
-#  ds = robot.getDevice('dsname')
-#  ds.enable(timestep)
+# create connection object
+connection_config = CONFIG.getDeviceConnection(robot.getName())
+connection  = CONECTION.create(key=connection_config['type'], **connection_config) 
+connection.register_callbacks(connected, closed, error, message_cb)
 
-
-# motor = robot.getDevice('linear motor')
-# position = robot.getDevice("position sensor")
-# motor.setPosition(1.3)
-#position.enable(TIME_STEP)
-
-ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected ,close_cb=closed,message_cb=message_cb, error_cb=error)
-shutter = SH_Shutter(robot.getName(),connection=ws,device=robot)
+shutter = SH_Shutter(robot.getName(),connection=connection,device=robot)
 shutter.connect()
 
 

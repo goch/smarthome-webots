@@ -41,7 +41,7 @@ deltaTime = 0
 
 # create connection object
 connection_config = CONFIG.getDeviceConnection(robot.getName())
-connection  = CONECTION.create(key=connection_config['type'], **connection_config) 
+connection  = CONECTION.create(**connection_config) 
 connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device

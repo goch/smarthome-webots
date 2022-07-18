@@ -3,11 +3,9 @@
 from controller import Robot
 from controller import Supervisor
 
+from config.definitions import CONFIG
+from SHConnection.sh_connection import CONECTION
 from SHDevices.sh_button import *
-from SHDevices.iobroker_websocket import *
-
-import json
-from config.definitions import ROOT_DIR, _CFG
 
 def connected(ws):
     global sh_device
@@ -39,18 +37,14 @@ robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
 
 # create connection object
-ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
-                                                 close_cb=closed,
-                                                 message_cb=message_cb,
-                                                 error_cb=error)
+connection_config = CONFIG.getDeviceConnection(robot.getName())
+connection  = CONECTION.create(key=connection_config['type'], **connection_config) 
+connection.register_callbacks(connected, closed, error, message_cb)
 
-try:
-    numberOfButtons = _CFG[robot.getName()]["buttons"]
-except Exception as e:
-    numberOfButtons = 2
-    
+numberOfButtons = CONFIG.getDeviceValue(robot.getName(),"buttons", 2)
+
 # create instance of SmartHome Device
-sh_device = SH_Button(robot.getName(), connection=ws, device=robot, buttonCount=numberOfButtons)
+sh_device = SH_Button(robot.getName(), connection=connection, device=robot, buttonCount=numberOfButtons)
 sh_device.connect()
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller

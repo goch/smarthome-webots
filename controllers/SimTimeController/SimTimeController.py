@@ -3,10 +3,10 @@
 from controller import Robot
 from controller import Supervisor
 
-from SHDevices.sh_sim_time import *
-from SHDevices.iobroker_websocket import *
+from config.definitions import CONFIG
+from SHConnection.sh_connection import CONECTION
 
-from config.definitions import ROOT_DIR, _CFG
+from SHDevices.sh_sim_time import *
 
 def connected(ws):
     global sh_device
@@ -38,14 +38,14 @@ timestep = int(robot.getBasicTimeStep())
 deltaTime = 0
 
 
+simtime = CONFIG.getValue('simtime')
 # create connection object
-ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
-                                                 close_cb=closed,
-                                                 message_cb=message_cb,
-                                                 error_cb=error)
+connection_config = CONFIG.getDeviceConnection(robot.getName())
+connection  = CONECTION.create(**connection_config) 
+connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = SH_Sim_Time(robot.getName(), connection=ws, device=robot,  hour=_CFG['simtime']['hour'], minute=_CFG['simtime']['minute'], second=_CFG['simtime']['second'] )
+sh_device = SH_Sim_Time(robot.getName(), connection=connection, device=robot,  hour=simtime.get('hour'), minute=simtime.get('minute'), second=simtime.get('second'))
 sh_device.connect()
 
 # Main loop:

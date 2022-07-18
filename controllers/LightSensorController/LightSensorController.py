@@ -1,12 +1,12 @@
 """Light Sensor controller."""
 
+from sqlite3 import connect
 from controller import Robot
 from controller import Supervisor
 
+from config.definitions import CONFIG
+from SHConnection.sh_connection import CONECTION
 from SHDevices.sh_light_sensor import *
-from SHDevices.iobroker_websocket import *
-
-from config.definitions import ROOT_DIR, _CFG
 
 def connected(ws):
     global sh_device
@@ -37,15 +37,13 @@ robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
 deltaTime = 0
 
-
 # create connection object
-ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
-                                                 close_cb=closed,
-                                                 message_cb=message_cb,
-                                                 error_cb=error) 
+connection_config = CONFIG.getDeviceConnection(robot.getName())
+connection  = CONECTION.create(key=connection_config['type'], **connection_config) 
+connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = SH_Light_Sensor(robot.getName(), connection=ws,device=robot)
+sh_device = SH_Light_Sensor(robot.getName(), connection=connection,device=robot)
 sh_device.connect()
 
 # Main loop:

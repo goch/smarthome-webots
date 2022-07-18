@@ -7,11 +7,20 @@ _CFG = yaml.load(open(os.path.join(ROOT_DIR, 'config', 'config.yaml'), 'r'), Loa
 
 class CONFIG(object):
     @staticmethod
-    def getValue(key):
+    def getValue(key, default=None):
         try:
             return _CFG[key]
         except Exception as e:
-            print(e)
+            #print(e)
+            return default
+    
+    @staticmethod
+    def getDeviceValue(name, key, default=None):
+        try:
+            return _CFG[name][key]
+        except Exception as e:
+            #print(e)
+            return default
     
     @staticmethod
     def getDeviceConfig(name):
@@ -24,7 +33,7 @@ class CONFIG(object):
             return CONFIG.getValue(connName) 
         except Exception as e:
             print( name +": device specific connection not found. Loading default connection")
-            connName = CONFIG.getValue('connection')
+            connName = CONFIG.getValue(key='connection')
             return CONFIG.getValue(connName)
         
         

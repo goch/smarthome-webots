@@ -3,12 +3,16 @@ simtime:
   minute: 45
   second: 30
 
-connection: websocket
+connection: iobroker-local
 
-websocket:
+iobroker-local:
   type: iobroker-websocket
   url: ws://localhost:3000
   
+iobroker-home:
+  type: iobroker-websocket
+  url: ws://iobroker-expert.local:3000
+
 6WayButton:
   buttons: 6
 

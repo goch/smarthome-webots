@@ -3,11 +3,9 @@
 from controller import Robot
 from controller import Supervisor
 
+from config.definitions import CONFIG
+from SHConnection.sh_connection import CONECTION
 from SHDevices.sh_heating_thermostat import *
-from SHDevices.iobroker_websocket import *
-
-import json
-from config.definitions import ROOT_DIR, _CFG
 
 def connected(ws):
     global sh_device
@@ -36,15 +34,13 @@ TIME_STEP = 64
 robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
 
-
 # create connection object
-ws = WebSocketClient(uri=_CFG["websocket"]["url"],open_cb=connected,
-                                                 close_cb=closed,
-                                                 message_cb=message_cb,
-                                                 error_cb=error)
+connection_config = CONFIG.getDeviceConnection(robot.getName())
+connection  = CONECTION.create(key=connection_config['type'], **connection_config) 
+connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = SH_Heating_Thermostat(robot.getName(), connection=ws, device=robot)
+sh_device = SH_Heating_Thermostat(robot.getName(), connection=connection, device=robot)
 sh_device.connect()
 
 heatup_intervall = 0 
