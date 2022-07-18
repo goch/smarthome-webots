@@ -1,11 +1,11 @@
 #VRML_SIM R2022a utf8
 # licence: MIT
 # license url: https://choosealicense.com/licenses/mit/
-# Smart Home RGB Standlamp
+# Smart Home RGB Pointlight
 # template language: javascript
 
 PROTO SH_RGBStandLamp [
-    field SFString      name "RGBStandLamp"
+    field SFString      name "RGBLight"
     field SFVec3f       translation 0 0 0
     field SFRotation    rotation    0 1 0 0
   ]
@@ -15,10 +15,17 @@ PROTO SH_RGBStandLamp [
     translation IS translation
     rotation IS rotation
   children [
-    FloorLight {
-      translation 1.18 0.78 0
-      pointLightIntensity 0
-    }
+#        DEF EXT_bulb Transform {
+#        translation IS translation
+#        rotation IS rotation
+#        children IS shape
+#      }
+
+PointLight {
+  attenuation 0 0 1
+  location 0 0.3 0
+  color 1 1 1
+  intensity 1
   ]
   controller "RGBStandLampController"
   supervisor TRUE
