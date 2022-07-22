@@ -36,7 +36,7 @@ class SH_Shutter(SHDevice):
         self.motor.setPosition(target_position)
         
         self.setStateValue('stop', False)
-        if self.motor_position.getValue() < target_position:
+        if self.getPosition() < target_position:
               self.setStateValue('up',True)
               self.setStateValue('down', False)
               self.motor.setPosition(target_position)
@@ -48,6 +48,9 @@ class SH_Shutter(SHDevice):
             self.setStateValue('stop', True)
             self.setStateValue('down', False)
             self.setStateValue('up', False)
+    
+    def getPosition(self):
+        return self.motor_position.getValue()
 
     def setDown(self, down):
         if down:
@@ -68,7 +71,7 @@ class SH_Shutter(SHDevice):
         
     def setUp(self, up):
         if up:
-            self.fields.ShutterTransparency.setSFFloat(0.0)
+            self.setShutterTransparency(0.0)
             self.finalPositionReached = False
             self.setPosition(self.motor.getMaxPosition())
         else:
@@ -77,6 +80,7 @@ class SH_Shutter(SHDevice):
     
     def setStop(self,stop):
         if stop:
+            self.setPosition(self.getPosition())
             self.updateCurrentPosition()
             self.setStateValue('stop', True)
             self.setStateValue('up', False)
