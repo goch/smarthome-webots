@@ -102,7 +102,7 @@ function showStates(){
 
       var name_elem = document.createElement('div');
       name_elem.setAttribute('class','column');
-      name_elem.style.width = '80%';
+      name_elem.style.width = '60%';
       name_elem.appendChild(document.createTextNode(`${name}:`))
 
       var value_elem = document.createElement('div');
@@ -110,10 +110,13 @@ function showStates(){
       value_elem.style.width = '20%';
 
        var elem = null;
-      if (typeof(state.value) == "boolean"){
+       datatype = typeof(state.value)
+      if (datatype == "boolean"){
         elem = createBooleanElement(name, state.value)
-      }else {
+      }else if (datatype == "string") {
         elem = createStringElement(name, state.value)
+      }else{ // number
+        elem = createNumberElement(name, state.value)
       }
 
       value_elem.appendChild(elem);
@@ -129,9 +132,19 @@ function createStringElement(name, value){
   var input = document.createElement('input');
       input.setAttribute('type','text');
       input.setAttribute('maxlength','3');
-      input.setAttribute('size','5');
-      input.setAttribute('value',`${value}`);
+      input.setAttribute('size','4');
+      input.setAttribute('value', value);
       input.setAttribute('onchange','setStateValue("'+ name +'", this.value)');
+  return input;
+}
+
+function createNumberElement(name, value){
+  var input = document.createElement('input');
+      input.setAttribute('type','number');
+      input.setAttribute('maxlength','3');
+      input.setAttribute('size','3');
+      input.setAttribute('value', value);
+      input.setAttribute('onchange','setStateValue("'+ name +'", +(this.value))');
   return input;
 }
 
