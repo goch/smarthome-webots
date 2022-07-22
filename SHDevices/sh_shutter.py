@@ -16,10 +16,11 @@ class SH_Shutter(SHDevice):
         self.window_open = False
 
         super().add_state('setPosition',self.motor.getMaxPosition())
+        super().add_state('currentPosition',self.motor.getMinPosition())
         super().add_state('up',False)
         super().add_state('down',False)
         super().add_state('stop',True)
-        super().add_state('currentPosition',self.motor.getMinPosition())
+
 
         super().add_field('transparency',self.device.getSelf().getField("ShutterTransparency"))
         #super().add_field('velocity',device.getField("pointLightColor"))
