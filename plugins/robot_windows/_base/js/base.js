@@ -1,7 +1,7 @@
 let deviceName = null
 let states = {}
 
-let ul = null;
+let debug_list = null;
 let label_device_name = null;
 
   // Initialize the Webots window class in order to communicate with the robot.
@@ -12,7 +12,7 @@ window.onload = function() {
     window.robotWindow.receive = on_message;
     sendText("---- WINDOW LOADED ----");
 
-    ul = document.querySelector('#state_list');
+    debug_list = document.querySelector('#state_list');
     label_device_name = document.querySelector("#device_name");
 };
 
@@ -73,10 +73,10 @@ function on_message(message){
 }
   
 function log(message) {
-    var ul = document.getElementById('console');
+    var console = document.getElementById('console');
     var li = document.createElement('li');
     li.appendChild(document.createTextNode(message));
-    ul.prepend(li);
+    console.prepend(li);
  }
 
 function sendState(stateName, val){
@@ -90,14 +90,65 @@ function sendText(data){
 
 
 function showStates(){
-  while (ul.firstChild) {
-    ul.removeChild(ul.firstChild);
+  while (debug_list.firstChild) {
+    debug_list.removeChild(debug_list.firstChild);
   }
+
     Object.entries(states).forEach(entry => {
       const [name, state] = entry;
 
-      var li = document.createElement('li');
-      li.appendChild(document.createTextNode(`${name}: ${state.value}`));
-      ul.appendChild(li);
+      var row = document.createElement('div');
+      row.setAttribute('class','row');
+
+      var name_elem = document.createElement('div');
+      name_elem.setAttribute('class','column');
+      name_elem.style.width = '80%';
+      name_elem.appendChild(document.createTextNode(`${name}:`))
+
+      var value_elem = document.createElement('div');
+      value_elem.setAttribute('class','column');
+      value_elem.style.width = '20%';
+
+       var elem = null;
+      if (typeof(state.value) == "boolean"){
+        elem = createBooleanElement(name, state.value)
+      }else {
+        elem = createStringElement(name, state.value)
+      }
+
+      value_elem.appendChild(elem);
+
+      row.appendChild(name_elem);
+      row.appendChild(value_elem);
+
+      debug_list.appendChild(row);
     });
+}
+
+function createStringElement(name, value){
+  var input = document.createElement('input');
+      input.setAttribute('type','text');
+      input.setAttribute('maxlength','3');
+      input.setAttribute('size','5');
+      input.setAttribute('value',`${value}`);
+      input.setAttribute('onchange','setStateValue("'+ name +'", this.value)');
+  return input;
+}
+
+function createBooleanElement(name, value){
+  var label = document.createElement('label');
+      label.setAttribute('class','switch');
+
+      var input = document.createElement('input');
+      input.setAttribute('type','checkbox');
+      input.setAttribute('onchange','setStateValue("'+ name +'", this.checked)');
+      if (value) input.setAttribute('checked','');
+
+      var checkbox = document.createElement('span');
+      checkbox.setAttribute('class','slider round');
+
+      label.appendChild(input);
+      label.appendChild(checkbox);
+return label;
+
 }
