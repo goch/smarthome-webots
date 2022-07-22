@@ -101,13 +101,14 @@ var kelvinPicker = new iro.ColorPicker("#kelvinPicker", {
         // $('#v-value').html(parseInt(color.hsv.v));
         // $('#kelvin-value').html("-");
     
-        log("new Color: " + color.rgb.r + "," + color.rgb.g + "," + color.rgb.b )
+        log("new Color: " + color.hexString + ' -> ', color.rgb.r + "," + color.rgb.g + "," + color.rgb.b )
         
         //TODO send all data at once
-        setStateValue("r", color.rgb.r/255 );
-        setStateValue("g", color.rgb.g/255 );
-        setStateValue("b", color.rgb.b/255 );
+        //setStateValue("r", color.rgb.r/255 );
+        //setStateValue("g", color.rgb.g/255 );
+        //setStateValue("b", color.rgb.b/255 );
         
+        setStateValue('color',color.hexString);
         
         //setState(lampid+'.brightness',parseInt(color.hsv.v));
         //setState(lampid+'.color',color.hexString)

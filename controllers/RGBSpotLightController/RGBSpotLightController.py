@@ -44,7 +44,7 @@ connection  = CONECTION.create(key=connection_config['type'], **connection_confi
 connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = WB_FloorLight(robot.getName(), connection=connection, device=robot)
+sh_device = SH_RGBLight(robot.getName(), connection=connection, device=robot)
 sh_device.connect()
 
 # Main loop:
