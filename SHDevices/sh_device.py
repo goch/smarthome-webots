@@ -3,7 +3,6 @@ import struct
 
 from SHDevices.sh_state import *
 
-
 class SHDevice(object):
 
     def __init__(self, name, connection=None,device=None, states={}, fields={}):
@@ -13,9 +12,10 @@ class SHDevice(object):
         self.states = states
         self.fields = fields
         self.connection = connection
+        self.remaps = {}
 
     def log(self, message):
-        print(self.name + ": " + message)
+        print(self.name + ": " + str(message))
 
     def add_state(self, name, value, min=None, max=None, type=None, description=None, unit=None):
         self.states[name] = SH_State(name=name, value=value, min=min, max=max, dataType=type, description=description, unit=unit )
@@ -24,7 +24,8 @@ class SHDevice(object):
         self.fields[name] = value
 
     def getState(self,name):
-        return self.states[name]
+        # return remapped value
+        return self.states[self.states[name].getName()]
 
     def getStateValue(self,name):
         return self.getState(name).getValue()
@@ -59,11 +60,27 @@ class SHDevice(object):
         data = {}
 
         for key, state in self.states.items():
+            if state.is_remapped():
+                continue
             data[state.getName()] = state.toDict()
 
         msg["data"] = data
         return msg
     
+    def remapState(self, fromState, toState):
+        self.getState(fromState).setRemap(toState)
+        self.remaps[toState] = fromState
+
+    def ignoreState(self,name):
+        #TODO find better way to ignore states
+        self.remapState(name,name)
+
+    def resolveRemap(self, name):
+        try:
+            return self.remaps[name]
+        except KeyError as e:
+            return name
+
     def send(self, message):
         # self.log(str(message))
         if self.connection is not None:

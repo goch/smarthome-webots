@@ -1,7 +1,7 @@
 import json
 class SH_State(object):
 
-    def __init__(self, name, value, unit="", description="", dataType=None, min=None, max=None, read=True, write=True ):
+    def __init__(self, name, value, unit="", description="", dataType=None, min=None, max=None, read=True, write=True):
         self.name = name
         self.description = description
         self.min = min
@@ -11,9 +11,14 @@ class SH_State(object):
         self.read = read
         self.write = write
         self.setType(dataType)
-    
+
+        self.remap = None
+
     def getName(self):
-        return self.name
+        if self.remap is not None:
+            return self.remap
+        else:
+            return self.name
 
     def setName(self,name):
         self.min = name
@@ -67,6 +72,12 @@ class SH_State(object):
             self.dataType = str(type(self.getValue()))
         else: 
             self.dataType = value 
+
+    def setRemap(self,remap):
+        self.remap = remap
+
+    def is_remapped(self):
+        return self.remap is not None
 
     def toDict(self,full=True):
         data = {}
