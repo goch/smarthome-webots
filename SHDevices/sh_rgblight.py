@@ -9,7 +9,7 @@ class SH_RGBLight(SHDevice):
         super().add_state('r',1)
         super().add_state('g',1)
         super().add_state('b',1)
-        super().add_state('brightness',value=5)
+        super().add_state('brightness',value=5, min=0, max=5)
         super().add_state('on',False)
 
         super().add_field('lcolor', self.device.getSelf().getField("color"))
@@ -59,7 +59,7 @@ class SH_RGBLight(SHDevice):
         self.fields['lcolor'].setSFColor([r,g,b])
 
     def setBrightness(self,value):
-        self.fields['brightness'].setSFFloat(value)
+        self.fields['brightness'].setSFFloat(value * ( 5 / self.getState('brightness').getMax()))
         if value > 0:
             self.setStateValue('on', True)
             self.updateMeshColor()
