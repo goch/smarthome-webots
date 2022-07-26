@@ -12,7 +12,7 @@ proto=$(case $1 in
   "thermostat") echo "Thermostat" ;;
   "alarm") echo "Alarm" ;;
   "switch") echo "Button" ;;
-  "contact") echo "ContactSensor" ;;
+  "distance") echo "DistanceSensor" ;;
   "co2_sensor") echo "CO2Sensor" ;;
   *) echo "Template not Found"; exit ;;
 esac)
@@ -76,10 +76,10 @@ cp -r robot_controller ../controllers/$1Controller
 mv ../controllers/$1Controller/sh_controller_template.py ../controllers/$1Controller/$1Controller.py
 
 if [ "$2" ]; then
-importDir=$classFilename.
+importDir=$2.
 fi
 
-sed -i "s/from SHDevices.sh_shutter/from SHDevices.$importdir'sh_'$1/g" ../controllers/$1Controller/$1Controller.py
+sed -i "s/from SHDevices.sh_shutter/from SHDevices.$importDir"sh_"$1/g" ../controllers/$1Controller/$1Controller.py
 sed -i "s/sh_device = SH_Shutter/sh_device = SH_$1/g" ../controllers/$1Controller/$1Controller.py
 
 if [ "$3" ]; then
@@ -105,8 +105,8 @@ echo "DEVICE LOGIC"
 cp sh_device/sh_device_template.py ../SHDevices/$manufacturerDir'sh_'$1.py
 
 
-sed -i "s/from SHDevices.sh_device import */from SHDevices.sh_$classFilename import */g" ../SHDevices/$manufacturerDir'sh_'$1.py 
-sed -i "s/class SH_Template(SHDevice):/class SH_$1($template):/g" ../SHDevices/$manufacturerDir'sh_'$1.py 
+sed -i "s/from SHDevices.sh_device import/from SHDevices.sh_$classFilename import/g" ../SHDevices/$manufacturerDir'sh_'$1.py 
+sed -i "s/class SH_Template(SHDevice):/class SH_$1(SH_$template):/g" ../SHDevices/$manufacturerDir'sh_'$1.py 
 
 echo "DEVICE PROTO"
 
@@ -115,13 +115,15 @@ if [ "$3" ]; then
     proto="../protos/_GENERIC/SH_$proto.proto"
     protoID=SH_$template
     protoName=$template
-    controllerName=$1
+    controllerName=$template'Controller'
+    windowName=sh_$classFilename'_window'
     
 else
    proto="proto/sh_device.proto" 
    protoID=Template
    protoName=SH_DEVICE
-   controllerName=Template
+   controllerName=TemplateController
+   windowName=Template_window
    
 fi
 
@@ -129,10 +131,11 @@ fi
 cp $proto ../protos/$manufacturerDir$1.proto
 
 sed -i "s/PROTO $protoID/PROTO $1/g" ../protos/$manufacturerDir$1.proto
-sed -i "s/    field SFString      name \"S$protoName\"/    field SFString      name \"$1\"/g" ../protos/$manufacturerDir$1.proto
+sed -i "s/    field SFString      name \"$protoName\"/    field SFString      name \"$1\"/g" ../protos/$manufacturerDir$1.proto
 
-sed -i "s/    controller \"$controllerName'Controller'\"/    controller \"$1Controller\"/g" ../protos/$manufacturerDir$1.proto
-sed -i "s/    window \"$protoName_window\"/    window \"$1_window\"/g" ../protos/$manufacturerDir$1.proto
+
+sed -i "s/controller \"$controllerName\"/controller \"$1Controller\"/g" ../protos/$manufacturerDir$1.proto
+sed -i "s/window \"$windowName\"/window \"$1_window\"/g" ../protos/$manufacturerDir$1.proto
 
 echo "DONE"
 
