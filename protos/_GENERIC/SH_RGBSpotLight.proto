@@ -10,6 +10,7 @@ PROTO SH_RGBSpotLight [
     field SFRotation    rotation    0 1 0 0
     field SFColor       color 1 1 0.8
     field SFFloat       brightness 5
+    field SFFloat       maxBrightness 7
     field SFFloat       cutOffAngle 0.785
     field SFFloat       beamWidth 0.7
     field SFFloat       height 0.01
