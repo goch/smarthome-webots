@@ -17,9 +17,6 @@ class SH_IKEA_tradfri_dimmer_switch_E1734(SHDevice):
         # super().add_state(name='link_quality',value=255, description="Link Quality", min=0, max=255)
         super().add_state(name='state',value=False, description="Switch Event",)
 
-
-        
-
         # add fields
         #super().add_field('position',device.getField("pointLightColor"))
     
