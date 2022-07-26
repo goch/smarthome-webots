@@ -62,7 +62,8 @@ class SHDevice(object):
         for key, state in self.states.items():
             if state.is_remapped():
                 continue
-            data[state.getName()] = state.toDict()
+            else:
+                data[state.getName()] = state.toDict()
 
         msg["data"] = data
         return msg
@@ -81,6 +82,9 @@ class SHDevice(object):
         except KeyError as e:
             return name
 
+    def update(self, step):
+        pass
+
     def send(self, message):
         # self.log(str(message))
         if self.connection is not None:
@@ -97,6 +101,9 @@ class SHDevice(object):
         pass
 
     def sendState(self,state):
+        if state.is_remapped(): 
+            return
+
         data = {}
         data["type"] = "state"
         data["name"] = self.name
