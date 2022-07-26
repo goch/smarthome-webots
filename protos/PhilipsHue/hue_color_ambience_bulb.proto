@@ -1,0 +1,76 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart Home RGB Pointlight
+# template language: javascript
+
+PROTO hue_color_ambience_bulb [
+    field SFString      name "HueBulb"
+    field SFVec3f       translation 0 0 2.3
+    field SFRotation    rotation    0 1 0 0
+    field SFColor       color 1 1 0.8
+    field SFFloat       brightness 5
+    field SFFloat       maxBrightness 7
+    field SFFloat       cutOffAngle 0.785
+    field SFFloat       beamWidth 0.7
+    field SFFloat       height 0.01
+    field SFFloat       radius 0.05
+    field SFBool        castShadows TRUE 
+    field SFBool        hideMesh FALSE
+    field SFFloat emissionIntensity 0
+    field MFNode mesh [] # holds mesh of lamp, Optional
+  ]
+{
+
+%<
+ let mesh_transparency = 0;
+ if (fields.hideMesh.value){
+  mesh_transparency = 1;
+ } else{ 
+  mesh_transparency = 0;
+ }  
+ console.log("HideMesh" + mesh_transparency + fields.hideMesh.value);
+
+>%
+
+
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+  children [
+    SpotLight {
+      attenuation 0 0 1
+      location 0 0 %<= fields.height.value * -0.51 >%
+      color IS color
+      intensity IS brightness
+      beamWidth IS beamWidth
+      cutOffAngle IS cutOffAngle
+      castShadows IS castShadows
+      
+    }
+     DEF EXT_LampMesh Transform {
+        translation 0 0 0.01
+        children IS mesh
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor IS color
+        emissiveColor IS color
+        emissiveIntensity IS emissionIntensity
+        transparency %<= mesh_transparency >%
+
+      }
+      geometry Cylinder {
+        height IS height
+        radius IS radius
+      }
+    }
+  ]
+  controller "hue_color_ambience_bulbController"
+  supervisor TRUE
+  window "rgbd_window"
+
+    }
+
+}
