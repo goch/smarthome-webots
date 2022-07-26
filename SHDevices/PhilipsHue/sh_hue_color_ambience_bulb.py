@@ -1,4 +1,3 @@
-from SHDevices.sh_device import *
 from SHDevices.sh_rgblight import SH_RGBLight
 
 class SH_hue_color_ambience_bulb(SH_RGBLight):
