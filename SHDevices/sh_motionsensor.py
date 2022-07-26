@@ -4,7 +4,8 @@ class SH_MotionSensor(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
-                
+
+        self.deltaTime = 0    
 
         self.radar = device.getDevice("radar")
         self.radar.enable(64)
@@ -51,6 +52,13 @@ class SH_MotionSensor(SHDevice):
 
     def getTargets(self):
         return self.radar.getTargets()
+
+    def update(self, step):
+        self.deltaTime += step
+        if self.deltaTime > 500:
+            self.getMotionDetected()
+            self.deltaTime = 0
+        pass
 
     def setState(self, name, value):    
 

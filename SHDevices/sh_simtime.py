@@ -7,6 +7,8 @@ class SH_SimTime(SHDevice):
     def __init__(self,name, connection=None, device=None, states={}, fields={}, hour=0, minute=0, second=0):
         super().__init__(name, connection, device, states, fields)        
 
+        self.deltaTime = 0
+
         # add Devices
         self.hour_motor = device.getDevice("hour motor")
         self.minute_motor = device.getDevice("minute motor")
@@ -81,6 +83,14 @@ class SH_SimTime(SHDevice):
         self.second_motor.setPosition( self.getSecond() * self.second_step) 
         self.minute_motor.setPosition( self.getMinute() * self.minute_step)
         self.hour_motor.setPosition( hour12 * self.hour_step)
+        pass
+
+    def update(self, step):
+        self.deltaTime +=step
+        # do something every 1000ms
+        if self.deltaTime > 1000:
+            self.updateClock(self.deltaTime)
+            self.deltaTime = 0
         pass
 
     def setState(self, name, value):    

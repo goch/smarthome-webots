@@ -45,20 +45,13 @@ connection.register_callbacks(connected, closed, error, message_cb)
 sh_device = SH_PowerPlug(robot.getName(), connection=connection, device=robot)
 sh_device.connect()
 
-deltaTime = 0
-
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    deltaTime += timestep
+
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
-
-
-    # update energy counter every 500ms.
-    if deltaTime >= 500:
-        sh_device.updateEnergyCounter(deltaTime)
-        deltaTime = 0
+    sh_device.update(timestep)
     pass
 
 # cleanup on Exit

@@ -5,7 +5,8 @@ class SH_Button(SHDevice):
 
     def __init__(self,name, connection=None, device=None, buttonCount=2, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
-                
+        
+        self.deltaTime = 0                
 
         for x in range(1,buttonCount+1):
             #self.log("addState: button "+ str(x))
@@ -14,7 +15,10 @@ class SH_Button(SHDevice):
             super().add_state('button'+ str(x) +'_pressed_double',False)
 
 
-        # self.reset()    
+        # self.reset()
+    def update(self, step):
+        #self.deltaTime +=step
+        pass    
 
     def setState(self, name, value):    
 

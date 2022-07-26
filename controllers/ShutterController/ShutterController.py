@@ -10,10 +10,6 @@ from SHConnection.sh_connection import CONECTION
 
 from SHDevices.sh_shutter import *
 
-
-
-
-
 def connected(ws):
     global shutter
     shutter.log("Connected")
@@ -51,8 +47,6 @@ robot = Supervisor()
 # get the time step of the current world.
 timestep = int(robot.getBasicTimeStep())
 
-deltaTime = 0
-
 # create connection object
 connection_config = CONFIG.getDeviceConnection(robot.getName())
 connection  = CONECTION.create(key=connection_config['type'], **connection_config) 
@@ -61,22 +55,12 @@ connection.register_callbacks(connected, closed, error, message_cb)
 shutter = SH_Shutter(robot.getName(),connection=connection,device=robot)
 shutter.connect()
 
-
-lastPosition = 0
-
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    deltaTime += timestep
-    shutter.receive_webui(web_message_cb)
-        
     
-    # TODO ALSO UPDATE CURRENT POSITION IF TARGET POSITION REACHED
-    # do something every 1000ms
-    if deltaTime > 1000: 
-        shutter.updateCurrentPosition()
-        deltaTime = 0
-
+    shutter.receive_webui(web_message_cb)
+    shutter.update(timestep)    
     pass
 
 shutter.log("---- CLEANUP ----")

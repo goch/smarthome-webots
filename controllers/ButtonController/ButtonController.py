@@ -50,6 +50,7 @@ sh_device.connect()
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
     sh_device.receive_webui(web_message_cb)
+    sh_device.update(timestep)
     pass
 
 # cleanup on Exit

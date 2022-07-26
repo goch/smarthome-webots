@@ -4,7 +4,8 @@ class SH_PowerPlug(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
-
+        
+        self.deltaTime = 0
         # add Devices
         self.led = device.getDevice("led")
         self.connector = device.getDevice("connector")
@@ -54,6 +55,14 @@ class SH_PowerPlug(SHDevice):
     def resetEnergyCounter(self):
         self.setStateValue('resetEnergyCounter', False)
         self.setStateValue('energyCounter', 0.0)
+
+    def update(self, step):
+        self.deltaTime += step
+        # update energy counter every 500ms.
+        if self.deltaTime >= 500:
+            self.updateEnergyCounter(self.deltaTime)
+            self.deltaTime = 0
+        pass
 
     def setState(self, name, value):    
 

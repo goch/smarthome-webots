@@ -5,6 +5,7 @@ class SH_LightSensor(SHDevice):
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
                 
+        self.deltaTime = 0
         # add states
         super().add_state('luminosity',0)
 
@@ -18,6 +19,14 @@ class SH_LightSensor(SHDevice):
 
     def updateLuminosity(self):
         self.setStateValue('luminosity', self.sensor.getValue(), ignoreSame=False)
+
+    def update(self, step):
+        self.deltaTime +=step
+        # do something every 250ms
+        if self.deltaTime > 250:
+            self.deltaTime = 0
+            self.updateLuminosity()
+        pass
 
     def setState(self, name, value):    
 

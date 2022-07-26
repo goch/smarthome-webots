@@ -6,6 +6,8 @@ class SH_Shutter(SHDevice):
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
 
+        self.deltaTime = 0
+
         self.motor = device.getDevice("linear motor")
         self.motor.setPosition(self.motor.getMaxPosition())
         self.motor_position = device.getDevice("position sensor")
@@ -102,6 +104,15 @@ class SH_Shutter(SHDevice):
         elif currentPosition == self.motor.getMaxPosition():
             self.setShutterTransparency(0.7)
 
+        pass
+    
+    def update(self, step):
+        self.deltaTime +=step
+        # TODO ALSO UPDATE CURRENT POSITION IF TARGET POSITION REACHED
+        # do something every 1000ms
+        if self.deltaTime > 1000: 
+            self.updateCurrentPosition()
+            self.deltaTime = 0
         pass
 
     def setState(self, name, value):

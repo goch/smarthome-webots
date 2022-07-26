@@ -55,26 +55,10 @@ deltaTime = 0
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
-while robot.step(timestep) != -1:
-
-    deltaTime += timestep
-    
-    # measure data every 10s
-    if deltaTime > 10000:
-        deltaTime = 0
-        
-        if sh_device.checkFire():
-            sh_device.triggerAlarm()
-        #fires = sh_device.device.getFromDef("FIRE")
-        # human_name = humans.getField("name").getSFString()
-
-        if sh_device.getTest():
-            sh_device.runTest(timestep)
-
-        sh_device.drainBattery(timestep)
-
+while robot.step(timestep) != -1:    
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
+    sh_device.update(timestep)
     pass
 
 # cleanup on Exit

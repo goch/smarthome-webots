@@ -5,6 +5,7 @@ class SH_DistanceSensor(SHDevice):
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
                 
+        self.deltaTime = 0
 
         self.sensor = device.getDevice("distance sensor")
         self.sensor.enable(64)
@@ -44,6 +45,19 @@ class SH_DistanceSensor(SHDevice):
         if self.getDistance() != distance:
             self.setDistance(distance)
         
+    def update(self, step):
+        self.deltaTime +=step
+        # do something every 500ms
+        if self.deltaTime > 500:
+            self.deltaTime = 0
+            self.updateCurrentDistance()
+
+            if self.getDistance() <= self.getTriggerDistance():
+                self.setTriggered(True)
+            else:
+                self.setTriggered(False)
+        pass
+    
     def setState(self, name, value):    
 
         match name:

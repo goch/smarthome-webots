@@ -5,6 +5,7 @@ class SH_Alarm(SHDevice):
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
 
+        self.deltaTime = 0
         # add Devices
         self.sensor = device.getDevice("distance sensor")
         self.sensor.enable(64)
@@ -28,7 +29,6 @@ class SH_Alarm(SHDevice):
         self.fields['brightness'].setSFFloat(4.0)
         self.fields['on'].setSFBool(False)
         
-
     
     def setTriggered(self, triggered):
         if self.getStateValue('triggered') != triggered and self.getStateValue('armed'):
@@ -75,6 +75,22 @@ class SH_Alarm(SHDevice):
         if value == 0:
             self.setStateValue('on', False)
             self.setStateValue('brightness', 0)
+        pass
+
+    def update(self, step):
+        self.deltaTime +=step
+
+        if self.deltaTime > 1000:
+            self.deltaTime = 0
+    
+            if self.getArmed() and self.getTriggered():
+                self.setOn( not self.getOn())
+
+            if self.getDistance() != self.getArmedDistance():
+                self.setTriggered(True)
+            else: 
+                self.setTriggered(False)
+
         pass
 
     def setState(self, name, value):    

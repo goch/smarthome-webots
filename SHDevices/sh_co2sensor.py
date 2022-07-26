@@ -1,10 +1,12 @@
 from SHDevices.sh_device import *
+from math import sqrt, pow
 
 class SH_CO2Sensor(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
 
+        self.deltaTime = 0
 
         self.sensor_range = 3
         self.threshholds = device.getSelf().getField('threshholds').getSFVec3f()
@@ -23,6 +25,10 @@ class SH_CO2Sensor(SHDevice):
 
     def getTransform(self):
         return self.device.getSelf().getField("translation").getSFVec3f()
+
+    def getDistance(self,x1,y1,x2,y2):
+        return sqrt( pow((x1 - x2),2) + pow((y1 - y2),2))
+
 
     def updateCO2Concentration(self,value):
         self.setCO2Concentration(value)
@@ -47,6 +53,55 @@ class SH_CO2Sensor(SHDevice):
 
     def getAirQuality(self):
         return self.getStateValue('air_quality')
+
+    def update(self, step):
+        self.deltaTime +=step
+
+    # measure data every 10seconds
+        if self.deltaTime > 10000:
+            self.deltaTime = 0    
+
+            # check if WINDOW send OPEN/CLOSE
+            if self.receiver.getQueueLength() > 0:
+                msg = self.receiver.getData()
+                data = struct.unpack("?ddd",msg)
+                # sh_device.log(str(data))
+            
+                sensor_pos = self.getTransform()
+                
+                # check if window is open
+                if self.getDistance(sensor_pos[0],sensor_pos[1],data[1],data[2]) < sh_device.sensor_range:
+                    self.log(str(data[0]))
+                    if data[0] == True:  
+                        self.window_open_count +=1
+                    elif self.window_open_count > 0:
+                        self.window_open_count -=1
+                    
+                    self.receiver.nextPacket()
+
+            humans = self.device.getFromDef("HUMAN")
+            # human_name = humans.getField("name").getSFString()
+            
+            co2_level = self.getCO2Concentration()
+            # there is a human
+            if humans is not None:
+                human_pos = humans.getField("translation").getSFVec3f()
+                sensor_pos = self.getTransform()
+                # sh_device.log(human_name + "-> " + str(human_pos))
+                # sh_device.log(str(sensor_pos))
+                        
+                distance = self.getDistance(sensor_pos[0],sensor_pos[1], human_pos[0],human_pos[1])
+
+                # if human in range increase co2
+                if distance <= self.sensor_range:
+                    co2_level += 10
+                pass    
+    
+            # decrease co2 if windows open     
+            co2_level -= 10 * self.window_open_count               
+            self.updateCO2Concentration(co2_level)  
+
+            pass
 
     def setState(self, name, value):    
 

@@ -7,6 +7,7 @@ class SH_SmokeDetector(SHDevice):
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
 
+        self.deltaTime = 0
         # add Devices
         self.receiver = device.getDevice("receiver")
         self.receiver.enable(int(device.getBasicTimeStep()))
@@ -26,7 +27,24 @@ class SH_SmokeDetector(SHDevice):
     
     def getTransform(self):
         return self.device.getSelf().getField("translation").getSFVec3f()
-    
+
+    def update(self, step):
+        self.deltaTime +=step
+            # measure data every 10s
+        if self.deltaTime > 10000:
+            self.deltaTime = 0
+            
+            if self.checkFire():
+                self.triggerAlarm()
+            #fires = sh_device.device.getFromDef("FIRE")
+            # human_name = humans.getField("name").getSFString()
+
+            if self.getTest():
+                self.runTest(step)
+
+            self.drainBattery(step)
+        pass
+
     def setState(self, name, value):    
 
         match name:

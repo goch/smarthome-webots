@@ -35,7 +35,6 @@ def message_cb(ws, message):
 TIME_STEP = 64
 robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
-deltaTime = 0
 
 
 simtime = CONFIG.getValue('simtime')
@@ -51,14 +50,10 @@ sh_device.connect()
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    deltaTime += timestep
+
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
-
-    # do something every 1000ms
-    if deltaTime > 1000:
-        sh_device.updateClock(deltaTime)
-        deltaTime = 0
+    sh_device.update(timestep)
     pass
 
 # cleanup on Exit

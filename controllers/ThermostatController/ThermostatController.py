@@ -49,28 +49,9 @@ heatup_intervall = 0
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
     
-
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
-    
-    heatup_intervall += timestep
-    
-    # TODO: make heating system configurable
-    # change temperature every 10s
-    if heatup_intervall % (1 * 1000) == 0:
-        heatup_intervall = 0
-        currentTemp = sh_device.getCurrentTemperature()
-        setTemp = sh_device.getSetTemperature()
-
-        if currentTemp < setTemp:
-            # TODO heatup configurable
-            # TODO PID controller to controll heatup decision
-            sh_device.updateCurrentTemperature(round(currentTemp + 0.1, 2))
-        elif currentTemp > setTemp:
-            sh_device.updateCurrentTemperature(round(currentTemp - 0.1, 2))
-            pass
-             
-    
+    sh_device.update(timestep)    
     pass
 
 # cleanup on Exit

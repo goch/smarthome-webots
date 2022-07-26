@@ -52,6 +52,7 @@ sh_device.connect()
 while robot.step(timestep) != -1:
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
+    sh_device.update(timestep)
     pass
 
 # cleanup on Exit

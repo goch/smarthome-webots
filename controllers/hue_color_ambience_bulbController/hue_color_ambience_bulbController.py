@@ -36,8 +36,6 @@ TIME_STEP = 64
 robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
 
-deltaTime = 0
-
 # create connection object
 connection_config = CONFIG.getDeviceConnection(robot.getName())
 connection  = CONECTION.create(key=connection_config['type'], **connection_config) 

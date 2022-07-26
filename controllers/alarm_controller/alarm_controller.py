@@ -34,9 +34,6 @@ def message_cb(ws, message):
 TIME_STEP = 64
 robot = Supervisor()
 timestep = int(robot.getBasicTimeStep())
-deltaTime = 0
-
-
 
 # create connection object
 connection_config = CONFIG.getDeviceConnection(robot.getName())
@@ -50,22 +47,10 @@ sh_device.connect()
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    deltaTime += timestep
+
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
-
-    # do something every 500ms
-    if deltaTime > 1000:
-        deltaTime = 0
-    
-        if sh_device.getArmed() and sh_device.getTriggered():
-            sh_device.setOn( not sh_device.getOn())
-
-        if sh_device.getDistance() != sh_device.getArmedDistance():
-            sh_device.setTriggered(True)
-        else: 
-            sh_device.setTriggered(False)
-        
+    sh_device.update(timestep)
     pass
 
 
