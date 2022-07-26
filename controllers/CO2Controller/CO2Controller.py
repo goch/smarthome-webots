@@ -5,7 +5,7 @@ from controller import Supervisor
 
 from config.definitions import CONFIG
 from SHConnection.sh_connection import CONECTION
-from SHDevices.sh_co2_sensor import *
+from SHDevices.sh_co2sensor import *
 
 from math import sqrt, pow
 
@@ -49,7 +49,7 @@ connection  = CONECTION.create(key=connection_config['type'], **connection_confi
 connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = SH_CO2_Sensor(robot.getName(), connection=connection, device=robot)
+sh_device = SH_CO2Sensor(robot.getName(), connection=connection, device=robot)
 sh_device.connect()
 
 sensor_intervall = 0

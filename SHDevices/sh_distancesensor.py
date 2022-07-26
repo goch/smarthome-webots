@@ -1,6 +1,6 @@
 from SHDevices.sh_device import *
 
-class SH_Distance_Sensor(SHDevice):
+class SH_DistanceSensor(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        

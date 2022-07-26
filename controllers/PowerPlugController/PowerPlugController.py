@@ -5,7 +5,7 @@ from controller import Supervisor
 
 from config.definitions import CONFIG
 from SHConnection.sh_connection import CONECTION
-from SHDevices.sh_power_plug import *
+from SHDevices.sh_powerplug import *
 
 def connected(ws):
     global sh_device
@@ -42,7 +42,7 @@ connection  = CONECTION.create(**connection_config)
 connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = SH_Power_Plug(robot.getName(), connection=connection, device=robot)
+sh_device = SH_PowerPlug(robot.getName(), connection=connection, device=robot)
 sh_device.connect()
 
 deltaTime = 0

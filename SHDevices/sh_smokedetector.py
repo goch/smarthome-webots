@@ -2,7 +2,7 @@ from SHDevices.sh_device import *
 from math import sqrt, pow
 
 
-class SH_Smoke_Detector(SHDevice):
+class SH_SmokeDetector(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        

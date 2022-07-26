@@ -1,6 +1,6 @@
 from SHDevices.sh_device import *
 
-class SH_Heating_Thermostat(SHDevice):
+class SH_Thermostat(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        

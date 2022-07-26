@@ -1,6 +1,6 @@
 from SHDevices.sh_device import *
 
-class SH_Power_Plug(SHDevice):
+class SH_PowerPlug(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        

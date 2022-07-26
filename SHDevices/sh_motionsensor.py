@@ -1,6 +1,6 @@
 from SHDevices.sh_device import *
 
-class SH_Motion_Sensor(SHDevice):
+class SH_MotionSensor(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        

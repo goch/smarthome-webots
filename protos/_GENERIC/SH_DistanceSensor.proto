@@ -4,8 +4,8 @@
 # Smart Home Contact Sensor. Door and Window Contact which Triggers at a specific Distance
 # template language: javascript
 
-PROTO SH_ContactSensor [
-    field SFString      name "ContactSensor"
+PROTO SH_DistanceSensor [
+    field SFString      name "DistanceSensor"
     field SFVec3f       translation 0 0 2.02
     field SFRotation    rotation    1 0 0 3.14159
     unconnectedField SFFloat triggerDistance  0.1
@@ -57,7 +57,7 @@ PROTO SH_ContactSensor [
     }
   ]
   controller "DistanceSensorController"
-  window "sh_contactsensor_window"
+  window "sh_distancesensor_window"
     
     }
 

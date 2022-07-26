@@ -5,7 +5,7 @@ from controller import Supervisor
 
 from config.definitions import CONFIG
 from SHConnection.sh_connection import CONECTION
-from SHDevices.sh_motion_sensor import *
+from SHDevices.sh_motionsensor import *
 
 def connected(ws):
     global sh_device
@@ -42,7 +42,7 @@ connection  = CONECTION.create(key=connection_config['type'], **connection_confi
 connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = SH_Motion_Sensor(robot.getName(), connection=connection, device=robot)
+sh_device = SH_MotionSensor(robot.getName(), connection=connection, device=robot)
 sh_device.connect()
 
 # Main loop:

@@ -6,7 +6,7 @@ from controller import Supervisor
 from config.definitions import CONFIG
 from SHConnection.sh_connection import CONECTION
 
-from SHDevices.sh_smoke_detector import *
+from SHDevices.sh_smokedetector import *
 from math import sqrt, pow
 
 
@@ -48,7 +48,7 @@ connection  = CONECTION.create(key=connection_config['type'], **connection_confi
 connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = SH_Smoke_Detector(robot.getName(), connection=connection, device=robot)
+sh_device = SH_SmokeDetector(robot.getName(), connection=connection, device=robot)
 sh_device.connect()
 
 deltaTime = 0

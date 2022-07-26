@@ -2,7 +2,7 @@ from cmath import pi
 from datetime import datetime
 from SHDevices.sh_device import *
 
-class SH_Sim_Time(SHDevice):
+class SH_SimTime(SHDevice):
 
     def __init__(self,name, connection=None, device=None, states={}, fields={}, hour=0, minute=0, second=0):
         super().__init__(name, connection, device, states, fields)        

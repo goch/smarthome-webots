@@ -5,7 +5,7 @@ from controller import Supervisor
 
 from config.definitions import CONFIG
 from SHConnection.sh_connection import CONECTION
-from SHDevices.sh_heating_thermostat import *
+from SHDevices.sh_thermostat import *
 
 def connected(ws):
     global sh_device
@@ -40,7 +40,7 @@ connection  = CONECTION.create(key=connection_config['type'], **connection_confi
 connection.register_callbacks(connected, closed, error, message_cb)
 
 # create instance of SmartHome Device
-sh_device = SH_Heating_Thermostat(robot.getName(), connection=connection, device=robot)
+sh_device = SH_Thermostat(robot.getName(), connection=connection, device=robot)
 sh_device.connect()
 
 heatup_intervall = 0 
