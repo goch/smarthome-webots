@@ -4,7 +4,7 @@
 # Smart Home RGB Pointlight
 # template language: javascript
 
-PROTO SH_RGBSpotLight [
+PROTO SH_RGBLight [
     field SFString      name "RGBLight"
     field SFVec3f       translation 0 0 2.3
     field SFRotation    rotation    0 1 0 0
@@ -69,7 +69,7 @@ PROTO SH_RGBSpotLight [
   ]
   controller "RGBSpotLightController"
   supervisor TRUE
-  window "rgbd_window"
+  window "sh_rgblight_window"
 
     }
 

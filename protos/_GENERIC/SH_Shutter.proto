@@ -78,7 +78,7 @@ Robot {
   name "robot(1)"
   controller "ShutterController"
   supervisor TRUE
-  window "shutter_window"
+  window "sh_shutter_window"
 
   }
 }

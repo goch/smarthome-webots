@@ -72,7 +72,7 @@ PROTO SH_Alarm [
   ]
   controller "alarm_controller"
   supervisor TRUE
-  window "alarm_window"
+  window "sh_alarm_window"
 
     
     }

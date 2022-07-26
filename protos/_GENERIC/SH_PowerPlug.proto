@@ -89,7 +89,7 @@ PROTO SH_PowerPlug [
     }
   ]
   controller "PowerPlugController"
-  window "power_plug_window"
+  window "sh_powerplug_window"
     
     }
 

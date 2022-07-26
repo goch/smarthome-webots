@@ -32,7 +32,7 @@ PROTO SH_Button [
     }
   ]
   controller "ButtonController"
-  window "button_window"
+  window "sh_button_window"
     }
 
 }

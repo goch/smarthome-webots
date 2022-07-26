@@ -50,7 +50,7 @@ PROTO SH_LightSensor [
     }
   ]
   controller "LightSensorController"
-  window "light_sensor_window"
+  window "sh_lightsensor_window"
     
     }
 

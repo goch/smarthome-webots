@@ -69,7 +69,7 @@ PROTO hue_color_ambience_bulb [
   ]
   controller "hue_color_ambience_bulbController"
   supervisor TRUE
-  window "rgbd_window"
+  window "sh_rgblight_window"
 
     }
 

@@ -32,7 +32,7 @@ PROTO SH_CO2Sensor [
   ]
   controller "CO2Controller"
   supervisor TRUE
-  window "co2_sensor_window"
+  window "sh_co2sensor_window"
 
     
     }

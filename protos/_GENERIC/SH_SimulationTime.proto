@@ -175,6 +175,6 @@ PROTO SH_SimulationTime [
     }
   ]
   controller "SimTimeController"
-  window "sim_time_window"
+  window "sh_simtime_window"
   }
 }

@@ -55,7 +55,7 @@ Robot {
   name IS name
   controller "MotionSensorController"
   supervisor TRUE
-  window "motion_sensor_window"
+  window "sh_motionsensor_window"
 }
 
 }
