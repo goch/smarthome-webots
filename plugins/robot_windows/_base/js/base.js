@@ -34,6 +34,7 @@ function initStates(dict){
 }
 
 function setStateValue(name, value, send=true){
+  name = resolveRemap(name)
   states[name].value = value;
   
   if (send){
@@ -43,7 +44,13 @@ function setStateValue(name, value, send=true){
 }
 
 function getStateValue(name){
-  return states[name].value
+  return states[resolveRemap(name)].value
+}
+
+function resolveRemap(name){
+  if (states[name].remap != null){
+    return states[name].remap;
+  }else return name
 }
 
 function on_message(message){
@@ -81,6 +88,13 @@ function log(message) {
     console.prepend(li);
  }
 
+ function logState(state){
+  Object.entries(state).forEach(entry => {
+    const [key, value] = entry;
+    log(key +': ' + value)
+  });
+ }
+
 function sendState(stateName, val){
     msg = {property: stateName, value: val}
     window.robotWindow.send(JSON.stringify(msg))
@@ -97,6 +111,8 @@ function showStates(){
 
     Object.entries(states).forEach(entry => {
       const [name, state] = entry;
+      if (state['remap'] != null)
+        return;
 
       var row = document.createElement('div');
       row.setAttribute('class','row');
