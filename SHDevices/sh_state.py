@@ -81,10 +81,10 @@ class SH_State(object):
 
     def toDict(self,full=True):
         data = {}
-        data['name'] = self.getName()
-        data['value'] = self.getValue()
         
         if full:
+            data['name'] = self.name
+            data['value'] = self.getValue()
             data['description'] = self.getDescription()
             data['min'] = self.getMin()
             data['max'] = self.getMax()
@@ -92,5 +92,9 @@ class SH_State(object):
             data['read'] = self.getRead()
             data['write'] = self.getWrite()
             data['type'] = self.getType()
+            data['remap'] = self.remap
+        else:
+            data['name'] = self.getName()
+            data['value'] = self.getValue()
 
         return data

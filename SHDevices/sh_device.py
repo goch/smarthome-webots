@@ -60,10 +60,10 @@ class SHDevice(object):
         data = {}
 
         for key, state in self.states.items():
-            if state.is_remapped():
-                continue
-            else:
-                data[state.getName()] = state.toDict()
+            # if state.is_remapped():
+            #     continue
+            # else:
+                data[key] = state.toDict()
 
         msg["data"] = data
         return msg
