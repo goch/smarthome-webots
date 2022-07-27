@@ -30,7 +30,6 @@ function updateUI(){
 }
 
 function rgbOn(state){
-    log("RGBOn:" + state);   
     setStateValue('on', state);
 }
 
