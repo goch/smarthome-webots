@@ -2,6 +2,7 @@ let deviceName = null
 let states = {}
 
 let debug_list = null;
+let state_list = null;
 let label_device_name = null;
 
   // Initialize the Webots window class in order to communicate with the robot.
@@ -10,18 +11,20 @@ window.onload = function() {
     window.robotWindow = webots.window();
     window.robotWindow.setTitle('Custom HTML robot window');
     window.robotWindow.receive = on_message;
-    sendText("---- WINDOW LOADED ----");
 
-    debug_list = document.querySelector('#state_list');
+    state_list = document.querySelector('#state_list');
     label_device_name = document.querySelector("#device_name");
+
+    createStateList()
+    sendText("---- WINDOW LOADED ----");
 };
 
 function initStates(dict){
   log("Initializing States:");
-  
+
   window.robotWindow.setTitle(dict.name);
   label_device_name.innerHTML = dict.name;
-  
+
   Object.entries(dict.data).forEach(entry => {
       const [name, state] = entry;
       states[name] = state
@@ -69,7 +72,6 @@ function on_message(message){
   } catch (e) {
     log("EXCEPTION:  " + e + " -> " + message)
   }
-
 }
   
 function log(message) {
@@ -87,7 +89,6 @@ function sendState(stateName, val){
 function sendText(data){
   window.robotWindow.send(data);
 }
-
 
 function showStates(){
   while (debug_list.firstChild) {
@@ -163,5 +164,36 @@ function createBooleanElement(name, value){
       label.appendChild(input);
       label.appendChild(checkbox);
 return label;
+
+}
+
+/* Colapseable States*/
+function createStateList(){
+
+	let button =  document.createElement('button')
+	button.setAttribute('class','collapsible');
+  button.innerText = 'State List';
+
+	debug_list = document.createElement('div');
+  debug_list.setAttribute('class', 'content');
+  debug_list.appendChild(document.createTextNode('content'));
+
+	state_list.append(button);
+	state_list.appendChild(debug_list);
+
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
 
 }
