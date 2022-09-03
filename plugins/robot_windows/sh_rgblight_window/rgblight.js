@@ -129,4 +129,5 @@ var kelvinPicker = new iro.ColorPicker("#kelvinPicker", {
         // $('#kelvin-value').html(parseInt(color.kelvin));
         
         log("Temperature: " + color.kelvin);
+        setStateValue('colortemp',color.kelvin);
     });
