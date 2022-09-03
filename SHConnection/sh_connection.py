@@ -14,7 +14,5 @@ class ConnectionFactory:
             raise ValueError(kwargs['type'])
         return builder(**kwargs)
 
-
-
 CONECTION = ConnectionFactory()
 CONECTION.register_builder('iobroker-websocket', iobroker_websocketBuilder())
