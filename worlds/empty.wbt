@@ -1,0 +1,47 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+  info [
+    "RoCKIn@Home"
+  ]
+  title "SmartHomeSimulation"
+  basicTimeStep 20
+  FPS 30
+  optimalThreadCount 8
+  lineScale 1
+}
+Viewpoint {
+  orientation 0.33797320421346333 0.03678295148490035 -0.9404366686352378 2.8418624917715896
+  position 10.808393280115732 4.1748136764768535 8.902106757275563
+  near 0.5
+}
+TexturedBackground {
+  texture "dusk"
+}
+DEF GROUND Solid {
+  rotation 0 1 0 0
+  scale 10 10 10
+  children [
+    Transform {
+      translation 0.5 0.5 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.411765 0.411765 0.411765
+            roughness 0.4
+            metalness 0
+          }
+          geometry Plane {
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(1)"
+  boundingObject Transform {
+    translation 0.5 0.5 0
+    children [
+      Plane {
+      }
+    ]
+  }
+}
