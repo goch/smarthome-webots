@@ -47,7 +47,7 @@ PROTO SH_WallHeatingThermostat [
       ]
     }
   ]
-  controller "HeatingThermostatController"
+  controller "ThermostatController"
   window "sh_thermostat_window"
     }
 
