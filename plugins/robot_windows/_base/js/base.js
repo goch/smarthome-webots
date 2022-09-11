@@ -148,8 +148,8 @@ function showStates(){
 function createStringElement(name, value){
   var input = document.createElement('input');
       input.setAttribute('type','text');
-      input.setAttribute('maxlength','3');
-      input.setAttribute('size','4');
+      //input.setAttribute('maxlength','3');
+      //input.setAttribute('size','10');
       input.setAttribute('value', value);
       input.setAttribute('onchange','setStateValue("'+ name +'", this.value)');
   return input;
