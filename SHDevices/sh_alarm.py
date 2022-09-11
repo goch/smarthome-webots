@@ -72,7 +72,7 @@ class SH_Alarm(SHDevice):
         self.fields['on'].setSFBool(on)
         self.setStateValue('on', on)
         if on:
-            self.say(self.getsayText())
+            self.say(self.getSayText())
 
 
     def getOn(self):
@@ -89,7 +89,10 @@ class SH_Alarm(SHDevice):
         self.log(type(text))
         self.alarm_speaker.speak(text,1)
 
-    def getsayText(self):
+    def setSayText(self,text):
+            self.fields['say'].setSFString(text)
+
+    def getSayText(self):
         return self.fields['say'].getSFString()
 
     def update(self, step):
@@ -120,6 +123,9 @@ class SH_Alarm(SHDevice):
             case "on":
                 self.setOn(value)
                 pass
+            case "say":
+                self.setSayText(value)
+                self.say(value)
             case _:
                 print("state not found or state is read only")
                 pass
