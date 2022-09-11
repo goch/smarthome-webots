@@ -14,6 +14,7 @@ PROTO SH_Alarm [
     field SFFloat brightness 4
     field SFVec3f lightLocation 0 0 0.05
     field SFColor lightColor 1 0 0
+    unconnectedField SFString say "alarm!"
   ]
 {
     Robot {
@@ -22,6 +23,8 @@ PROTO SH_Alarm [
     rotation IS rotation
 
       children [
+    Speaker {
+    }
     PointLight {
       attenuation 0 0 1
       color IS lightColor

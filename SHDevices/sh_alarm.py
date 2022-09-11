@@ -7,6 +7,8 @@ class SH_Alarm(SHDevice):
 
         self.deltaTime = 0
         # add Devices
+        self.alarm_speaker = device.getDevice("speaker")
+        #self.alarm_speaker.setLanguage("de-DE")
         self.sensor = device.getDevice("distance sensor")
         self.sensor.enable(64)
         self.triggered = False
@@ -17,14 +19,17 @@ class SH_Alarm(SHDevice):
         super().add_state('triggered',False)
         super().add_state('on',False)
         super().add_state('brightness',4.0)
+        super().add_state('say',"alarm!")
         
-
+        
+        
         self.alarm_lamp = device.getSelf()
 
         # add fields
         super().add_field('on', self.alarm_lamp.getField("on"))
         super().add_field('brightness', self.alarm_lamp.getField("brightness"))
         super().add_field('location', self.alarm_lamp.getField("lightLocation"))
+        super().add_field('say', self.device.getSelf().getField("say"))
 
         self.fields['brightness'].setSFFloat(4.0)
         self.fields['on'].setSFBool(False)
@@ -66,6 +71,9 @@ class SH_Alarm(SHDevice):
     def setOn(self,on):
         self.fields['on'].setSFBool(on)
         self.setStateValue('on', on)
+        if on:
+            self.say(self.getsayText())
+
 
     def getOn(self):
         return self.getStateValue('on')
@@ -76,6 +84,13 @@ class SH_Alarm(SHDevice):
             self.setStateValue('on', False)
             self.setStateValue('brightness', 0)
         pass
+    def say(self,text):
+        self.log(text)
+        self.log(type(text))
+        self.alarm_speaker.speak(text,1)
+
+    def getsayText(self):
+        return self.fields['say'].getSFString()
 
     def update(self, step):
         self.deltaTime +=step
