@@ -52,6 +52,7 @@ sh_device.connect()
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
     deltaTime += timestep
+    sh_device.update(timestep)
     # check if messages are send from WebUI 
     sh_device.receive_webui(web_message_cb)
 

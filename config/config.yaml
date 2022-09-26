@@ -5,6 +5,11 @@ simtime:
 
 connection: iobroker-local
 
+local-websocket:
+  type: iobroker-websocket
+  url: ws://localhost:3001
+
+
 iobroker-local:
   type: iobroker-websocket
   url: ws://localhost:3000

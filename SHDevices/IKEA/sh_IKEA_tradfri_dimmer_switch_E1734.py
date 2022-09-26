@@ -10,8 +10,8 @@ class SH_IKEA_tradfri_dimmer_switch_E1734(SHDevice):
         # self.motor_position.enable(device.getBasicTimeStep())
 
         # add states
-        super().add_state(name='available',value=True,description="Available")
-        # super().add_state(name='battery',value=87,description="Battery percent", unit='%')
+        #super().add_state(name='available',value=True,description="Available")
+        super().add_state(name='battery',value=87,description="Battery percent", unit='%', min=0, max=100)
         super().add_state(name='down_button',value=False, description="Down Button Pressed")
         super().add_state(name='up_button',value=False, description="Up Button Pressed")
         # super().add_state(name='link_quality',value=255, description="Link Quality", min=0, max=255)
@@ -19,16 +19,27 @@ class SH_IKEA_tradfri_dimmer_switch_E1734(SHDevice):
 
         # add fields
         #super().add_field('position',device.getField("pointLightColor"))
+        self.battery = device.getSelf().getField("batteryDrainDuration")
+        self.deltaTime = 0
     
     # get Transform from Device
     def getTransform(self):
         return self.device.getSelf().getField("translation").getSFVec3f()
     
+    def update(self, step):
+        super().update(step)
+        self.deltaTime += step
+        if self.deltaTime >= self.battery.getSFFloat():
+            self.deltaTime = 0
+            self.setState('battery',self.getStateValue('battery')-1)
+
+
+
     # message received
     def setState(self, name, value):    
         self.setStateValue(name,value)
         match name:
-            case "available":
+            case "battery":
                 # self.setPosition(value)
                 pass
             case "down_button":

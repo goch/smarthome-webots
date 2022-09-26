@@ -8,9 +8,9 @@ PROTO IKEA_tradfri_dimmer_switch_E1734 [
     field SFString      name "IKEA_tradfri_dimmer_switch_E1734"
     field SFVec3f       translation 0 0 0
     field SFRotation    rotation    0 1 0 0
-    field SFVec3f       size 0.1 0.1 0.1
-    field SFColor       color 1 1 1
-    unconnectedField SFFloat  parameter 10
+    field SFVec3f       scale 0.025 0.025 0.025
+
+    unconnectedField SFFloat  batteryDrainDuration 10000
   ]
 {
     Robot {
@@ -19,15 +19,16 @@ PROTO IKEA_tradfri_dimmer_switch_E1734 [
     translation IS translation
     rotation IS rotation
     children [
-        Shape {
-        appearance PBRAppearance {
-            baseColor IS color
-            metalness 0
-        }
-        geometry Box {
-            size IS size
-        }
-        }
+Shape {
+  appearance PBRAppearance {
+    metalness 0
+  }
+  geometry Mesh {
+    url [
+      "meshes/tradfri_dimmer_switch_switch.dae"
+    ]
+  }
+}
 
     ]
     controller "IKEA_tradfri_dimmer_switch_E1734Controller"
