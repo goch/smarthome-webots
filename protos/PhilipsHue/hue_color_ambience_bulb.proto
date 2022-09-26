@@ -11,10 +11,10 @@ PROTO hue_color_ambience_bulb [
     field SFColor       color 1 1 0.8
     field SFFloat       brightness 5
     field SFFloat       maxBrightness 7
-    field SFFloat       cutOffAngle 0.785
-    field SFFloat       beamWidth 0.7
-    field SFFloat       height 0.01
-    field SFFloat       radius 0.05
+    field SFFloat       cutOffAngle 1.3
+    field SFFloat       beamWidth 1
+    field SFFloat       height 0.03
+    field SFFloat       radius 0.046
     field SFBool        castShadows TRUE 
     field SFBool        hideMesh FALSE
     field SFFloat emissionIntensity 0
@@ -51,7 +51,25 @@ PROTO hue_color_ambience_bulb [
     }
      DEF EXT_LampMesh Transform {
         translation 0 0 0.01
-        children IS mesh
+      children [
+        Transform {
+          translation 0 -4.07848e-08 0.036
+          rotation 1 0 0 -1.5707953071795862
+          scale 0.05 0.05 0.05
+          children [
+            Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Mesh {
+                url [
+                  "meshes/hue_color_white_bulb.dae"
+                ]
+              }
+            }
+          ]
+        }
+      ]
     }
     Shape {
       appearance PBRAppearance {
