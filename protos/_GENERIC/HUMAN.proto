@@ -5,10 +5,10 @@
 # template language: javascript
 
 PROTO HUMAN [
-    field SFString      name "HUMAN"
+    field SFString      name "Human"
     field SFVec3f       translation 0 0 0
     field SFRotation    rotation    0 1 0 0
-    field SFFloat       scale 1
+    field SFFloat       scale 5
   ]
 {
 DEF HUMAN Solid {
