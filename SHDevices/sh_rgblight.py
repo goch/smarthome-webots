@@ -11,7 +11,7 @@ class SH_RGBLight(SHDevice):
         super().add_field('maxBrightness', self.device.getSelf().getField("maxBrightness"))
 
         super().add_state('color' ,value='#FFFFFF', description="Color as HEXString")
-        super().add_state('colortemp' ,value='2000', description="Colortemperature in Kelvin", min=1, max=6500, unit='K')
+        super().add_state('colortemp' ,value='2000', description="Colortemperature in Kelvin", min=1, max=7000, unit='K')
         super().add_state('r',1)
         super().add_state('g',1)
         super().add_state('b',1)
@@ -67,9 +67,6 @@ class SH_RGBLight(SHDevice):
                 if Blue < 0: Blue = 0
                 if Blue > 255: Blue = 255
 
-        self.log(Red)
-        self.log(Green)
-        self.log(Blue)
         if normalize:
             return self.normalizeRGB(Red,Green,Blue)
         else:
@@ -138,7 +135,6 @@ class SH_RGBLight(SHDevice):
     def setLightTemperature(self,kelvin):
         self.setLightColor(self.kelvin_to_rgb(kelvin))
 
-
     def setColorTemperature(self,value):
         self.setStateValue('colortemp',value)
         self.setLightColor(self.kelvin_to_rgb(value))
@@ -165,9 +161,6 @@ class SH_RGBLight(SHDevice):
 
     def setLightBrightness(self,value):
         if value <0: value = 0
-        
-        self.log("maxBrightness: " + str(self.fields['maxBrightness'].getSFFloat()))
-        self.log("stateMax:" + str(self.getState('brightness').getMax()))
         self.fields['brightness'].setSFFloat(value * ( self.fields['maxBrightness'].getSFFloat() / self.getState('brightness').getMax()))
 
     def getLightBrightness(self):

@@ -68,8 +68,8 @@ var kelvinPicker = new iro.ColorPicker("#kelvinPicker", {
         options: {
             sliderType: 'kelvin',
             sliderSize: 30,
-            minTemperature: 2000,
-            maxTemperature: 6500,
+            minTemperature: 1900,
+            maxTemperature: 7000,
         }
         },
     ]
