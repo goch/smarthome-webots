@@ -9,9 +9,28 @@ WorldInfo {
   lineScale 1
 }
 Viewpoint {
-  orientation -0.07439921753734041 0.03641559115153452 0.9965634255534948 2.09562376963814
-  position 11.16775356310036 -6.900189493989727 1.6849195586586816
-  near 0.5
+  orientation 0.35850034154457144 0.08012319494793094 -0.9300848234133064 2.7316827157753165
+  position 15.784063214200414 6.7574402728098715 10.751777111722697
+  near 0.2
+}
+SH_RGBLight {
+  name "KitchenLight"
+  translation 3.96 5.53 2.3
+  color 1 0.7321145717181676 0.5070332408769889
+}
+SH_RGBLight {
+  name "BathroomLight"
+  translation 1.04 3.26 2.45
+  color 1 1 1
+  cutOffAngle 1.5
+  beamWidth 0.785
+}
+SH_RGBLight {
+  name "Bedroom light"
+  translation 1.81 7.55 2.54
+  color 1 1 1
+  cutOffAngle 1.5
+  beamWidth 0.785
 }
 TexturedBackground {
   texture "dusk"
@@ -99,6 +118,7 @@ SH_Alarm {
   rotation 0 0 1 1.5708
   detectionDistance 1.005
   laserPosition -0.08 0.1 -1.5
+  say ""
 }
 SH_MotionSensor {
   translation 1.3 1.81997 1.99997
@@ -325,21 +345,27 @@ Wall {
   size 0.2 1 0.8
 }
 Door {
+  hidden translation_5 0.0010000003148241121 9.875539275228107e-11 0
   translation 2.5 3.3 0
   name "door(2)"
+  position -1.325575204898165e-09
 }
 Door {
+  hidden translation_5 0.0010000003147983272 -9.874723261305007e-11 0
   translation 3.1 5.3 0
   rotation 0 0 1 1.5708
   name "door(3)"
+  position 1.3254157214212817e-09
   jointAtLeft FALSE
   doorHandle DoorLever {
     jointAtLeft FALSE
   }
 }
 Door {
+  hidden translation_5 0.0010000003143693925 9.86126735824655e-11 0
   translation 9.1 4.1 0
   rotation 0 0 1 -1.5707953071795862
+  position -1.3245147564994057e-09
 }
 Window {
   translation 3.7 8.4 0
@@ -374,30 +400,32 @@ Table {
   feetPadding 0.05
 }
 Chair {
-  translation 7.5 6.4 0
+  translation 7.500000283060213 6.4 -0.0007014266329338215
+  rotation -1.6341640591312332e-15 -1 2.0213507441159632e-13 0.0011134919830231124
   name "chair(1)"
   physics Physics {
     density 500
   }
 }
 Chair {
-  translation 7.5 5.6 0
+  translation 7.500000283060213 5.6 -0.0007014266329338215
+  rotation -1.6341640591312332e-15 -1 2.0213507441159632e-13 0.0011134919830231124
   name "chair(2)"
   physics Physics {
     density 500
   }
 }
 Chair {
-  translation 8.3 6.4 0
-  rotation 0 0 1 3.14157
+  translation 8.29999971694002 6.400000000006492 -0.0007014266329337104
+  rotation 0.0005567459627494924 -6.306147327815094e-09 0.9999998450169545 3.1415700000035107
   name "chair(3)"
   physics Physics {
     density 500
   }
 }
 Chair {
-  translation 8.3 5.6 0
-  rotation 0 0 1 3.14157
+  translation 8.29999971694002 5.600000000006491 -0.0007014266329337104
+  rotation 0.0005567459627494924 -6.306147327815094e-09 0.9999998450169545 3.1415700000035107
   physics Physics {
     density 500
   }
@@ -407,15 +435,17 @@ Carpet {
   color 0.47451 0.47451 0.47451
 }
 Apple {
-  translation 6.15 5.5 1.08
+  translation 6.092728659687719 5.5047734591685895 1.1096344048051907
+  rotation -0.1389916103476117 -0.819110506090565 -0.556542281471081 1.2916936050037853
 }
 Apple {
-  translation 6.10988 5.59816 1.10121
-  rotation -0.12449098077043992 0.3005489535755592 -0.9456068539363759 -0.825725307179586
+  translation 6.092728659336144 5.606560296750789 1.109630054594702
+  rotation -0.1693472898905231 -0.4924160803808556 0.8537258923033142 1.0381378687078715
   name "apple(1)"
 }
 FruitBowl {
-  translation 6.15 5.55 1.07
+  translation 6.1500003935349925 5.549824825891294 1.0498037994996063
+  rotation -0.10086187329789092 -0.9949004374298689 4.60075640865115e-05 0.0004238281167802124
 }
 Table {
   translation 6.1 1.4 0
@@ -429,11 +459,6 @@ SH_LightSensor {
   name "LightSensorLivingRoom"
   translation 6.34 0.03 2.04
   rotation 9.381857096790023e-07 -0.7071067811862364 -0.7071067811862364 3.14159
-}
-SH_LightSensor {
-  name "LightSensorDiningRoom"
-  translation 7.91 7.17 0.85
-  rotation 9.381857096790023e-07 0.7071067811862364 -0.7071067811862364 3.14159
 }
 SH_LightSensor {
   name "LightSensorKitchen"
@@ -585,17 +610,18 @@ Bed {
   rotation 0 0 -1 1.5708
 }
 Can {
-  translation 7.9949 5.38054 0.801057
-  rotation 0 0 1 -2.8798
+  translation 7.994094012092219 5.379213003835401 0.8010817372082397
+  rotation 0.0002239215612918211 0.0002799805195032544 0.9999999357350194 -2.879802757090412
   name "can(1)"
 }
 Can {
-  translation 7.90539 5.23272 0.801057
-  rotation 0 0 1 2.35619
+  translation 7.90426551525075 5.231647115657294 0.8010806435153618
+  rotation 0.0001325517673168271 0.00034583530898299876 0.9999999314139816 2.356187155424642
   name "can(2)"
 }
 Can {
-  translation 7.81824 5.36361 0.801057
+  translation 7.818274430285366 5.365161577695963 0.8010813677562285
+  rotation 0.9997669028584749 -0.02122883364203608 -0.003934027322188123 0.0007208993261534511
 }
 BunchOfSunFlowers {
   translation 0.4 9 0
@@ -639,18 +665,26 @@ Barbecue {
   rotation 0 0 1 3.14159
 }
 Wineglass {
-  translation 5.71 1.66 0.56
+  translation 5.7100000024588535 1.6600002699406702 0.5595897558197982
+  rotation 0.999913142243676 -0.013179830457438537 6.123023954396195e-06 0.00050294082458137
 }
 BeerBottle {
-  translation 5.82 1.7 0.57
-  rotation 0 0 -1 1.8325953071795864
+  translation 5.820427093471398 1.6991227458988736 0.5604789550876514
+  rotation -5.564835572839563e-05 -0.0005375270359016172 -0.9999998539839623 1.8325959300981118
 }
 SH_SimulationTime {
+  hidden position_0_0 2.576105975943663
+  hidden position_0_1 5.174203100462462
+  hidden position_0_2 5.14357257208995
+  hidden rotation_1 0 0 -0.9999999999999999 2.576105975943663
+  hidden rotation_2 0 0 -1 5.174203100462462
+  hidden rotation_3 0 0 -1 5.14357257208995
   translation 3.8 1.03647e-07 1.4
   rotation 0.5773489358556708 0.5773509358554485 0.5773509358554485 -2.094395307179586
   size 1.8
 }
 SH_WallHeatingThermostat {
+  name "ThermostatLivingroom"
   translation 3.91 3.99 1.2708
 }
 Window {
@@ -680,8 +714,11 @@ Cabinet {
   name "cabinet(6)"
 }
 Laptop {
-  translation 5.71 1.38 0.56
-  rotation 0 0 1 3.14159
+  hidden position_0_0 -8.366922321779448e-05
+  hidden translation_1 -0.0999999999999999 -0.01399031105495891 0.13000117096379238
+  hidden rotation_1 0.5772908317411151 -0.5774391373585837 -0.5773208278195291 2.0944116978508722
+  translation 5.710000007261218 1.3799999963661287 0.559292711747763
+  rotation 0.0007839095849247249 1.8923092672464353e-05 0.9999996925637925 3.141590045326899
 }
 Transform {
   translation 1.21 5.19596 1.63609
@@ -696,228 +733,60 @@ Transform {
     }
   ]
 }
-DEF HUMAN Solid {
-  translation 1.71518 2.37932 0.56
-  rotation 0 0 1 1.309
-  scale 2 2 2
-  children [
-    DEF BEAK Transform {
-      translation 0.0394 0 0.05868
-      children [
-        Shape {
-          appearance PBRAppearance {
-            baseColor 0.901961 0.431373 0.109804
-            roughness 0.7
-            metalness 0
-          }
-          geometry Mesh {
-            url [
-              "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/objects/toys/protos/RubberDuck/meshes/beak.obj"
-            ]
-          }
-        }
-      ]
-    }
-    DEF BODY Transform {
-      children [
-        DEF GEOM Shape {
-          appearance PBRAppearance {
-            baseColor 1 0.8 0
-            roughness 0.7
-            metalness 0
-          }
-          geometry Mesh {
-            url [
-              "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/objects/toys/protos/RubberDuck/meshes/body.obj"
-            ]
-          }
-        }
-      ]
-    }
-    DEF EYE Transform {
-      translation 0.026677002 0.012248128 0.069200846
-      rotation -0.18117290235136482 0.4918957348778623 0.8515955410067332 -1.18424
-      children [
-        DEF EYE_GEOM Shape {
-          appearance PBRAppearance {
-            baseColorMap ImageTexture {
-              url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/objects/toys/protos/RubberDuck/textures/eye.jpg"
-              ]
-            }
-            roughness 0.4
-            metalness 0
-          }
-          geometry Mesh {
-            url [
-              "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/objects/toys/protos/RubberDuck/meshes/eye.obj"
-            ]
-          }
-        }
-      ]
-    }
-    DEF EYE Transform {
-      translation 0.026708849 -0.012243724 0.069238147
-      rotation -0.23056699185533644 0.18891399332670777 0.954541966281283 -2.20978
-      children [
-        USE EYE_GEOM
-      ]
-    }
-  ]
-  name "rubber duck"
-  model "rubber duck"
-  immersionProperties [
-    ImmersionProperties {
-      fluidName "water"
-      viscousResistanceForceCoefficient 400
-      viscousResistanceTorqueCoefficient 0.5
-    }
-  ]
-  boundingObject Group {
-    children [
-      Transform {
-        translation 0 0 -0.018
-        children [
-          Box {
-            size 0.06 0.05 0.005
-          }
-        ]
-      }
-      Transform {
-        translation 0.037 0 0.06
-        children [
-          Box {
-            size 0.014 0.025 0.015
-          }
-        ]
-      }
-      Transform {
-        translation 0.01 0 0.059
-        children [
-          Sphere {
-            radius 0.025
-          }
-        ]
-      }
-      Transform {
-        translation -0.042 0 0.013
-        rotation -0.06526396752413574 -0.06526396752413574 0.9957315045161609 1.575074
-        children [
-          Capsule {
-            height 0.04
-            radius 0.008
-            subdivision 16
-          }
-        ]
-      }
-      Transform {
-        translation 0 0 0.005
-        rotation -0.5773509358554485 -0.5773509358554485 -0.5773489358556708 -2.094397
-        children [
-          Capsule {
-            height 0.05
-            radius 0.025
-            subdivision 16
-          }
-        ]
-      }
-      Transform {
-        translation 0.013 0 0.034
-        children [
-          Cylinder {
-            height 0.013
-            radius 0.018
-          }
-        ]
-      }
-      Transform {
-        translation 0 0.02 0
-        rotation -0.5773509358554485 -0.5773509358554485 -0.5773489358556708 -2.094397
-        children [
-          Capsule {
-            height 0.036
-            radius 0.018
-            subdivision 16
-          }
-        ]
-      }
-      Transform {
-        translation 0 -0.02 0
-        rotation -0.5773509358554485 -0.5773509358554485 -0.5773489358556708 -2.094397
-        children [
-          Capsule {
-            height 0.036
-            radius 0.018
-            subdivision 16
-          }
-        ]
-      }
-    ]
-  }
-  physics Physics {
-    density 400
-    centerOfMass [
-      0 0 0
-    ]
-    damping Damping {
-      linear 0.5
-      angular 0.5
-    }
-  }
-  radarCrossSection 1
-  recognitionColors [
-    0.87451 0.756863 0.113725
-  ]
-}
 Door {
+  hidden translation_5 0.001000000314823668 9.875522621882737e-11 0
   translation -0.1 0.5 0
   name "door(1)"
+  position -1.3255733687127059e-09
 }
 SH_CO2Sensor {
   translation 6.19 2.93 2.4
 }
 SH_Shutter {
   name "ShutterLivingRoomSide"
-  translation 6.9 -0.1 0.09
+  translation 6.9 -0.12 0.07
   rotation 0 0 1 -1.5707953071795862
-  ShutterControllerPosition -0.1025 -1.7 1
+  ShutterControllerPosition -0.2 -1.7 1
   ShutterHeight 2
   ShutterWidth 3
-  ShutterTransparency 0.7
 }
 SH_Shutter {
+  hidden translation_3 0.05 0 -0.7
   name "ShutterKitchen"
-  translation 5.1 7.3 0.79
+  translation 5.1 7.3 2.09
   rotation 0 0 1 1.5708
-  ShutterTransparency 0.7
+  ShutterControllerPosition -0.1 -0.6 -0.7
 }
 SH_Shutter {
+  hidden translation_3 0.05 0 -0.7
   name "ShutterDiningRoom"
-  translation 7.6 7.3 0.69
+  translation 7.6 7.3 2.07
   rotation 0 0 1 1.5708
+  ShutterControllerPosition -0.1 -1 -0.7
   ShutterWidth 1.6
-  ShutterTransparency 0.7
 }
 SH_Shutter {
   name "ShutterLivingRoomBalcony"
-  translation 8.5 2 0.09
+  translation 8.5 2 0.04
   ShutterControllerPosition -0.1025 2.1 1
   ShutterHeight 2
   ShutterWidth 4
-  ShutterTransparency 0.7
   up FALSE
   down FALSE
 }
 hue_color_ambience_bulb {
   translation 6.36 1.66 2.3
-  color 1 0 0.9607843137254902
+  rotation 1 0 0 4.692820414042842e-06
+  color 1 0.043137254901960784 0.043137254901960784
   brightness 0
   cutOffAngle 1.5707963267948966
-  beamWidth 1
-  height 0.03
-  radius 0.046
 }
 IKEA_tradfri_dimmer_switch_E1734 {
   translation 6.52796 1.38554 0.57
   rotation 0.577349935856137 -0.5773509358560258 -0.577349935856137 -2.094395307179586
+}
+DEF HUMAN HUMAN {
+  translation 1.6999999996710127 2.3600980480534157 0.5204540457223996
+  rotation 2.0447857344845553e-09 -2.0447785459505104e-09 1 1.5708000000277507
+  scale 3
 }

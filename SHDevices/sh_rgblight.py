@@ -18,11 +18,14 @@ class SH_RGBLight(SHDevice):
         super().add_state('brightness',value=5, min=0, max=self.fields['maxBrightness'].getSFFloat())
         super().add_state('on',False)
 
+        self.lastColor = self.getLightColor()
         self.meshColor = self.fields['lcolor'].getSFColor()
         self.setBrightness(self.getBrightness())
         #super().add_field('emission', self.device.getSelf().getField("emissiveIntensity"))
 
+        
         self.lastBrightness = self.getLightBrightness()
+        
 
     def kelvin_to_mirred(self,temperature):
         if temperature < 600:
@@ -81,6 +84,41 @@ class SH_RGBLight(SHDevice):
         else:
             return rgb
 
+    def hsv_to_rgb(self ,h, s, v,normalize=True):
+            if normalize:
+                h= h/360
+                s= s/100
+                v= v/100
+
+            if s == 0.0: return [v, v, v]
+            i = int(h*6.) # XXX assume int() truncates!
+            f = (h*6.)-i; p,q,t = v*(1.-s), v*(1.-s*f), v*(1.-s*(1.-f)); i%=6
+            if i == 0: return [v, t, p]
+            if i == 1: return [q, v, p]
+            if i == 2: return [p, v, t]
+            if i == 3: return [p, q, v]
+            if i == 4: return [t, p, v]
+            if i == 5: return [v, p, q]
+
+    def rgb_to_hsv(self, r, g, b):
+        mx = max(r, g, b)
+        mn = min(r, g, b)
+        df = mx-mn
+        if mx == mn:
+            h = 0
+        elif mx == r:
+            h = (60 * ((g-b)/df) + 360) % 360
+        elif mx == g:
+            h = (60 * ((b-r)/df) + 120) % 360
+        elif mx == b:
+            h = (60 * ((r-g)/df) + 240) % 360
+        if mx == 0:
+            s = 0
+        else:
+            s = (df/mx)*100
+        v = mx*100
+        return [h, s, v]
+
     def normalizeRGB(self,r,g,b):
         return r/255, g/255, b/255
 
@@ -90,8 +128,12 @@ class SH_RGBLight(SHDevice):
     def getHexColor(self):
         return self.getStateValue('color')
 
+    def getLightColor(self):
+        return self.fields['lcolor'].getSFColor()
+
     def setLightColor(self,rgb):
         self.fields['lcolor'].setSFColor(list(rgb))
+        self.lastColor = rgb
 
     def setLightTemperature(self,kelvin):
         self.setLightColor(self.kelvin_to_rgb(kelvin))
@@ -100,6 +142,7 @@ class SH_RGBLight(SHDevice):
     def setColorTemperature(self,value):
         self.setStateValue('colortemp',value)
         self.setLightColor(self.kelvin_to_rgb(value))
+
 
     def setColor(self,hex=None, r=None, g=None, b=None, send=True):
         if hex is not None:
@@ -121,6 +164,10 @@ class SH_RGBLight(SHDevice):
         self.setLightColor([r,g,b])
 
     def setLightBrightness(self,value):
+        if value <0: value = 0
+        
+        self.log("maxBrightness: " + str(self.fields['maxBrightness'].getSFFloat()))
+        self.log("stateMax:" + str(self.getState('brightness').getMax()))
         self.fields['brightness'].setSFFloat(value * ( self.fields['maxBrightness'].getSFFloat() / self.getState('brightness').getMax()))
 
     def getLightBrightness(self):
@@ -130,12 +177,14 @@ class SH_RGBLight(SHDevice):
         if on:
             self.setStateValue('on', True)
             self.setLightBrightness(self.getBrightness())
+            self.setLightColor(self.lastColor)
         else:
             #TODO FIX Lamp Emitting light even if it is off
             self.setStateValue('on', False)
             self.setLightBrightness(0)
+            self.lastColor = self.getLightColor()
 
-        self.updateMeshColor()
+        #self.updateMeshColor()
 
     def getBrightness(self):
         return self.getStateValue('brightness')

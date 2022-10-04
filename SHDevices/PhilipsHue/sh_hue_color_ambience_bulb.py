@@ -32,8 +32,17 @@ class SH_hue_color_ambience_bulb(SH_RGBLight):
         self.deltaTime = 0
         
         self.currentSaturation = 0
-        self.currentBrightness = 0
         self.currentColorTemp = 0
+        self.BrightnessMove = False
+        self.lastBrightness = self.getBrightness()
+
+        self.lastHSV = (0,0,0)
+        self.hueMove = False
+        self.transition_steps = 0
+        self.command = []
+        self.commandList =[]
+        self.commandExpanded = False
+        
 
         self.transitions = {}
 
@@ -55,48 +64,128 @@ class SH_hue_color_ambience_bulb(SH_RGBLight):
     def setBrightnessMove(self,value):
         self.setStateValue('brightness_move',value)
            
+    def getHueMove(self):
+        return self.getStateValue("hue_move")
+
     def setColorTempMove(self,value):
         self.setStateValue('colortemp_move',value)
+
+    def getTransitionTime(self):
+        return self.getStateValue('transition_time')
+
+    def setCommand(self, name,value):
+        self.command = [name,value]
+        self.commandList = []
+        self.commandExpanded = False
+    
+    def getCommandName(self):
+        return self.command[0]
+
+    def getCommandValue(self):
+        return self.command[1]
+
+    def expandCommand(self,step):
+        transition_steps = self.getTransitionTime() / self.getCommandValue() 
+        transition_value = (self.getCommandValue() - self.getStateValue(self.getCommandName())) / transition_steps
+        
+        value = self.getStateValue(self.getCommandName())
+        while transition_steps >= 0:
+            self.commandList.append(value + transition_value )
+            transition_steps -= 1
+        self.commandExpanded = True
+
+    def enableHueMove(self, enable,value=0):
+        if enable:
+            self.hueMove = True
+            self.lastHSV = value
+        else:
+            self.hueMove = False
+            #self.setStateValue('Hue',self.lastHSV[0])
+
+    def enableBrightnessMove(self,enable):
+        if enable:
+            self.BrightnessMove = True
+            self.lastBrightness = self.getBrightness()
+        else:
+            self.BrightnessMove = False
+            self.setBrightness(self.lastBrightness)
+        
+
 
     def update(self, step):
         super().update(step)
         self.deltaTime += step
 
-        if self.deltaTime >= 1000:
-            self.deltaTime = 0
+        #check if command expanded
+        if self.command and self.commandExpanded is False:
+            self.expandCommand(step)
 
-            if self.getBrightnessMove() != 0:
-                #TODO brightnessValue of Webots light is in range 0-5 and move is in range 0-100
-                self.currentBrightness += self.getBrightnessMove() 
-                self.setLightBrightness(self.currentBrightness)
         
-            if self.getColorTempMove() !=0:
-                self.currentColorTemp = self.kelvin_to_mirred(self.getColorTemp()) + self.getColorTempMove()
-                self.setColorTemperature(self.currentColorTemp)
+        if len(self.commandList) != 0:
+            self.setStateValue(self.getCommandName(),self.commandList.pop(0))
+
+        if self.hueMove:
+            move = self.getHueMove()
+            
+            self.lastHSV[0] += move / 33
+            rgb = self.hsv_to_rgb(self.lastHSV[0],self.lastHSV[1],self.lastHSV[2])            
+            self.setLightColor(rgb)
+
+       
+        if self.BrightnessMove:
+            move = self.getBrightnessMove()
+            self.log(move)
+            self.log(self.lastBrightness)
+            self.lastBrightness += move / 90
+            if self.lastBrightness < 5: 
+                self.lastBrightness = 5
+                self.enableBrightnessMove(False)
+            if self.lastBrightness > 100:
+                self.lastBrightness = 100    
+                self.enableBrightnessMove(False)
         
+            self.setLightBrightness(self.lastBrightness)
+
+        # if self.getBrightnessMove() != 0:
+        #     self.currentBrightness += self.getBrightnessMove() 
+        #     self.setLightBrightness(self.currentBrightness)
+    
+        if self.getColorTempMove() !=0:
+            self.currentColorTemp = self.kelvin_to_mirred(self.getColorTemp()) + self.getColorTempMove()
+            self.setColorTemperature(self.currentColorTemp)
+    
     # message received
     def setState(self, name, value):    
-
+        self.enableHueMove(False)
+        self.enableBrightnessMove(False)
         match name:
             case "brightness_move":
                 self.setBrightnessMove(value)
                 if value != 0:
-                    self.currentBrightness = self.getBrightness()
-                else:
-                    self.log("updateBrightness: " + str(self.currentBrightness))
-                    self.setBrightness(self.currentBrightness)
+                    self.lastBrightness = self.getBrightness()
+                    self.enableBrightnessMove(True)
                 pass
             case "colortemp_move":
                 self.setColorTempMove(value)
                 if value == 0:
                     self.setColorTemperature(self.currentColorTemp)
             case "hue":
-                # self.setStop(value)
+                self.setStateValue(name,value)
                 pass
+            case "hue_move":
+                (r,g,b) = self.getLightColor()               
+                hsv =self.rgb_to_hsv(r,g,b)
+                (h,s,v) = hsv
+                rgb = self.hsv_to_rgb(h,s,v)
+
+                self.enableHueMove(True,hsv)
+                self.setStateValue(name,value)
+                
             case "saturation":
-                # self.setStop(value)
+                self.setStateValue(name,value)
                 pass      
             case "transition_time":
+                self.setStateValue("transition_time",value)
                 pass
             case "effect":
                 pass      
