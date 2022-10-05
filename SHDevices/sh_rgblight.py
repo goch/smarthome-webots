@@ -131,6 +131,7 @@ class SH_RGBLight(SHDevice):
     def setLightColor(self,rgb):
         self.fields['lcolor'].setSFColor(list(rgb))
         self.lastColor = rgb
+        self.log(self.lastColor)
 
     def setLightTemperature(self,kelvin):
         self.setLightColor(self.kelvin_to_rgb(kelvin))
@@ -219,7 +220,7 @@ class SH_RGBLight(SHDevice):
             case "on":
                 self.setStateValue('on', value)
                 if self.getStateValue('on'):
-                    self.setBrightness(self.getBrightness())
+                    self.setLightBrightness(self.getBrightness())
                 else:
                     self.setLightBrightness(0)
             case "brightness":
