@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<head>
+  <link href="../_base/css/base.css" rel="stylesheet" />
+  <script src="../_base/js/base.js"></script>
+  
+  <link href="style.css" rel="stylesheet"/>
+  
+  
+</head>
+
+<body>
+  <div id="content">
+    <h1 id="device_name">DeviceName</h1>
+    
+    <div id="state_list"></div>
+    
+    <div id="selectedColor"></div>
+
+    <div class="ColorPicker" id="boxPicker">
+    </div>  
+      
+    <div class="ColorPicker" id="brightnessPicker">
+    </div>
+
+    <div class="ColorPicker" id="kelvinPicker"> 
+    </div>
+
+
+    <p>powered by <a href="https://iro.js.org/">iro.js</a></p>
+
+    <div class="btn-group center">
+        <button type="button" onclick="rgbOn(true)"> ON </button>
+        <button type="button" onclick="rgbOn(false)"> OFF </button>
+    </div>
+
+    <select id="effect_box">
+      <option>stop_effect</option>
+      <option>okay</option>
+      <option>channel_change</option>
+      <option>blink</option>  
+      <option>breath</option>
+      <option>finish_effect</option>
+    </select>
+    
+    <h2>Log </h2>
+    <ul id="console"></ul>
+
+  </div>
+  
+  <script src="iro.min.js"></script>
+  <script src="hue_color_ambience_bulb.js"></script>
+</body>  
+
+</html>
+  
+  
+  
+
+  
+
+  
+</body>
+
+</html>

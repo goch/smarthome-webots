@@ -165,11 +165,15 @@ class SH_hue_color_ambience_bulb(SH_RGBLight):
             self.setLightTemperature(self.lastColorTemp)
     
     # message received
-    def setState(self, name, value):    
-        self.enableHueMove(False)
-        self.enableBrightnessMove(False)
-        self.enableColorTempMove(False)
+    def setState(self, name, value):
+        if self.colorTempMove: self.enableColorTempMove(False)
+        if self.hueMove: self.enableHueMove(False) 
+        if self.BrightnessMove: self.enableBrightnessMove(False)
+            
         match name:
+            case "brightness":
+                self.lastBrightness = value
+                super().setState(self.resolveRemap(name), value)
             case "brightness_move":
                 self.setBrightnessMove(value)
                 if value != 0:
@@ -201,6 +205,7 @@ class SH_hue_color_ambience_bulb(SH_RGBLight):
                 self.setStateValue("transition_time",value)
                 pass
             case "effect":
+                self.setStateValue("effect", value)
                 pass      
             case _:
                 self.log("resolve Remap for state: " + name)
