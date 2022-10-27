@@ -13,7 +13,7 @@ class SH_Template(SHDevice):
         # super().add_state(name='battery',value=99, description="Battery percent", min=0, max=100, unit='%')
 
         # add fields
-        #super().add_field('position',device.getField("pointLightColor"))
+        #super().add_field('position', self.device.getSelf().getField("pointLightColor"))
     
     # get Transform from Device
     def getTransform(self):
