@@ -1,0 +1,98 @@
+#VRML_SIM R2022a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# INSERT DESCRIPTION HERE
+# template language: javascript
+
+PROTO SH_Sprinkler [
+    field SFString      name "SH_Sprinkler"
+    field SFVec3f       translation 0 0 0
+    field SFRotation    rotation    0 1 0 0
+    field SFColor       color 1 1 1
+    unconnectedField SFBool  invertCone FALSE
+    unconnectedField SFFloat waterHeight 1.0
+    unconnectedField SFFloat waterRadius 1.0
+    unconnectedField SFFloat sprinklerFlow 1
+    unconnectedField SFFloat waterTransparency 0.7
+    hiddenField SFVec3f sprinklerPos 0 0 0.035
+    hiddenField SFVec3f waterScale 1 1 1
+    
+
+  ]
+{
+
+    %<
+
+    let coneRotation = 0;
+    let conePosition = 0;
+    if (fields.invertCone.value){
+        coneRotation = 3.14;
+        conePosition = fields.waterHeight.value + 0.05;
+    }
+
+    >%
+
+    Robot {
+    name IS name
+    scale IS scale
+    translation IS translation
+    rotation IS rotation
+    children [
+    Transform {
+      translation IS sprinklerPos
+      children [
+        Transform {
+          translation 0 0 -0.02
+          children [
+            Shape {
+              appearance PBRAppearance {
+                metalness 0
+                baseColor IS color
+              }
+              geometry Cylinder {
+                height 0.03
+                radius 0.02
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 %<= conePosition + -0.05 >%
+          rotation 0 1 0 %<= coneRotation >%
+          scale IS waterScale
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 1
+                transparency IS waterTransparency
+                metalness 0.2
+              }
+              geometry Mesh {
+                url [
+                  "/home/cgollok/bachelor_ws/smarthome_webots/protos/_GENERIC/meshes/sprinkler_water.dae"
+                ]
+              }
+            }
+          ]
+        }
+        Shape {
+          appearance PBRAppearance {
+            metalness 0
+            baseColor IS color
+          }
+          geometry Cylinder {
+            height 0.02
+            radius 0.03
+          }
+        }
+      ]
+    }
+    ]
+    controller "SH_SprinklerController"
+    window "sh_sprinkler_window"
+    supervisor TRUE
+
+    }
+
+
+}
