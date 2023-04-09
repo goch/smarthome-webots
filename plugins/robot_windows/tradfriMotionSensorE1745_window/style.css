@@ -1,0 +1,12 @@
+#console{
+    color: green;
+    background-color: black;
+}
+
+#state_list{
+    font-weight: bold;
+} 
+
+#motion_detected{
+    font-size: 72px;
+}

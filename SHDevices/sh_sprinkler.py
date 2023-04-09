@@ -11,7 +11,7 @@ class SH_Sprinkler(SHDevice):
 
         # add states
         super().add_state(name='hideSprinkler',value=True, description="Retract Sprinkler", min=None, max=None, unit=None)
-        super().add_state(name='waterFlow',value=0, description="Retract Sprinkler", min=0, max=1, unit='%')
+        super().add_state(name='waterFlow',value=0, description="Water Flow", min=0, max=100, unit='%')
 
         # add fields
         super().add_field('sprinklerFlow', self.device.getSelf().getField("sprinklerFlow"))
@@ -68,11 +68,16 @@ class SH_Sprinkler(SHDevice):
         self.log('HIDE ' + str(value))
         if value:
             self.setSprinklerPos(self.downPosition)
+            self.setWaterFlow(0.001)
         else:
             self.setSprinklerPos(self.upPosition)
         
 
+    
+
     def setWaterFlow(self, value):
+
+        value /= 100
         self.log('FLOW ' + str(value))
         self.log(self.fields["sprinklerFlow"].getSFFloat())
         self.fields["sprinklerFlow"].setSFFloat(value)
@@ -87,12 +92,12 @@ class SH_Sprinkler(SHDevice):
         match name:
             case "hideSprinkler":
                 self.hideSprinkler(value)
+                self.setStateValue(name, value)
                 pass
             case "waterFlow":
+                self.setStateValue(name, value)
                 if value == 0:
                     value = 0.001
-                    #self.setWaterTransparency(1.0)
-                
                 self.setWaterFlow(value)
                 pass
             case _:
