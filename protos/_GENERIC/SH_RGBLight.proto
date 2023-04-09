@@ -1,9 +1,8 @@
-#VRML_SIM R2022a utf8
+#VRML_SIM R2023a utf8
 # licence: MIT
 # license url: https://choosealicense.com/licenses/mit/
 # Smart Home RGB Pointlight
 # template language: javascript
-
 PROTO SH_RGBLight [
     field SFString      name "RGBLight"
     field SFVec3f       translation 0 0 2.3

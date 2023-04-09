@@ -1,9 +1,8 @@
-#VRML_SIM R2022a utf8
+#VRML_SIM R2023a utf8
 # licence: MIT
 # license url: https://choosealicense.com/licenses/mit/
 # Smart Home RGB Pointlight
 # template language: javascript
-
 PROTO hue_color_ambience_bulb [
     field SFString      name "HueBulb"
     field SFVec3f       translation 0 0 2.3
@@ -32,8 +31,6 @@ PROTO hue_color_ambience_bulb [
  console.log("HideMesh" + mesh_transparency + fields.hideMesh.value);
 
 >%
-
-
     Robot {
     name IS name
     translation IS translation
@@ -90,5 +87,4 @@ PROTO hue_color_ambience_bulb [
   window "hue_color_ambience_bulb_window"
 
     }
-
 }

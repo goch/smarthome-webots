@@ -1,8 +1,10 @@
-#VRML_SIM R2022a utf8
+#VRML_SIM R2023a utf8
 # licence: MIT
 # license url: https://choosealicense.com/licenses/mit/
 # Smart Home Wall Mounted Heating Thermostat
 # template language: javascript
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/geometries/protos/TexturedBox.proto"
 
 PROTO SH_WallHeatingThermostat [
     field SFString      name "WallHeatingThermostat"

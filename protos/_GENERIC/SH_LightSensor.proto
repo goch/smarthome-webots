@@ -1,9 +1,8 @@
-#VRML_SIM R2022a utf8
+#VRML_SIM R2023a utf8
 # licence: MIT
 # license url: https://choosealicense.com/licenses/mit/
 # Smart Home Light Sensor
 # template language: javascript
-
 PROTO SH_LightSensor [
     field SFString      name "LightSensor"
     field SFVec3f       translation 0 0 2.4

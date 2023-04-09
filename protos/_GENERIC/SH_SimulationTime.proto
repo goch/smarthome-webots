@@ -1,9 +1,8 @@
-#VRML_SIM R2022a utf8
+#VRML_SIM R2023a utf8
 # licence: MIT
 # license url: https://choosealicense.com/licenses/mit/
 # Publiushes Simulation Time to Smart Home Manager. ADD ONLY ONCE!
 # template language: javascript
-
 PROTO SH_SimulationTime [
     field SFString      name "SimTime"
     field SFVec3f       translation 0 0 1.5

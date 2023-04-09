@@ -1,9 +1,8 @@
-#VRML_SIM R2022a utf8
+#VRML_SIM R2023a utf8
 # licence: MIT
 # license url: https://choosealicense.com/licenses/mit/
 # IKEA TRADFRI Dimmer Switch E1734
 # template language: javascript
-
 PROTO IKEA_tradfri_dimmer_switch_E1734 [
     field SFString      name "IKEA_tradfri_dimmer_switch_E1734"
     field SFVec3f       translation 0 0 0

@@ -1,3 +1,9 @@
+import RobotWindow from 'https://cyberbotics.com/wwi/R2023a/RobotWindow.js';
+/* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+let onObjectMessage;
+let onStateMessage;
+let onResetMessage;
+
 let deviceName = null
 let states = {}
 
@@ -5,10 +11,14 @@ let debug_list = null;
 let state_list = null;
 let label_device_name = null;
 
+
+
   // Initialize the Webots window class in order to communicate with the robot.
 window.onload = function() {
     // log('HTML page loaded.');
-    window.robotWindow = webots.window();
+//    window.robotWindow = webots.window();
+    window.robotWindow = new RobotWindow();
+
     window.robotWindow.setTitle('Custom HTML robot window');
     window.robotWindow.receive = on_message;
 
@@ -19,21 +29,42 @@ window.onload = function() {
     sendText("---- WINDOW LOADED ----");
 };
 
+
+export function test(){
+  console.log("test");
+}
+
+export function register_OnObjectMessage(f){
+  onObjectMessage = f;
+}
+export function register_OnStateMessage(f){
+  onStateMessage = f;
+}
+export function register_OnResetMessage(f){
+  onResetMessage = f;
+}
+
+
+
 function initStates(dict){
   log("Initializing States:");
 
   window.robotWindow.setTitle(dict.name);
   label_device_name.innerHTML = dict.name;
-
   Object.entries(dict.data).forEach(entry => {
       const [name, state] = entry;
       states[name] = state
     });
 
-    showStates()
+    showStates()  
 }
 
-function setStateValue(name, value, send=true){
+export function setStateValue(name, value, send=true){
+  if (!(name  in states)){
+    log("Want to set State: "+name +" but state is not defined... yet");
+    return;
+  }
+
   name = resolveRemap(name)
   states[name].value = value;
   
@@ -43,14 +74,14 @@ function setStateValue(name, value, send=true){
   }
 }
 
-function getStateValue(name){
+export function getStateValue(name){
   return states[resolveRemap(name)].value
 }
 
 function resolveRemap(name){
-  if (states[name].remap != null){
-    return states[name].remap;
-  }else return name
+  if (states[name].remap === null){
+    return name;
+  }else return states[name].remap;
 }
 
 function on_message(message){
@@ -62,22 +93,23 @@ function on_message(message){
     switch (msg.type) {
       case 'object':
         initStates(msg);
-        on_ObjectMessage(msg)
+        onObjectMessage(msg);
         break;
       case 'state':
-        setStateValue(msg.data.name, msg.data.value, send=false)
-        showStates()
-        on_StateMessage(msg)
+        setStateValue(msg.data.name, msg.data.value, false);
+        showStates();
+        onStateMessage(msg);
         break;
       case 'reset':
-        log("RESET MESSAGE NOT YET IMPLEMENTED!")
-        on_ResetMessage(msg)
+        log("RESET MESSAGE NOT YET IMPLEMENTED!");
+        onResetMessage(msg);
         break;					
       default:
         break;
     }
   } catch (e) {
-    log("EXCEPTION:  " + e + " -> " + message)
+    log("EXCEPTION:  " + e.message + " -> " + message)
+    throw(e)
   }
 }
   
@@ -96,7 +128,7 @@ function log(message) {
  }
 
 function sendState(stateName, val){
-    msg = {property: stateName, value: val}
+    let msg = {property: stateName, value: val}
     window.robotWindow.send(JSON.stringify(msg))
 }
 
@@ -127,7 +159,7 @@ function showStates(){
       value_elem.style.width = '20%';
 
        var elem = null;
-       datatype = typeof(state.value)
+       var datatype = typeof(state.value)
       if (datatype == "boolean"){
         elem = createBooleanElement(name, state.value)
       }else if (datatype == "string") {
@@ -213,3 +245,4 @@ function createStateList(){
 }
 
 }
+

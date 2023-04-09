@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-
+<html>
 <head>
   <link href="../_base/css/base.css" rel="stylesheet" />
-  <script src="../_base/js/base.js"></script>
+  <!--<script type="module" src="../_base/js/base.js"></script> -->
   
   <link href="style.css" rel="stylesheet"/>  
 </head>
@@ -17,9 +17,9 @@
 
     <h2>Set Temperature</h2>
     <div class="fullwidth center">
-      <button class="input_btn" style="width:20%" onclick="incrementSetTemp(-0.1)">-</button> 
+      <button class="input_btn" style="width:20%" id="btn_reduceTemp">-</button> 
       <input class="temperature_input" type="text" id="input_setTemp" name="input_setTemp">
-      <button class="input_btn" style="width:20%" onclick="incrementSetTemp(0.1)">+</button> 
+      <button class="input_btn" style="width:20%" id="btn_increaseTemp">+</button> 
     </div>
 
     <h2>Log</h2>
@@ -27,6 +27,9 @@
 
   </div>
   
-  <script src="heatingthermostat.js"></script>
+  <script type="module" src="heatingthermostat.js"></script>
+ 
+
+  </script>
 </body>  
 </html>
