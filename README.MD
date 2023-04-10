@@ -92,23 +92,17 @@ python -m venv env
 source env/bin/activate
 ```
 
-### install IDE: visual studio code
-
-
-
-
-
-
-
-
-
-
-
+# Open Simulated Environment
 
 start webots
+
 File -> Open World 
 
-open worlds/home.wbt
+you can find demo worlds in this location:
+
+```bash
+C:\Users\<Username>\smarthome-webots\worlds\empty.wbt
+```
 
 
 
