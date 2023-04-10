@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 Download and install Python 3.10. On the first page, at the bottom, check "Add Python 3.10 to PATH!" and disable PATH limit.
 
-https://www.python.org/ftp/python/3.10.0/python-3.10.0-embed-amd64.zip
+https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe
 
 ### Download git for windows
 Download git for windows
