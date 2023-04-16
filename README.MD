@@ -2,6 +2,10 @@
 
 This project is a smart home simulation for the Webots simulator. It allows you to create a custom 3D environment and add smart home devices to it. You can then connect to smart home broker software such as iobroker. The project is also extendable to other frameworks such as ROS2 and Home Assistant.
 
+![rockinhome_extended](https://user-images.githubusercontent.com/8045402/232316547-a1e4c802-64c3-4f3e-a6aa-92e02e1ec717.png)
+
+<img src="https://user-images.githubusercontent.com/8045402/232316660-f1b7db59-1d59-4bb1-92b9-daf98bf6204b.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/8045402/232316669-a211f005-f55a-4aed-af1f-76450792da49.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/8045402/232316679-1bd36ef4-b8ad-4998-99c8-e2f28af8c8ef.png" width="30%"></img> 
+
 # Install
 
 ## Prerequisites
