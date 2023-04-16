@@ -4,38 +4,70 @@ This project is a smart home simulation for the Webots simulator. It allows you 
 
 # Install
 
+## Prerequisites
 
-## Linux
-
-- Webots 2023a
+- Webots 2023a -> https://github.com/cyberbotics/webots/releases/tag/R2023a
 - python 3.10
+- git
 
 
-### export Location to pythonpath
-
-```bash
-export WEBOTS_HOME=/usr/local/webots
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${WEBOTS_HOME}/lib/controller
-```
-
-### clone smarthome_webots repo
+## Ubuntu 22.04
 
 ```bash
+sudo apt install git python3.10-venv
 git clone https://github.com/goch/smarthome-webots.git
-```
-### add project path to pythonpath
-```bash
-export PYTHONPATH=$PYTHONPATH:$WEBOTS_HOME/lib/controller/python310:~/smarthome_webots
-```
-### Install requirements
-```bash
-pip install virtualenv
-python -m venv env
-
+cd smarthome-webots
+python3 -m venv env
+echo export PYTHONPATH=$PWD:$PYTHONPATH >> env/bin/activate
 source env/bin/activate
 pip install -r requirements.txt
-```
 
+webots worlds/home.wbt
+```
+<!-- ## Fedora 39
+```bash
+sudo dnf install git python python-pip
+git clone https://github.com/goch/smarthome-webots.git
+cd smarthome-webots
+pip install virtualenv
+python -m venv env
+echo export PYTHONPATH=$PWD:$PYTHONPATH >> env/bin/activate
+source env/bin/activate
+pip install -r requirements.txt
+
+webots worlds/home.wbt
+``` -->
+
+
+<!-- ## Arch
+
+```bash
+sudo pacman -S git python python-pip
+
+git clone https://github.com/goch/smarthome-webots.git
+cd smarthome-webots
+pip install virtualenv
+python -m venv env
+pip install -r requirements.txt
+echo export $PYTHONPATH:$PWD >> env/bin/activate
+source env/bin/activate
+
+webots worlds/home.wbt
+``` -->
+
+## Manjaro
+```bash
+sudo pacman -S git python python-pip
+git clone https://github.com/goch/smarthome-webots.git
+cd smarthome-webots
+pip install virtualenv
+python -m venv env
+echo export PYTHONPATH=$PWD:$PYTHONPATH >> env/bin/activate
+source env/bin/activate
+pip install -r requirements.txt
+
+webots worlds/home.wbt
+```
 ## Windows
 
 ### install python 3.10 
@@ -82,7 +114,7 @@ pip install -r requirements.txt
 
 
 
-## Optional
+
 
 ### install virtualenvironment
 ```bash
@@ -92,7 +124,8 @@ python -m venv env
 source env/bin/activate
 ```
 
-# Open Simulated Environment
+
+### Open simulated environment
 
 start webots
 
