@@ -1,6 +1,6 @@
 # Smart Home Simulation for Webots
 
-This project is a smart home simulation for the Webots simulator. It allows you to create a custom 3D environment and add smart home devices to it. You can then connect to smart home broker software such as iobroker. The project is also extendable to other frameworks such as ROS2 and Home Assistant.
+This project is a smart home simulation for the Webots simulator. It allows you to create a custom 3D environment and add smart home devices to it. You can then connect to smart home broker software such as iobroker. The project is also extendable to other frameworks such as ioBroker, ROS2 and Home Assistant.
 
 ![rockinhome_extended](https://user-images.githubusercontent.com/8045402/232316547-a1e4c802-64c3-4f3e-a6aa-92e02e1ec717.png)
 
@@ -114,19 +114,14 @@ install project requirements
 ```bash
 pip install -r requirements.txt
 ```
-
-
-
-
-
-
+<!-- 
 ### install virtualenvironment
 ```bash
 pip install virtualenv
 python -m venv env
 
 source env/bin/activate
-```
+``` -->
 
 
 ### Open simulated environment
@@ -140,6 +135,18 @@ you can find demo worlds in this location:
 ```bash
 C:\Users\<Username>\smarthome-webots\worlds\empty.wbt
 ```
+
+# Start Smarthome Webots
+
+```bash
+cd smarthome-webots
+source env/bin/activate
+
+webots worlds/home.wbt
+```
+
+# Install ioBroker extention
+A Plugin which enables communication with ioBroker can be found [here](https://github.com/goch/ioBroker.smarthome_webots)
 
 
 
