@@ -1,36 +1,44 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
-// const label_device_name = document.querySelector("#device_name");
+const btn_on = document.querySelector("#btn_on");
+const btn_off = document.querySelector("#btn_off");
+
+btn_on.onclick = (event) => {rgbOn(true)};
+btn_off.onclick = (event) => {rgbOn(false)};
 
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-    initUI();
+const onObjectMessage = (message) => {
+  init();
 }
-  
 // new state message received
-function on_StateMessage(message){
+const onStateMessage = (message) => {
+  updateUI();
+}
+// new reset message received
+const onResetMessage = (message) => {
+
+}
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
+
+//initialize WebUI
+function init(){
   updateUI();
 }
 
-// new reset message received
-function on_ResetMessage(message){
-  
-}
 
-//setup User Interface
-function initUI(){
-    
-    updateUI();
-}
 //update User Interface
 function updateUI(){
     
 }
 
 function rgbOn(state){
-    setStateValue('on', state);
+  base.setStateValue('on', state);
 }
 
 // Box & hue slider
@@ -100,14 +108,14 @@ var kelvinPicker = new iro.ColorPicker("#kelvinPicker", {
         // $('#v-value').html(parseInt(color.hsv.v));
         // $('#kelvin-value').html("-");
     
-        log("new Color: " + color.hexString + ' -> ', color.rgb.r + "," + color.rgb.g + "," + color.rgb.b )
+        base.log("new Color: " + color.hexString + ' -> ', color.rgb.r + "," + color.rgb.g + "," + color.rgb.b )
         
         //TODO send all data at once
         //setStateValue("r", color.rgb.r/255 );
         //setStateValue("g", color.rgb.g/255 );
         //setStateValue("b", color.rgb.b/255 );
         
-        setStateValue('color',color.hexString);
+        base.setStateValue('color',color.hexString);
         
         //setState(lampid+'.brightness',parseInt(color.hsv.v));
         //setState(lampid+'.color',color.hexString)
@@ -128,6 +136,6 @@ var kelvinPicker = new iro.ColorPicker("#kelvinPicker", {
         // $('#v-value').html(parseInt(color.hsv.v));
         // $('#kelvin-value').html(parseInt(color.kelvin));
         
-        log("Temperature: " + color.kelvin);
-        setStateValue('colortemp',color.kelvin);
+        base.log("Temperature: " + color.kelvin);
+        base.setStateValue('colortemp',color.kelvin);
     });

@@ -1,5 +1,6 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
 const console_list = document.querySelector("#console");
 const lbl_armed = document.querySelector("#lbl_armed");
@@ -8,33 +9,34 @@ const lbl_triggered = document.querySelector("#lbl_triggered");
 const lbl_brightness = document.querySelector("#lbl_brightness");
 
 //btn_on_default_color = btn_lamp.style.background
-triggered_default_color = lbl_triggered.style.background
+let triggered_default_color = lbl_triggered.style.background;
 
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-    initUI();
-
-}
-  
+const onObjectMessage = (message) => {
+  init();
+};
 // new state message received
-function on_StateMessage(message){
+const onStateMessage = (message) => {
   updateUI();
 }
-
 // new reset message received
-function on_ResetMessage(message){
-  
-}
+const onResetMessage = (message) => {
 
-//setup User Interface
-function initUI(){
-    updateUI();
+}
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
+
+//initialize WebUI
+function init(){
+  updateUI();
 }
 //update User Interface
 function updateUI(){
-  setlblArmed(getStateValue('armed'));
-  setlblTriggered(getStateValue('triggered'));
+  setlblArmed(base.getStateValue('armed'));
+  setlblTriggered(base.getStateValue('triggered'));
 }
 
 function setlblArmed(armed){
@@ -51,7 +53,7 @@ function setlblTriggered(triggered){
   if (triggered){
     lbl_triggered.innerHTML = "True";
 
-    if (getStateValue('on')){
+    if (base.getStateValue('on')){
       lbl_triggered.style.background = "red";
     }else{   
       lbl_triggered.style.background = triggered_default_color;
@@ -79,8 +81,8 @@ function setLabelBrightness(brightness){
 }
 
 lbl_armed.addEventListener ("click", function () {
-  setlblArmed( !getStateValue('armed')) 
-  setStateValue('armed', !getStateValue('armed') )
+  setlblArmed( !base.getStateValue('armed')) 
+  base.setStateValue('armed', !base.getStateValue('armed') )
 });
 
 // btn_lamp.addEventListener ("click", function () {

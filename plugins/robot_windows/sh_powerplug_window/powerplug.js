@@ -1,5 +1,6 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
 const lbl_currentPower = document.querySelector("#currentPowerConsumption");
 const lbl_state = document.querySelector("#label_state");
@@ -13,32 +14,40 @@ let default_btn_background = null;
 let default_btn_text = null;
 let state_on = false; 
 
+
+btn_switch.addEventListener('click', () => switchState());
+btn_reset.addEventListener('click', () => resetEnergyCounter());
+
+
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-    initUI();
-}
+const onObjectMessage = (message) => {
+    init();
+  }
+  // new state message received
+  const onStateMessage = (message) => {
+    updateUI();
+  }
+  // new reset message received
+  const onResetMessage = (message) => {
   
-// new state message received
-function on_StateMessage(message){
+  }
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
+
+//initialize WebUI
+function init(){
   updateUI();
 }
 
-// new reset message received
-function on_ResetMessage(message){
   
-}
-
-//setup User Interface
-function initUI(){
-    
-    updateUI();
-}
 //update User Interface
 function updateUI(){
-    setCurrentPower(getStateValue('currentPowerConsumption'));
-    setTotalPower(getStateValue('energyCounter'));
-    setState(getStateValue('on'));
+    setCurrentPower(base.getStateValue('currentPowerConsumption'));
+    setTotalPower(base.getStateValue('energyCounter'));
+    setState(base.getStateValue('on'));
 }
 
 
@@ -63,7 +72,7 @@ function setState(state){
     }
 }
 function switchState(){
-    setStateValue('on',!state_on)
+    base.setStateValue('on',!state_on)
 }
 
 function resetEnergyCounter(){
@@ -81,7 +90,7 @@ function resetEnergyCounter(){
         }, 3000);
         
     }else{
-        setStateValue('resetEnergyCounter',true);
+        base.setStateValue('resetEnergyCounter',true);
         btn_reset.style.background = "green";
         btn_reset.innerHTML = "RESET OK!";
     }

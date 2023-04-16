@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-
+<html>
 <head>
-  <link href="../_base/css/base.css" rel="stylesheet" />
-  <script src="../_base/js/base.js"></script>
-  
+  <link href="../_base/css/base.css" rel="stylesheet" />  
   <link href="style.css" rel="stylesheet"/>
-  
-  
 </head>
 
 <body>
@@ -16,15 +12,13 @@
     <div id="state_list"></div>
 
     <div class="btn-group">
-      <button style="width:50%" onmousedown="on_MouseDown('button1')" onmouseup="on_MouseUp('button1')">Button 1</button>
-      <button style="width:50%" onmousedown="on_MouseDown('button2')" onmouseup="on_MouseUp('button2')">Button 2</button>
+      <button style="width:50%" id="Button1">Button 1</button>
+      <button style="width:50%" id="Button2">Button 2</button>
     </div>
 
     <div class="fullwidth">
       SensorValues
     </div>
-
-    
 
     <p>
       The HTML file contains the page content.
@@ -47,7 +41,7 @@
 
   </div>
   
-  <script src="device.js"></script>
-</body>  
+  <script type="module"  src="device.js"></script>
 
+</body>  
 </html>

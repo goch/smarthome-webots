@@ -10,36 +10,33 @@ const button_increaseTemp = document.querySelector('#btn_increaseTemp');
 button_reduceTemp.addEventListener('click', () => incrementSetTemp(-0.1));
 button_increaseTemp.addEventListener('click', () => incrementSetTemp(0.1));
 
-
-
 let currentTemp = null;
 let setTemperature = null;
 
 // A message coming from the robot has been received.
 // new object message received
-const object_msg = function on_ObjectMessage(message){
-    initUI();
-}
+const onObjectMessage = (message) => {
+    init();
+};
   
-
 // new state message received
-const onStateMessage = function on_StateMessage(message){
+const onStateMessage = (message) => {
     updateUI();
-}
+};
 // new reset message received
-const onResetMessage = function on_ResetMessage(message){
+const onResetMessage = (message) => {
 
+};
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
+
+//initialize WebUI
+function init(){
+  updateUI();
 }
 
-base.register_OnObjectMessage(object_msg);
-base.register_OnStateMessage(onStateMessage);
-base.register_OnResetMessage(onResetMessage);
-
-//setup User Interface
-function initUI(){
-
-    updateUI();
-}
 
 //update User Interface
 function updateUI(){
@@ -49,18 +46,16 @@ function updateUI(){
     setInputText(setTemperature); 
 }
 
-
 input_setTemp.addEventListener ("change", function () {
-    log("value input changed");
+    base.log("value input changed");
     let temp = parseFloat(this.value);
     setInputText(this.value);
-    setStateValue('setTemperature', temp);
+    base.setStateValue('setTemperature', temp);
 });
 
 function setCurrentTemp(value){
     label_currentTemp.innerHTML = value + "°C";
 }
-
 
 function setInputText(value){
     input_setTemp.value = value + "°C";
@@ -70,6 +65,3 @@ function incrementSetTemp(value){
     base.setStateValue('setTemperature', parseFloat((setTemperature+value).toFixed(1)));
     setInputText((setTemperature+value).toFixed(1));
 }
-
-
-

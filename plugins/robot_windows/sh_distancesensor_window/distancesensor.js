@@ -1,39 +1,47 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
 const label_current_distance = document.querySelector("#currentDistance");
 const input_trigger_distance = document.querySelector("#input_triggerDistance");
 const label_triggered = document.querySelector("#label_triggered");
+const btn_decrease_trigger = document.querySelector("#btn_decrease_trigger");
+const btn_increase_trigger = document.querySelector("#btn_increase_trigger");
 
 let trigger_distance = -1.0
 
+btn_decrease_trigger.addEventListener('click', () => incrementTriggerDistance(-0.01));
+btn_increase_trigger.addEventListener('click', () => incrementTriggerDistance(0.01));
+
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-    initUI();
-}
-  
+const onObjectMessage = (message) => {
+    init();
+  }
   // new state message received
-  function on_StateMessage(message){
+  const onStateMessage = (message) => {
     updateUI();
-
-
   }
   // new reset message received
-  function on_ResetMessage(message){
+  const onResetMessage = (message) => {
   
   }
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
 
-//setup User Interface
-function initUI(){
-    
-    updateUI();
+//initialize WebUI
+function init(){
+  updateUI();
 }
+
+  
 //update User Interface
 function updateUI(){
-    setDistance(getStateValue('distance'));
-    setInputText(getStateValue('trigger_distance'));
-    setTriggered(getStateValue('triggered'));
+    setDistance(base.getStateValue('distance'));
+    setInputText(base.getStateValue('trigger_distance'));
+    setTriggered(base.getStateValue('triggered'));
 }
 
 function setTriggered(triggered){
@@ -55,6 +63,6 @@ function setInputText(value){
 }
 
 function incrementTriggerDistance(value){
-    setStateValue('trigger_distance', parseFloat((trigger_distance + value).toFixed(3)));
+    base.setStateValue('trigger_distance', parseFloat((trigger_distance + value).toFixed(3)));
     setInputText(trigger_distance + value);
 }

@@ -1,5 +1,6 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
 // Initialize the robot window
 let last_pressed = -1;
@@ -9,23 +10,31 @@ let timeout = null;
 let multipress_count = 0;
 let buttons_generated = false;
 
+const btnlist = document.querySelector("#buttonlist");
+
+
 
 // new object message received
-function on_ObjectMessage(message){
-  initUI(message.data);
+const onObjectMessage = (message) => {
+  init(message.data);
 }
 
 // new state message received
-function on_StateMessage(message){
+const onStateMessage = (message) => {
   updateUI();
 }
 // new reset message received
-function on_ResetMessage(message){
+const onResetMessage = (message) => {
 
 }
 
-//setup User Interface
-function initUI(data){
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
+
+//initialize WebUI
+function init(data){
   generateButtons(data);  
   updateUI();
 }
@@ -37,8 +46,7 @@ function updateUI(){
 function generateButtons(dict){
   if (buttons_generated) return;
 
-  log("Generating Buttons");
-  let btnlist = document.getElementById('buttonlist');
+  base.log("Generating Buttons");
   let last_name = "";
   let btn_count = Object.keys(dict).length
   Object.entries(dict).forEach(entry => {
@@ -76,8 +84,8 @@ function on_MouseUp(button){
     if ( time_since_press >= long_pressed_duration){
         name = button +"_pressed_long";
         multipress_count = 0;
-        log(name);
-        setStateValue(name,true);
+        base.log(name);
+        base.setStateValue(name,true);
         reset_button(name,200);
     
     }else if (timeout == null){
@@ -90,8 +98,8 @@ function on_MouseUp(button){
             name = button +"_pressed_short"; 
           }
 
-          log(name);
-          setStateValue(name,true);
+          base.log(name);
+          base.setStateValue(name,true);
           reset_button(name,200);
 
           timeout = null;
@@ -105,6 +113,6 @@ function on_MouseUp(button){
 
 function reset_button(name,duration){
     setTimeout(() => {
-      setStateValue(name, false)
+      base.setStateValue(name, false)
     }, duration);
 }

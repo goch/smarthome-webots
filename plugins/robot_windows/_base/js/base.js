@@ -34,6 +34,13 @@ export function test(){
   console.log("test");
 }
 
+export function subscribe(type, f){
+if (type === "object") onObjectMessage = f;
+if (type === "state") onStateMessage = f;
+if (type === "reset") onResetMessage = f;
+
+}
+
 export function register_OnObjectMessage(f){
   onObjectMessage = f;
 }
@@ -108,12 +115,14 @@ function on_message(message){
         break;
     }
   } catch (e) {
+    
     log("EXCEPTION:  " + e.message + " -> " + message)
     throw(e)
+    
   }
 }
   
-function log(message) {
+export function log(message) {
     var console = document.getElementById('console');
     var li = document.createElement('li');
     li.appendChild(document.createTextNode(message));
@@ -183,7 +192,7 @@ function createStringElement(name, value){
       //input.setAttribute('maxlength','3');
       //input.setAttribute('size','10');
       input.setAttribute('value', value);
-      input.setAttribute('onchange','setStateValue("'+ name +'", this.value)');
+      input.onchange = (event) => {setStateValue( name, event.target.value)};
   return input;
 }
 
@@ -193,7 +202,7 @@ function createNumberElement(name, value){
       input.setAttribute('maxlength','3');
       input.setAttribute('size','3');
       input.setAttribute('value', value);
-      input.setAttribute('onchange','setStateValue("'+ name +'", +(this.value))');
+      input.onchange = (event) => {setStateValue( name, Number(event.target.value))};
   return input;
 }
 
@@ -203,7 +212,8 @@ function createBooleanElement(name, value){
 
       var input = document.createElement('input');
       input.setAttribute('type','checkbox');
-      input.setAttribute('onchange','setStateValue("'+ name +'", this.checked)');
+      
+      input.onchange = (event) => {setStateValue( name, event.target.checked)};
       if (value) input.setAttribute('checked','');
 
       var checkbox = document.createElement('span');

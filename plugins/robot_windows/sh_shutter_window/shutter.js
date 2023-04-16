@@ -1,6 +1,6 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
-
+import * as base from "../_base/js/base.js"
 
 const slider = document.querySelector("#shutter_slider");
 const slider_output = document.querySelector("#shutter_position");
@@ -14,57 +14,58 @@ const btn_stop = document.querySelector('#btn_stop');
 
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-  initUI();
+const onObjectMessage = (message) => {
+  init();
 }
-
 // new state message received
-function on_StateMessage(message){
-updateUI();
+const onStateMessage = (message) => {
+  updateUI();
 }
-
 // new reset message received
-function on_ResetMessage(message){
+const onResetMessage = (message) => {
 
 }
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
 
-//setup User Interface
-function initUI(){
-  
+//initialize WebUI
+function init(){
   updateUI();
 }
 
 //update User Interface
 function updateUI(){
-  setSlider( to_percent( getStateValue('setPosition')));
-  setProgressBar( to_percent(getStateValue('currentPosition')));
+  setSlider( to_percent( base.getStateValue('setPosition')));
+  setProgressBar( to_percent(base.getStateValue('currentPosition')));
 }
 
 slider.addEventListener ("change", function () {
-  log("changeEvent triggered -> " + this.value);
+  base.log("changeEvent triggered -> " + this.value);
   setSlider(this.value);
-  setStateValue('setPosition', to_motor(this.value));
+  base.setStateValue('setPosition', to_motor(this.value));
 });
 
 
 btn_up.addEventListener ("click", function () {
-  setStateValue('up',true);
+  base.setStateValue('up',true);
 });
 
 btn_down.addEventListener ("click", function () {
-  setStateValue('down',true);
+  base.setStateValue('down',true);
 });
 
 btn_stop.addEventListener ("click", function () {
-  setStateValue('stop',true);
+  base.setStateValue('stop',true);
 });
 
 btn_open.addEventListener ("click", function () {
-  sendText('WINDOW_OPEN');
+  base.sendText('WINDOW_OPEN');
 });
 
 btn_close.addEventListener ("click", function () {
-  sendText('WINDOW_CLOSED');
+  base.sendText('WINDOW_CLOSED');
 });
 
   function setSlider(value){

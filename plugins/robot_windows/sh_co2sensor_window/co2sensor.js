@@ -1,32 +1,37 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
 const label_air_quality = document.querySelector("#label_airQuality");
 const label_co2_concentration = document.querySelector("#label_CO2Concentration");
 
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-    initUI();
-}
+const onObjectMessage = (message) => {
+    init();
+  }
   // new state message received
-  function on_StateMessage(message){
+  const onStateMessage = (message) => {
     updateUI();
   }
   // new reset message received
-  function on_ResetMessage(message){
+  const onResetMessage = (message) => {
   
   }
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
 
-//setup User Interface
-function initUI(){
-    
-    updateUI();
+//initialize WebUI
+function init(){
+  updateUI();
 }
+
 //update User Interface
 function updateUI(){
-    setAirQuality(getStateValue('air_quality'));
-    setCO2Concentration(getStateValue('co2_concentration'));    
+    setAirQuality(base.getStateValue('air_quality'));
+    setCO2Concentration(base.getStateValue('co2_concentration'));    
 }
 
 function setCO2Concentration(value){

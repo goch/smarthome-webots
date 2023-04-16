@@ -5,25 +5,27 @@
 
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-    initUI();
+const onObjectMessage = (message) => {
+  init();
 }
-  
 // new state message received
-function on_StateMessage(message){
+const onStateMessage = (message) => {
+  updateUI();
+}
+// new reset message received
+const onResetMessage = (message) => {
+
+}
+//register callbacks for incoming messages
+base.register("object", onObjectMessage);
+base.register("state", onStateMessage);
+base.register("reset", onResetMessage);
+
+//initialize WebUI
+function init(){
   updateUI();
 }
 
-// new reset message received
-function on_ResetMessage(message){
-  
-}
-
-//setup User Interface
-function initUI(){
-    
-    updateUI();
-}
 //update User Interface
 function updateUI(){
     

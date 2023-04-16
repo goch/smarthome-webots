@@ -2,11 +2,7 @@
 
 <head>
   <link href="../_base/css/base.css" rel="stylesheet" />
-  <script src="../_base/js/base.js"></script>
-  
-  <link href="style.css" rel="stylesheet"/>
-  
-  
+    <link href="style.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -30,8 +26,8 @@
     <p>powered by <a href="https://iro.js.org/">iro.js</a></p>
 
     <div class="btn-group center">
-        <button type="button" onclick="rgbOn(true)"> ON </button>
-        <button type="button" onclick="rgbOn(false)"> OFF </button>
+        <button type="button" id="btn_on"> ON </button>
+        <button type="button" id="btn_off"> OFF </button>
     </div>
 
     <select id="effect_box">
@@ -49,7 +45,7 @@
   </div>
   
   <script src="iro.min.js"></script>
-  <script src="hue_color_ambience_bulb.js"></script>
+  <script type="module" src="hue_color_ambience_bulb.js"></script>
 </body>  
 
 </html>

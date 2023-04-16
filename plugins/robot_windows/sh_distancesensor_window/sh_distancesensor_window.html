@@ -2,8 +2,6 @@
 
 <head>
   <link href="../_base/css/base.css" rel="stylesheet" />
-  <script src="../_base/js/base.js"></script>
-  
   <link href="style.css" rel="stylesheet"/>
   
   
@@ -23,9 +21,9 @@
 
     <h2> Trigger Distance</h2>
     <div class="fullwidth center">
-      <button class="input_btn" style="width:20%" onclick="incrementTriggerDistance(-0.01)">-</button> 
+      <button class="input_btn" id="btn_decrease_trigger" style="width:20%">-</button> 
       <input type="text" id="input_triggerDistance" name="input_setTemp">
-      <button class="input_btn" style="width:20%" onclick="incrementTriggerDistance(0.01)">+</button> 
+      <button class="input_btn" id="btn_increase_trigger" style="width:20%">-</button> 
     </div>
 
 
@@ -35,7 +33,7 @@
 
   </div>
   
-  <script src="distancesensor.js"></script>
+  <script type="modules" src="distancesensor.js"></script>
 </body>  
 
 </html>

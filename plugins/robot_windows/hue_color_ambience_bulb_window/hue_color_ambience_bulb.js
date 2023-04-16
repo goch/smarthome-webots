@@ -1,29 +1,66 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
  const effectBox = document.querySelector("#effect_box");
+ const btn_on = document.querySelector("#btn_on");
+ const btn_off = document.querySelector("#btn_off");
+
+ btn_on.onclick = (event) => {rgbOn(true)};
+ btn_off.onclick = (event) => {rgbOn(false)};
+
  let lastcolor = "#FFFFFF"
  let timeout = null;
+ let initialized = false
 
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-  initUI();
+const onObjectMessage = (message) => {
+  init();
 }
-
 // new state message received
-function on_StateMessage(message){
-updateUI();
+const onStateMessage = (message) => {
+  updateUI();
 }
-
 // new reset message received
-function on_ResetMessage(message){
+const onResetMessage = (message) => {
 
 }
+//register callbacks for incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
 
-//setup User Interface
-function initUI(){
-  
+//initialize WebUI
+function init(){
+
+  effectBox.onchange = function() {effectChange(effectBox.value)};
+
+  boxPicker.on('color:change', function(color) {
+    if (!limitcall(250))
+      return;
+
+    base.log("new Color: " + color.hexString + ' -> ', color.rgb.r + "," + color.rgb.g + "," + color.rgb.b )
+    base.setStateValue('color',color.hexString);
+  });
+
+  kelvinPicker.on('color:change', function(color) {
+    if (!limitcall(250))
+      return;
+
+    base.log("Temperature: " + color.kelvin);
+    base.setStateValue('colortemp',color.kelvin);
+});
+
+
+brightnessPicker.on('color:change', function(color) {
+  if (!limitcall(250))
+    return;
+
+  base.log("Brightness: " + color.value);
+  base.setStateValue('brightness',color.value);
+});
+
   updateUI();
 }
 //update User Interface
@@ -32,18 +69,16 @@ function updateUI(){
 }
 
 function rgbOn(state){
-  setStateValue('on', state);
+  base.setStateValue('on', state);
 }
-
-effectBox.onchange = function() {effectChange(effectBox.value)};
 
 function effectChange(data){
 
   switch (data) {
     case "okay":
-      setStateValue('effect', "okay")
-      this.lastcolor = this.getStateValue('color');
-      this.setStateValue('color', "#00ff00")
+      base.setStateValue('effect', "okay")
+      this.lastcolor = base.getStateValue('color');
+      base.setStateValue('color', "#00ff00")
       
       this.timeout = setTimeout(okay, 5000);
       break;
@@ -54,15 +89,15 @@ function effectChange(data){
       //setStateValue('effect', "breath");
       break;
     case "finish_effect":
-      setStateValue('effect', "finish_effect");
+      base.setStateValue('effect', "finish_effect");
       break;
     case "stop_effect":
-      setStateValue('effect', "stop_effect");
+      base.setStateValue('effect', "stop_effect");
       break;
     case "channel_change":
-      setStateValue('effect', "channel_change");
-      this.lastcolor = this.getStateValue('color');
-      this.setStateValue('color', "#ff9900");
+      base.setStateValue('effect', "channel_change");
+      this.lastcolor = base.getStateValue('color');
+      base.setStateValue('color', "#ff9900");
       this.timeout = setTimeout(channel_change, 8500);
 
       break;
@@ -75,18 +110,18 @@ function effectChange(data){
 }
 function okay(){
   clearTimeout(this.timeout);
-  this.setStateValue('color', this.lastcolor)
+  base.setStateValue('color', this.lastcolor)
 }
 
 function channel_change(){
   clearTimeout(this.timeout);
-  this.setStateValue('color', this.lastcolor)
+  base.setStateValue('color', this.lastcolor)
 }
 
 
 function breath(){
   clearTimeout(this.timeout);
-  this.setStateValue('color', this.lastcolor)
+  base.setStateValue('color', this.lastcolor)
 }
 
 // Box & hue slider
@@ -173,34 +208,3 @@ var kelvinPicker = new iro.ColorPicker("#kelvinPicker", {
   
   }
   
-    boxPicker.on('color:change', function(color) {
-      if (!limitcall(250))
-        return;
-
-  
-      log("new Color: " + color.hexString + ' -> ', color.rgb.r + "," + color.rgb.g + "," + color.rgb.b )
-
-      setStateValue('color',color.hexString);
-      
-
-      
-    });
-  
-    kelvinPicker.on('color:change', function(color) {
-      if (!limitcall(250))
-        return;
-
-      
-      log("Temperature: " + color.kelvin);
-      setStateValue('colortemp',color.kelvin);
-  });
-
-
-  brightnessPicker.on('color:change', function(color) {
-    if (!limitcall(250))
-      return;
-
-    
-    log("Brightness: " + color.value);
-    setStateValue('brightness',color.value);
-});

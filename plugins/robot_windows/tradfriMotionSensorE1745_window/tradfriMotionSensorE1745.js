@@ -1,32 +1,38 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
 const label_motion_detected = document.querySelector("#motion_detected");
 
 // A message coming from the robot has been received.
 // new object message received
-function on_ObjectMessage(message){
-    initUI();
-}
+const onObjectMessage = (message) => {
+    init();
+  }
+  // new state message received
+  const onStateMessage = (message) => {
+    updateUI();
+  }
+  // new reset message received
+  const onResetMessage = (message) => {
   
-// new state message received
-function on_StateMessage(message){
+  }
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
+
+
+//initialize WebUI
+function init(){
   updateUI();
 }
 
-// new reset message received
-function on_ResetMessage(message){
   
-}
 
-//setup User Interface
-function initUI(){
-    
-    updateUI();
-}
 //update User Interface
 function updateUI(){
-    setMotionDetected(getStateValue('motion_detected'));  
+    setMotionDetected(base.getStateValue('motion_detected'));  
 }
 
 function setMotionDetected(motion_detected){

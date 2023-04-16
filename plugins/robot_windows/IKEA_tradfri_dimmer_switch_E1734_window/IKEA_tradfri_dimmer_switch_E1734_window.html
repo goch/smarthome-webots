@@ -2,11 +2,7 @@
 
 <head>
   <link href="../_base/css/base.css" rel="stylesheet" />
-  <script src="../_base/js/base.js"></script>
-  
   <link href="style.css" rel="stylesheet"/>
-  
-  
 </head>
 
 <body>
@@ -15,8 +11,8 @@
     
     <ul id="state_list"></ul>
     <div class="btn-group">
-      <button style="width:50%" onmousedown="on_MouseDown('up_button')" onmouseup="on_MouseUp('up_button')">I</button>
-      <button style="width:50%" onmousedown="on_MouseDown('down_button')" onmouseup="on_MouseUp('down_button')">O</button>
+      <button style="width:50%" id="btn_on">I</button>
+      <button style="width:50%" id="btn_off">O</button>
     </div>
 
     <h2>Sample Log Element</h2>
@@ -25,7 +21,7 @@
 
   </div>
   
-  <script src="IKEA_tradfri_dimmer_switch.js"></script>
+  <script type="module" src="IKEA_tradfri_dimmer_switch.js"></script>
 </body>  
 
 </html>

@@ -2,11 +2,7 @@
 
 <head>
   <link href="../_base/css/base.css" rel="stylesheet" />
-  <script src="../_base/js/base.js"></script>
-  
-  <link href="style.css" rel="stylesheet"/>
-  
-  
+  <link href="style.css" rel="stylesheet"/> 
 </head>
 
 <body>
@@ -24,8 +20,8 @@
     </div>
 
     <div class="btn-group center">
-        <button type="button" onclick="rgbOn(true)"> ON </button>
-        <button type="button" onclick="rgbOn(false)"> OFF </button>
+      <button type="button" id="btn_on"> ON </button>
+      <button type="button" id="btn_off"> OFF </button>
     </div>
     
     <h2>Log </h2>
@@ -34,7 +30,7 @@
   </div>
   
   <script src="iro.min.js"></script>
-  <script src="rgblight.js"></script>
+  <script type="module" src="rgblight.js"></script>
 </body>  
 
 </html>
