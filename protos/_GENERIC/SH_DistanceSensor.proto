@@ -7,8 +7,13 @@ PROTO SH_DistanceSensor [
     field SFString      name "DistanceSensor"
     field SFVec3f       translation 0 0 2.02
     field SFRotation    rotation    1 0 0 3.14159
+    field SFFloat resolution 0.0036
+    unconnectedField SFFloat noise 0.005
     unconnectedField SFFloat triggerDistance  0.1
     unconnectedField SFFloat detectionDistance 2.0
+    
+    
+
   ]
 {
     Robot {
@@ -37,11 +42,14 @@ PROTO SH_DistanceSensor [
         DistanceSensor {
           translation 0 0 0.02
           rotation 0 1 0 -1.5707996938995747
+          type "laser"
+          aperture 0.002
           lookupTable [
-            0 0 0
-            0.1 0.1 0
-            %<= fields.detectionDistance.value >% %<=fields.detectionDistance.value>% 0 
+            0 0 %<=fields.noise.value>% 
+            0.1 0.1 %<=fields.noise.value>% 
+            %<= fields.detectionDistance.value >% %<=fields.detectionDistance.value>% %<=fields.noise.value>% 
           ]
+          resolution IS resolution
         }
       ]
     }
