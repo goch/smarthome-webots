@@ -12,11 +12,11 @@ let long_pressed_duration = 500;
 let timeout = null;
 
 
-btn_on.addEventListener('mousedown', () => on_MouseDown('up_button'));
-btn_on.addEventListener('mouseup', () => on_MouseUp('up_button'));
+btn_on.onmousedown = (event) => {on_MouseDown('up_button')};
+btn_on.onmouseup = (event) => {on_MouseUp('up_button')};
 
-btn_off.addEventListener('mousedown', () => on_MouseDown('down_button'));
-btn_off.addEventListener('mouseup', () => on_MouseUp('down_button'));
+btn_off.onmousedown = (event) => {on_MouseDown('down_button')};
+btn_off.onmouseup = (event) => {on_MouseUp('down_button')};
 
 
 
@@ -32,11 +32,12 @@ const onStateMessage = (message) => {
 // new reset message received
 const onResetMessage = (message) => {
 
+}
 //subscribe to incoming messages
 base.subscribe("object", onObjectMessage);
 base.subscribe("state", onStateMessage);
 base.subscribe("reset", onResetMessage);
-}
+
 //initialize WebUI
 function init(){  
     updateUI();
@@ -47,11 +48,10 @@ function updateUI(){
 }
 
 function on_MouseDown(button){
-  
 timeout = setTimeout (() =>{
-    log(button +" pressed long");
+    base.log(button +" pressed long");
     pressed_long = true
-    setStateValue(button,true);
+    base.setStateValue(button,true);
   },long_pressed_duration);
 }
 
@@ -61,15 +61,15 @@ function on_MouseUp(button){
   // button pressed long
   if (pressed_long){
     pressed_long = false;
-    setStateValue(button,false);
+    base.setStateValue(button,false);
   }
   // button pressed short
   else{
-    log(button + " pressed short");
+    base.log(button + " pressed short");
     if (button == 'up_button')
-      setStateValue('state',true);
+      base.setStateValue('state',true);
     else{
-      setStateValue('state',false)
+      base.setStateValue('state',false)
     }
     
   }
