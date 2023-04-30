@@ -58,8 +58,9 @@ function generateButtons(dict){
     } 
 
     var btn = document.createElement('button');
-    btn.setAttribute("onmousedown", 'on_MouseDown("'+ name +'")');
-    btn.setAttribute("onmouseup", 'on_MouseUp("'+ name +'")');
+    btn.name = name
+    btn.onmousedown = (event) => {on_MouseDown(event.target.name)};
+    btn.onmouseup = (event) => {on_MouseUp(event.target.name)};
     btn.style.width = 100/btn_count +"%";
     btn.innerHTML = name;
     last_name = name;
@@ -76,7 +77,7 @@ function on_MouseDown(button){
 }
 
 function on_MouseUp(button){
-    current_pressed = new Date().getTime();
+  let  current_pressed = new Date().getTime();
     multipress_count++;
 
     let time_since_press = current_pressed - last_pressed;
