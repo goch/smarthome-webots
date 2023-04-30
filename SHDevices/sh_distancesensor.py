@@ -42,7 +42,6 @@ class SH_DistanceSensor(SHDevice):
 
     def updateCurrentDistance(self):
         distance = self.sensor.getValue()
-        self.log(distance)
         if self.getDistance() != distance:
             self.setDistance(distance)
         
