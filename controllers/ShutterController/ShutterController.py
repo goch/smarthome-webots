@@ -26,11 +26,13 @@ def closed(ws, close_status_code, close_msg):
 
 def web_message_cb(message):
     global shutter
-    if message =="WINDOW_OPEN":
+    shutter.log(message)
+    if message == 'WINDOW_OPEN':
         shutter.emitt(True)
-    elif message =="WINDOW_CLOSED":
+    elif message == 'WINDOW_CLOSED':
         shutter.emitt(False)
     else:
+        shutter.log("GOT MESSAGE")
         message_cb(None, message)
 
 

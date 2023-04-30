@@ -141,7 +141,7 @@ function sendState(stateName, val){
     window.robotWindow.send(JSON.stringify(msg))
 }
 
-function sendText(data){
+export function sendText(data){
   window.robotWindow.send(data);
 }
 

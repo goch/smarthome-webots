@@ -141,6 +141,8 @@ class SHDevice(object):
                 data = json.loads(msg)
             except Exception as e:
                 self.log("NOT JSON: " + str(e))
+                callback(msg)
+                return
                 
             callback(data)
                 

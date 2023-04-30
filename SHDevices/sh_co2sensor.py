@@ -8,7 +8,7 @@ class SH_CO2Sensor(SHDevice):
 
         self.deltaTime = 0
 
-        self.sensor_range = 3
+        self.sensor_range = 3.3
         self.threshholds = device.getSelf().getField('threshholds').getSFVec3f()
         self.window_open_count = 0
         # add Devices
@@ -27,6 +27,7 @@ class SH_CO2Sensor(SHDevice):
         return self.device.getSelf().getField("translation").getSFVec3f()
 
     def getDistance(self,x1,y1,x2,y2):
+        # self.log(str(sqrt( pow((x1 - x2),2) + pow((y1 - y2),2))))
         return sqrt( pow((x1 - x2),2) + pow((y1 - y2),2))
 
 
@@ -63,16 +64,12 @@ class SH_CO2Sensor(SHDevice):
 
             # check if WINDOW send OPEN/CLOSE
             if self.receiver.getQueueLength() > 0:
-                msg = self.receiver.getData()
-                data = struct.unpack("?ddd",msg)
-                # sh_device.log(str(data))
-            
+                msg = self.receiver.getFloats()
                 sensor_pos = self.getTransform()
                 
                 # check if window is open
-                if self.getDistance(sensor_pos[0],sensor_pos[1],data[1],data[2]) < sh_device.sensor_range:
-                    self.log(str(data[0]))
-                    if data[0] == True:  
+                if self.getDistance(sensor_pos[0],sensor_pos[1],msg[1],msg[2]) < self.sensor_range:
+                    if bool(msg[0]) == True:
                         self.window_open_count +=1
                     elif self.window_open_count > 0:
                         self.window_open_count -=1
