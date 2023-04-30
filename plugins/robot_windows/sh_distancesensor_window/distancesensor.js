@@ -1,5 +1,6 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+console.log("Loading");
 import * as base from "../_base/js/base.js"
 
 const label_current_distance = document.querySelector("#currentDistance");
@@ -13,9 +14,12 @@ let trigger_distance = -1.0
 btn_decrease_trigger.addEventListener('click', () => incrementTriggerDistance(-0.01));
 btn_increase_trigger.addEventListener('click', () => incrementTriggerDistance(0.01));
 
+
+
 // A message coming from the robot has been received.
 // new object message received
 const onObjectMessage = (message) => {
+console.log("receivedObject")
     init();
   }
   // new state message received
