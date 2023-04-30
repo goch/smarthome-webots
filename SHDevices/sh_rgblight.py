@@ -12,11 +12,11 @@ class SH_RGBLight(SHDevice):
 
         super().add_state('color' ,value='#FFFFFF', description="Color as HEXString")
         super().add_state('colortemp' ,value='2000', description="Colortemperature in Kelvin", min=1, max=7000, unit='K')
-        super().add_state('r',1)
-        super().add_state('g',1)
-        super().add_state('b',1)
-        super().add_state('brightness',value=5, min=0, max=self.fields['maxBrightness'].getSFFloat())
-        super().add_state('on',False)
+        super().add_state('r',value=1, description="Red Intensity", min=0.0, max=1.0)
+        super().add_state('g',value=1, description="Green Intensity", min=0.0, max=1.0)
+        super().add_state('b',value=1, description="Blue Intensity", min=0.0, max=1.0)
+        super().add_state('brightness',value=5, description="Webots Brightness Value", min=0, max=self.fields['maxBrightness'].getSFFloat())
+        super().add_state('on',value=False, description="ON/OFF")
 
         self.lastColor = self.getLightColor()
         self.meshColor = self.fields['lcolor'].getSFColor()
