@@ -77,10 +77,10 @@ function effectChange(data){
   switch (data) {
     case "okay":
       base.setStateValue('effect', "okay")
-      this.lastcolor = base.getStateValue('color');
+      lastcolor = base.getStateValue('color');
       base.setStateValue('color', "#00ff00")
       
-      this.timeout = setTimeout(okay, 5000);
+      timeout = setTimeout(okay, 5000);
       break;
     case "blink":
       //setStateValue('effect', "blink");
@@ -96,9 +96,9 @@ function effectChange(data){
       break;
     case "channel_change":
       base.setStateValue('effect', "channel_change");
-      this.lastcolor = base.getStateValue('color');
+      lastcolor = base.getStateValue('color');
       base.setStateValue('color', "#ff9900");
-      this.timeout = setTimeout(channel_change, 8500);
+      timeout = setTimeout(channel_change, 8500);
 
       break;
       
@@ -109,19 +109,19 @@ function effectChange(data){
   }
 }
 function okay(){
-  clearTimeout(this.timeout);
-  base.setStateValue('color', this.lastcolor)
+  clearTimeout(timeout);
+  base.setStateValue('color', lastcolor)
 }
 
 function channel_change(){
-  clearTimeout(this.timeout);
-  base.setStateValue('color', this.lastcolor)
+  clearTimeout(timeout);
+  base.setStateValue('color', lastcolor)
 }
 
 
 function breath(){
-  clearTimeout(this.timeout);
-  base.setStateValue('color', this.lastcolor)
+  clearTimeout(timeout);
+  base.setStateValue('color', lastcolor)
 }
 
 // Box & hue slider
