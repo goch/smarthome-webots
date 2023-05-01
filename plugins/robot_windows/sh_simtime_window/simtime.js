@@ -1,5 +1,6 @@
 /* global webots */
 /* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
 
 //const label_device_name = document.querySelector("#device_name");
 
@@ -17,9 +18,9 @@ const onResetMessage = (message) => {
 
 }
 //register callbacks for incoming messages
-base.register("object", onObjectMessage);
-base.register("state", onStateMessage);
-base.register("reset", onResetMessage);
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
 
 //initialize WebUI
 function init(){

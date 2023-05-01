@@ -18,12 +18,10 @@ class SH_SimTime(SHDevice):
         self.minute_step = 2 * pi / 60
         self.hour_step = 2 * pi / 12
 
-
-
         # add states
-        super().add_state('timestamp',0)
-        super().add_state('hour',hour + minute / 60 + second / 3600)
-        super().add_state('minute',minute + second / 60)
+        super().add_state('timestamp',0.0)
+        super().add_state('hour',hour)
+        super().add_state('minute',minute)
         super().add_state('second',second)
 
         # add fields
@@ -32,11 +30,10 @@ class SH_SimTime(SHDevice):
 
 
     def setTimeStamp(self,value):
-        self.states['timestamp'] = value
+        self.setStateValue('timestamp', value)
         pass
 
     def updateTimeStamp(self):
-
         today = datetime.today()
         simtime = today.replace(hour=int(self.getHour()), minute=int(self.getMinute()), second=int(self.getSecond()))
         
