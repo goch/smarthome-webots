@@ -1,0 +1,32 @@
+#input-check {
+    display: inline-block;
+    margin-left: 20px;
+    padding: 7px;
+    background: #4CAF50;
+    color: #F6F6F6;
+    border-radius: 3px;
+  }
+#input-check.checked {
+    background: #DC143C;
+    color: black;
+    font-weight: bold;
+  }
+#input-check input {
+    display: none;
+  }
+progress {
+    margin-left: 10%;
+    width: 80%;
+  }
+button{
+  border-radius: 5px;
+}
+
+span.svg{
+    background: url(fingerprint.png);
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+    height: 64px;
+    width: 64px;
+  }

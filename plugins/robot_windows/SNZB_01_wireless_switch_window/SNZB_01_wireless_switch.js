@@ -1,0 +1,118 @@
+/* global webots */
+/* eslint no-unused-vars: ['error', { 'varsIgnorePattern': 'handleBodyLEDCheckBox|toggleStopCheckbox' }] */
+import * as base from "../_base/js/base.js"
+
+// Initialize the robot window
+let last_pressed = -1;
+let long_pressed_duration = 500;
+let multipress_timeout = 250;
+let timeout = null;
+let multipress_count = 0;
+let buttons_generated = false;
+
+const btnlist = document.querySelector("#buttonlist");
+
+
+
+// new object message received
+const onObjectMessage = (message) => {
+  init(message.data);
+}
+
+// new state message received
+const onStateMessage = (message) => {
+  updateUI();
+}
+// new reset message received
+const onResetMessage = (message) => {
+
+}
+
+//subscribe to incoming messages
+base.subscribe("object", onObjectMessage);
+base.subscribe("state", onStateMessage);
+base.subscribe("reset", onResetMessage);
+
+//initialize WebUI
+function init(data){
+  generateButtons(data);  
+  updateUI();
+}
+//update User Interface
+function updateUI(){
+  
+}
+  
+function generateButtons(dict){
+  if (buttons_generated) return;
+
+  base.log("Generating Buttons");
+
+  let name = 'button';
+  var btn = document.createElement(name);
+  btn.name = name;
+  btn.onmousedown = (event) => {on_MouseDown(event.target.name)};
+  btn.onmouseup = (event) => {on_MouseUp(event.target.name)};
+  
+  const icon = document.createElement("span");
+  icon.setAttribute("class", "svg");
+  btn.appendChild(icon)
+  
+
+  
+  
+
+
+    
+  btnlist.appendChild(btn);
+    
+
+  buttons_generated = true;
+
+}
+
+function on_MouseDown(button){
+    last_pressed = new Date().getTime();
+}
+
+function on_MouseUp(button){
+  let  current_pressed = new Date().getTime();
+    multipress_count++;
+
+    let time_since_press = current_pressed - last_pressed;
+    let name ="";
+    if ( time_since_press >= long_pressed_duration){
+        name = "long_click";
+        multipress_count = 0;
+        base.log(name);
+        base.setStateValue(name,true);
+        reset_button(name,200);
+    
+    }else if (timeout == null){
+      
+        timeout = setTimeout(() => {
+        
+          if (multipress_count >= 2){
+            name = "double_click"; 
+          } else {
+            name = "click"; 
+          }
+
+          base.log(name);
+          base.setStateValue(name,true);
+          reset_button(name,200);
+
+          timeout = null;
+          multipress_count = 0;
+      
+        }, multipress_timeout);
+    }
+      
+      
+}
+
+function reset_button(name,duration){
+    setTimeout(() => {
+      base.setStateValue(name, false)
+    }, duration);
+}

@@ -1,0 +1,40 @@
+#VRML_SIM R2023a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart Home pressable Button
+# template language: javascript
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/geometries/protos/TexturedBox.proto"
+
+PROTO SNZB_01_wireless_switch [
+    field SFString      name "SNZB-01 Wireless Switch"
+    field SFVec3f       translation 0 0 1.2
+    field SFRotation    rotation    0 1 0 0
+    unconnectedField SFFloat  buttonCount 1
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 1
+            metalness 0
+          }
+          geometry TexturedBox {
+            size 0.1 0.05 0.1
+          }
+        }
+      ]
+    }
+  ]
+  controller "SNZB_01_wireless_switchController"
+  window "SNZB_01_wireless_switch_window"
+    }
+
+}
