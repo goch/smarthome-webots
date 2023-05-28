@@ -136,16 +136,23 @@ you can find demo worlds in this location:
 C:\Users\<Username>\smarthome-webots\worlds\empty.wbt
 ```
 
-# Start Smarthome Webots
+# Usage
 
 ```bash
 cd smarthome-webots
 source env/bin/activate
 
-webots worlds/home.wbt
+webots worlds/demo.wbt
 ```
 
-# Install ioBroker extention
+In the default configuration all sensors try to connect to a websocket server running on ws://localhost:3001.
+This can be changed in config/config.yaml
+
+All simulated smart home devices can be controlled via webinterface. It can be accessed from the simulation by right clicking a sensor and then selecting "show Robot Window". This opens the webinterface in your default browser.
+
+
+
+## Install ioBroker extention
 A Plugin which enables communication with ioBroker can be found [here](https://github.com/goch/ioBroker.smarthome_webots)
 
 
