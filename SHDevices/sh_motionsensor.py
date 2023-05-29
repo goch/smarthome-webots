@@ -5,7 +5,8 @@ class SH_MotionSensor(SHDevice):
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
 
-        self.deltaTime = 0    
+        self.deltaTime = 0
+        self.lastMotionTime = 0    
 
         self.radar = device.getDevice("radar")
         self.radar.enable(64)
@@ -13,16 +14,23 @@ class SH_MotionSensor(SHDevice):
         self.motionDetected = False
 
         # add states
-        super().add_state('targets',0)
-        super().add_state('motion_detected',False)
+        super().add_state(name='targets',value=0,description="Number of moving objects detected")
+        super().add_state(name='motion_detected',value=False, description="Motion detected")
+        super().add_state(name='last_motion',value=0, description="Seconds since last motion detected", unit="s")
         # super().add_state('speed',0.0)
         # super().add_state('distance',0.0)
         # super().add_state('angle',0.0)
 
 
         # add fields
-        #super().add_field('position',device.getField("pointLightColor"))
-    # 
+        super().add_field('last_motion_intervall',self.device.getSelf().getField("last_motion_intervall"))
+        super().add_field('last_motion_begin',self.device.getSelf().getField("last_motion_begin"))
+
+        
+        self.last_motion_intervall = self.getFieldValue('last_motion_intervall') * 1000 
+        self.last_motion_begin = self.getFieldValue('last_motion_begin') * 1000
+        
+        
 
     def setNumberOfTargets(self,number):
         if number != self.getStateValue('targets'):
@@ -30,20 +38,10 @@ class SH_MotionSensor(SHDevice):
         pass
 
     def getMotionDetected(self):
-
-        motion_detected = False
         target_count = self.radar.getNumberOfTargets()
         self.setNumberOfTargets(target_count)
-        if  target_count > 0:
-            targets = self.getTargets()
-
-            for target in targets:
-                if target.speed != 0:
-                    motion_detected = True
-                    break
-        else:
-            motion_detected = False
-            
+        motion_detected = any(target.speed != 0 for target in self.getTargets())
+        
         if motion_detected != self.motionDetected:
             self.setStateValue('motion_detected', motion_detected)
             self.motionDetected = motion_detected
@@ -55,10 +53,23 @@ class SH_MotionSensor(SHDevice):
 
     def update(self, step):
         self.deltaTime += step
+        self.lastMotionTime += step
+
         if self.deltaTime > 500:
-            self.getMotionDetected()
+            motion = self.getMotionDetected()
+            if motion:
+                self.setStateValue('last_motion', 0)
+                self.lastMotionTime = 0
             self.deltaTime = 0
+
+        if self.lastMotionTime >= self.last_motion_begin:
+            last_motion = self.getStateValue('last_motion') 
+            if last_motion == 0:
+                self.setStateValue('last_motion', self.last_motion_begin / 1000)
+            elif self.lastMotionTime % self.last_motion_intervall == 0:
+                self.setStateValue('last_motion', last_motion + self.last_motion_intervall / 1000) 
         pass
+
 
     def setState(self, name, value):    
 

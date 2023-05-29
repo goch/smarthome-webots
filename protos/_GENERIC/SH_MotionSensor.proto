@@ -12,6 +12,8 @@ PROTO SH_MotionSensor [
     field SFFloat       horizontalFieldOfView 1
     field SFFloat       verticalFieldOfView 0.15
     field SFBool        occlusion FALSE
+    unconnectedField SFInt32 last_motion_intervall 10
+    unconnectedField SFInt32 last_motion_begin 60
   ]
 {
 
