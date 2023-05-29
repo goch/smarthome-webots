@@ -27,6 +27,46 @@ class SHDevice(object):
         # return remapped value
         return self.states[self.states[name].getName()]
 
+    def getField(self,name):
+        return self.fields[name]
+
+    def getFieldValue(self,name, type="SFFloat"):
+        field = self.getField(name)
+        typename =  field.getTypeName()
+        self.log("Fieldtype " + typename)
+        match typename:
+            case "SFString":
+                return field.getSFString()
+                pass
+            case "SFBool":
+                return field.getSFBool()
+                pass
+            case "SFInt32":
+                return field.getSFInt32()
+                pass
+            case "SFFloat":
+                return field.getSFFloat()
+                pass
+            case "SFVec2f":
+                return field.getSFVec2f()
+                pass
+            case "getSFVec3f":
+                return field.getSFVec3f()
+                pass
+            case "SFRotation":
+                return field.getSFRotation()
+                pass
+            case "SFColor":
+                return field.getSFColor()
+                pass
+            case "SFNode":
+                return field.getSFNode()
+                pass
+            case _:
+                self.log("Fieldtype unknown")
+                return None
+                pass
+
     def getStateValue(self,name):
         return self.getState(name).getValue()
 
