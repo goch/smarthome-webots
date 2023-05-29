@@ -15,6 +15,7 @@ class SH_DistanceSensor(SHDevice):
         # add states
         super().add_state('distance',0.0)
         super().add_state('triggered',True)
+        super().add_state('not_triggered',False)
         super().add_state('trigger_distance', 0.1)
         super().add_state('max_distance', self.sensor.getMaxValue())
         super().add_state('min_distance', self.sensor.getMinValue())
@@ -37,7 +38,8 @@ class SH_DistanceSensor(SHDevice):
         if self.triggered != triggered:
             self.triggered = triggered
             self.log("triggered -> " + str(triggered))
-            self.setStateValue('triggered', triggered) 
+            self.setStateValue('triggered', triggered)
+            self.setStateValue('not_triggered', not triggered)
 
 
     def updateCurrentDistance(self):
