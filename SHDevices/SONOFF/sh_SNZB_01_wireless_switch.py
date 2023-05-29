@@ -25,16 +25,22 @@ class SH_SNZB_01_wireless_switch(SHDevice):
         match name:
             case "battery":
                 self.setStateValue(name,value)
+                pass
             case "click":
                 self.setStateValue(name,value)
+                pass
             case "long_click":
                 self.setStateValue(name,value)
+                pass
             case "double_click":
                 self.setStateValue(name,value)
+                pass
             case "voltage":
                 self.setStateValue(name,value)
+                pass
             case _:
                 print("state not found")
+                pass
     
     def register(self):
         super().register()
