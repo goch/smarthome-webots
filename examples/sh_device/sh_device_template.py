@@ -14,11 +14,20 @@ class SH_Template(SHDevice):
 
         # add fields
         #super().add_field('position', self.device.getSelf().getField("pointLightColor"))
+
+        # remap states
+        #super().remapState('currentTemperature','temperature')
+
     
     # get Transform from Device
     def getTransform(self):
         return self.device.getSelf().getField("translation").getSFVec3f()
     
+    def update(self, step):
+        self.deltaTime +=step
+        super().update(step)
+        pass
+
     # message received
     def setState(self, name, value):    
 
@@ -36,7 +45,8 @@ class SH_Template(SHDevice):
                 # self.setStop(value)
                 pass
             case _:
-                print("state not found or state is read only")
+                self.log("resolve Remap for state: " + name)
+                super().setState(self.resolveRemap(name), value)
                 pass
     
     def register(self):
