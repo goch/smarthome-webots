@@ -1,0 +1,31 @@
+#console{
+    color: green;
+    background-color: black;
+}
+
+#state_list{
+    font-weight: bold;
+} 
+
+#label_currentTemp{
+    font-size: 72px;
+}
+
+#label_currentHumidity{
+    font-size: 72px;
+}
+
+.temperature_input{
+    font-size: 36px;
+    padding: 10px 24px; /* Some padding */
+    width:35%;
+}
+
+button.input_btn{
+    background-color: #00B0AB; /* Green background */
+    border: 1px solid #00A19C; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    font-size: 36px;
+}

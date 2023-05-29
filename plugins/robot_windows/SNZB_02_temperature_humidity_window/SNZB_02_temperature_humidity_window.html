@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="../_base/css/base.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet"/>  
+</head>
+
+<body>
+  <div id="content">
+    <h1 id="device_name">DeviceName</h1>
+    <ul id="state_list"></ul>
+    
+    <h2>Current Temperature</h2>
+    <div class="fullwidth center" id="label_currentTemp"> CurrentTemperature </div>
+
+    <h2>Set Temperature</h2>
+    <div class="fullwidth center">
+      <button class="input_btn" style="width:20%" id="btn_reduceTemp">-</button> 
+      <input class="temperature_input" type="text" id="input_setTemp" name="input_setTemp">
+      <button class="input_btn" style="width:20%" id="btn_increaseTemp">+</button> 
+    </div>
+
+    <h2>Current Humidity</h2>
+    <div class="fullwidth center" id="label_currentHumidity"> CurrentHumidity </div>
+
+
+    <h2>Set Humidity</h2>
+    <div class="fullwidth center">
+      <button class="input_btn" style="width:20%" id="btn_reduceHumidity">-</button> 
+      <input class="temperature_input" type="text" id="input_setHumidity" name="input_setHumidity">
+      <button class="input_btn" style="width:20%" id="btn_increaseHumidity">+</button> 
+    </div>
+
+    <h2>Log</h2>
+    <ul id="console"></ul>
+
+  </div>
+  
+  <script type="module" src="SNZB_02_temperature_humidity.js"></script>
+</body>  
+</html>

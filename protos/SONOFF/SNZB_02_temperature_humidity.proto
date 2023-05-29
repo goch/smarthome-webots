@@ -1,0 +1,58 @@
+#VRML_SIM R2023a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# Smart Home Wall Mounted Heating Thermostat
+# template language: javascript
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/geometries/protos/TexturedBox.proto"
+
+PROTO SNZB_02_temperature_humidity [
+    field SFString      name "SNZB-02 Temperature and Humidity Sensor"
+    field SFVec3f       translation 1 0 1.5707996938995747
+    field SFRotation    rotation    0 1 0 0
+    unconnectedField SFFloat  parameter 10
+  ]
+{
+    Robot {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+   children [
+    Transform {
+      translation 0 -0.02 0 
+      rotation 1 0 0 1.5707996938995747
+      scale 0.8 0.8 0.7
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.05
+            radius 0.05
+          }
+        }
+      ]
+    }
+    Solid {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+            metalness 0
+          }
+          geometry Mesh {
+    url [
+      "meshes/SNZB-01_wireless_switch.dae"
+    ]
+  }
+        }
+      ]
+    }
+  ]
+  controller "SNZB_02_temperature_humidityController"
+  window "SNZB_02_temperature_humidity_window"
+    }
+
+}
