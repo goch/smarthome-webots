@@ -11,6 +11,10 @@
     font-size: 72px;
 }
 
+#label_currentHumidity{
+    font-size: 72px;
+}
+
 .temperature_input{
     font-size: 36px;
     padding: 10px 24px; /* Some padding */

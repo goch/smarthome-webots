@@ -1,0 +1,162 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_Button.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_MotionSensor.proto"
+EXTERNPROTO "../protos/_GENERIC/HUMAN.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_LightSensor.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_RGBLight.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_CO2Sensor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_PowerPlug.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_Shutter.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Window.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Door.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_DistanceSensor.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_Alarm.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_SimulationTime.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_Thermostat.proto"
+
+WorldInfo {
+  info [
+    "RoCKIn@Home"
+  ]
+  title "SmartHomeSimulation"
+  basicTimeStep 20
+  FPS 30
+  optimalThreadCount 8
+  lineScale 1
+}
+Viewpoint {
+  orientation -0.1835719880971086 -0.001149173919242155 0.9830055974333912 3.1641973976958804
+  position 12.9940645181652 5.010687650781359 5.052629325241115
+  near 0.5
+}
+TexturedBackground {
+  texture "dusk"
+  luminosity 1.5
+  skybox FALSE
+}
+DEF GROUND Solid {
+  rotation 0 1 0 0
+  scale 10 10 10
+  children [
+    Transform {
+      translation 0.5 0.5 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.411765 0.411765 0.411765
+            roughness 0.4
+            metalness 0
+          }
+          geometry Plane {
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(1)"
+  boundingObject Transform {
+    translation 0.5 0.5 0
+    children [
+      Plane {
+      }
+    ]
+  }
+}
+Door {
+  translation 0 9.39 0
+}
+SH_DistanceSensor {
+  translation 0.17 9.85 2.01
+}
+DEF HUMAN HUMAN {
+  translation 0.6340210479316716 3.3683080999434734 0.09843844821799909
+  rotation 2.6516210760996517e-06 -0.0009851087633581236 -0.999999514776729 0.0009026562679673996
+}
+Wall {
+  translation 0 0.87 0
+  rotation 0 1 0 0
+}
+Wall {
+  translation 0 2.13 0
+  rotation 0 1 0 0
+  name "wall(1)"
+}
+Wall {
+  translation 0 3.4 0
+  rotation 0 1 0 0
+  name "wall(2)"
+}
+SH_MotionSensor {
+  translation 0.114645 3.42 1.96465
+  rotation 0 1 0 0.785398
+  horizontalFieldOfView 0.5
+  verticalFieldOfView 1.4
+}
+Wall {
+  translation 0 4.61 0
+  rotation 1 0 0 4.692820414042842e-06
+  name "wall(3)"
+}
+SH_LightSensor {
+  translation 0.139917 4.6 1.02307
+  rotation 0 1 0 -0.0015953071795866691
+}
+SH_RGBLight {
+  translation 0.14 4.62 2.3
+  color 1 0.7956599673038137 0.6299106846602928
+  cutOffAngle 0.31
+  beamWidth 0.2
+  height 0.1
+}
+Wall {
+  translation 0 5.87 0
+  rotation 0 1 0 0
+  name "wall(4)"
+  appearance Roughcast {
+    colorOverride 0.807843 0.807843 0.807843
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+SH_CO2Sensor {
+  translation 0.13 5.86 1.78
+  rotation 0 1 0 1.5708
+}
+Wall {
+  translation 0 7.12 0
+  rotation 0 1 0 0
+  name "wall(5)"
+}
+SH_Shutter {
+  translation 0 8.27 0.75
+  ShutterControllerPosition 0.1 0 -0.3
+}
+SH_PowerPlug {
+  translation 0.1 7.12 0.39
+  rotation 0.5773509358554485 -0.5773509358554485 0.5773489358556708 -2.094395307179586
+}
+SH_Button {
+  translation 0.12 0.85 1.2
+  rotation 0 0 -1 -1.5707953071795862
+}
+Window {
+  translation 0 8.27 0
+}
+SH_Alarm {
+  translation 0.15 8.96 2.02
+  detectionDistance 0.9
+  laserPosition 0.1 0 -1.9
+}
+SH_SimulationTime {
+  translation 0.13 7.13 1.5
+  rotation 0.70710528118436 -3.3905113482557537e-09 0.707108281185553 3.14159
+}
+SH_Thermostat {
+  translation 0.12 2.16 1.2108
+  rotation 0 0 1 1.5708
+}

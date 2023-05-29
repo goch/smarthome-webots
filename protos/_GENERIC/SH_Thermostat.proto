@@ -6,8 +6,8 @@
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/geometries/protos/TexturedBox.proto"
 
-PROTO SH_WallHeatingThermostat [
-    field SFString      name "WallHeatingThermostat"
+PROTO SH_Thermostat [
+    field SFString      name "Thermostat"
     field SFVec3f       translation 1 0 1.5707996938995747
     field SFRotation    rotation    0 1 0 0
     unconnectedField SFFloat  parameter 10

@@ -20,11 +20,22 @@
       <button class="input_btn" style="width:20%" id="btn_increaseTemp">+</button> 
     </div>
 
+    <h2>Current Humidity</h2>
+    <div class="fullwidth center" id="label_currentHumidity"> CurrentHumidity </div>
+
+
+    <h2>Set Humidity</h2>
+    <div class="fullwidth center">
+      <button class="input_btn" style="width:20%" id="btn_reduceHumidity">-</button> 
+      <input class="temperature_input" type="text" id="input_setHumidity" name="input_setHumidity">
+      <button class="input_btn" style="width:20%" id="btn_increaseHumidity">+</button> 
+    </div>
+
     <h2>Log</h2>
     <ul id="console"></ul>
 
   </div>
   
-  <script type="module" src="heatingthermostat.js"></script>
+  <script type="module" src="thermostat.js"></script>
 </body>  
 </html>

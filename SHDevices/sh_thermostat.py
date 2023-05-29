@@ -7,8 +7,10 @@ class SH_Thermostat(SHDevice):
 
         self.deltaTime = 0
         # add states
-        super().add_state('setTemperature',21.0)
-        super().add_state('currentTemperature',19.0)
+        super().add_state('setTemperature', description='Change Temperature',value=21, unit='°C')
+        super().add_state('currentTemperature', description='Temperature',value=19, unit='°C')
+        super().add_state('currentHumidity', description='Humidty',value=40, unit='%')
+        super().add_state('setHumidity', description='Change Humidty',value=50, unit='%')
         # add fields
         #super().add_field('position',device.getField("pointLightColor"))
         # self.reset()    
@@ -28,6 +30,23 @@ class SH_Thermostat(SHDevice):
         self.setStateValue('currentTemperature', temperature)
         pass
 
+
+    def setHumidity(self,value):
+        self.setStateValue('setHumidity', value)
+
+    def getSetHumidity(self):
+        return self.getStateValue('setHumidity')
+    
+    def getCurrentHumidity(self):
+        return self.getStateValue('currentHumidity')
+
+    def updateCurrentHumidity(self,humidity):
+        self.log("Update Humidity: " + str(humidity) + "/" + str(self.getSetTemperature()))
+        self.setStateValue('currentHumidity', humidity)
+        pass
+
+
+
     def update(self, step):
         self.deltaTime +=step
         # TODO: make heating system configurable
@@ -36,6 +55,8 @@ class SH_Thermostat(SHDevice):
             self.deltaTime = 0
             currentTemp = self.getCurrentTemperature()
             setTemp = self.getSetTemperature()
+            setHumidity = self.getSetHumidity()
+            currentHumidity = self.getCurrentHumidity()
 
             if currentTemp < setTemp:
                 # TODO heatup configurable
@@ -44,6 +65,15 @@ class SH_Thermostat(SHDevice):
             elif currentTemp > setTemp:
                 self.updateCurrentTemperature(round(currentTemp - 0.1, 2))
                 pass
+
+            if currentHumidity < setHumidity:
+                # TODO heatup configurable
+                # TODO PID controller to controll heatup decision
+                self.updateCurrentHumidity(round(currentHumidity + 0.1, 2))
+            elif currentHumidity > setHumidity:
+                self.updateCurrentHumidity(round(currentHumidity - 0.1, 2))
+                pass
+
         pass
 
     def setState(self, name, value):    
@@ -52,6 +82,9 @@ class SH_Thermostat(SHDevice):
             case "setTemperature":
                 self.setTemperature(value)
                 pass
+            case "setHumidity":
+                self.setHumidity(value)
+                pass                
             case _:
                 print("state not found or state is read only")
                 pass
