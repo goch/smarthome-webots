@@ -13,6 +13,7 @@ class SHDevice(object):
         self.fields = fields
         self.connection = connection
         self.remaps = {}
+        self.deltaTime = 0
 
     def log(self, message):
         print(self.name + ": " + str(message))
@@ -28,7 +29,10 @@ class SHDevice(object):
         return self.states[self.states[name].getName()]
 
     def getField(self,name):
-        return self.fields[name]
+        if name in self.fields:
+            return self.fields[name]
+        else:
+            return self.device.getSelf().getField(name)
 
     def getFieldValue(self,name, type="SFFloat"):
         field = self.getField(name)
@@ -50,7 +54,7 @@ class SHDevice(object):
             case "SFVec2f":
                 return field.getSFVec2f()
                 pass
-            case "getSFVec3f":
+            case "SFVec3f":
                 return field.getSFVec3f()
                 pass
             case "SFRotation":

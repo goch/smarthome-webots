@@ -5,15 +5,16 @@ class SH_Template(SHDevice):
     def __init__(self,name, connection=None, device=None, states={}, fields={}):
         super().__init__(name, connection, device, states, fields)        
 
+        self.deltaTime = 0
         # add Devices
         # self.motor_position = device.getDevice("position sensor")
-        # self.motor_position.enable(device.getBasicTimeStep())
+        # self.motor_position.enable(int(device.getBasicTimeStep()))
 
         # add states
         # super().add_state(name='battery',value=99, description="Battery percent", min=0, max=100, unit='%')
 
         # add fields
-        #super().add_field('position', self.device.getSelf().getField("pointLightColor"))
+        #super().add_field('translation', self.getField("translation"))
 
         # remap states
         #super().remapState('currentTemperature','temperature')
@@ -21,28 +22,22 @@ class SH_Template(SHDevice):
     
     # get Transform from Device
     def getTransform(self):
-        return self.device.getSelf().getField("translation").getSFVec3f()
+        return self.getFieldValue("translation")
     
     def update(self, step):
         self.deltaTime +=step
         super().update(step)
         pass
 
-    # message received
+    # state message received
     def setState(self, name, value):    
 
         match name:
-            case "setPosition":
+            case "battery":
                 # self.setPosition(value)
                 pass
             case "up":
                 # self.setUp(value)
-                pass
-            case "down":
-                # self.setDown(value)
-                pass
-            case "stop":
-                # self.setStop(value)
                 pass
             case _:
                 self.log("resolve Remap for state: " + name)
