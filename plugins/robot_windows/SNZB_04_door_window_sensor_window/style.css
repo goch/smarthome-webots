@@ -1,0 +1,32 @@
+#console{
+    color: green;
+    background-color: black;
+}
+
+#state_list{
+    font-weight: bold;
+} 
+
+
+#currentDistance{
+    font-size: 72px;
+}
+
+#input_triggerDistance{
+    font-size: 36px;
+    padding: 10px 24px; /* Some padding */
+    width:35%;
+}
+
+button.input_btn{
+    background-color: #00B0AB; /* Green background */
+    border: 1px solid #00A19C; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    font-size: 36px;
+}
+
+#label_triggered{
+    font-size: 36px;
+}
