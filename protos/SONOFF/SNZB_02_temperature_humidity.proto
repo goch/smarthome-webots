@@ -10,13 +10,16 @@ PROTO SNZB_02_temperature_humidity [
     field SFString      name "SNZB-02 Temperature and Humidity Sensor"
     field SFVec3f       translation 1 0 1.5707996938995747
     field SFRotation    rotation    0 1 0 0
-    unconnectedField SFFloat  parameter 10
+    field SFVec3f       scale 0.1 0.1 0.1
+
   ]
 {
     Robot {
     name IS name
     translation IS translation
     rotation IS rotation
+    scale IS scale
+
    children [
     Transform {
       translation 0 -0.02 0 
@@ -39,7 +42,7 @@ PROTO SNZB_02_temperature_humidity [
       children [
         Shape {
           appearance PBRAppearance {
-            baseColor 1 0 0
+            baseColor 1 .8 .8
             metalness 0
           }
           geometry Mesh {

@@ -10,6 +10,7 @@ PROTO SNZB_01_wireless_switch [
     field SFString      name "SNZB-01 Wireless Switch"
     field SFVec3f       translation 0 0 1.2
     field SFRotation    rotation    0 1 0 0
+    field SFVec3f       scale 0.1 0.1 0.1
     unconnectedField SFFloat  buttonCount 1
   ]
 {
@@ -17,6 +18,7 @@ PROTO SNZB_01_wireless_switch [
     name IS name
     translation IS translation
     rotation IS rotation
+    scale IS scale
 
   children [
     Solid {
