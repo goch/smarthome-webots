@@ -149,8 +149,8 @@ Window {
 }
 SH_Alarm {
   translation 0.15 8.96 2.02
-  detectionDistance 0.9
-  laserPosition 0.1 0 -1.9
+  detectionDistance 1.2
+  laserPosition 0.1 -0.15 -1.9
 }
 SH_SimulationTime {
   translation 0.13 7.13 1.5
