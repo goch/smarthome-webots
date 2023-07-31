@@ -6,14 +6,12 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/cabinet/protos/CabinetHandle.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/cabinet/protos/Cabinet.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/solids/protos/SolidBox.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/trees/protos/Tree.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/plants/protos/BunchOfSunFlowers.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/plants/protos/PottedTree.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/drinks/protos/Can.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/drinks/protos/BeerBottle.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/kitchen/fridge/protos/Fridge.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/kitchen/utensils/protos/Plate.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/kitchen/utensils/protos/Wineglass.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/kitchen/components/protos/Sink.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/kitchen/components/protos/HotPlate.proto"
@@ -43,7 +41,6 @@ EXTERNPROTO "../protos/_GENERIC/SH_MotionSensor.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_PowerPlug.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_Sprinkler.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_DistanceSensor.proto"
-EXTERNPROTO "../protos/_GENERIC/SH_WallHeatingThermostat.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_LightSensor.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_Button.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_Shutter.proto"
@@ -61,8 +58,8 @@ WorldInfo {
   lineScale 1
 }
 Viewpoint {
-  orientation -0.3426644908843932 -0.1738892369759077 0.9232245555393749 4.017866448764152
-  position 10.299573265589165 8.027462650236108 7.377833924410389
+  orientation -0.3924776897420504 -0.1718278883497172 0.9035687244698214 3.8949890577334707
+  position 13.62880932614419 14.571986046050931 15.510954123484764
   near 0.2
 }
 SH_RGBLight {
@@ -397,24 +394,27 @@ Wall {
   size 0.2 1 0.8
 }
 Door {
+  hidden translation_5 0.0010000001573818862 4.9368287236006836e-11 0
   translation 2.5 3.3 0
   name "door(2)"
-  position -3.314064798358826e-09
+  position -3.64539509721689e-09
 }
 Door {
+  hidden translation_5 0.0010000001573701178 -4.936451247772311e-11 0
   translation 3.1 5.3 0
   rotation 0 0 1 1.5708
   name "door(3)"
-  position 3.313438136692988e-09
+  position 3.644743650616873e-09
   jointAtLeft FALSE
   doorHandle DoorLever {
     jointAtLeft FALSE
   }
 }
 Door {
+  hidden translation_5 0.001000000157153902 4.9296788873220976e-11 0
   translation 9.1 4.1 0
   rotation 0 0 1 -1.5707953071795862
-  position -3.313005014768779e-09
+  position -3.6438553340697273e-09
 }
 Window {
   translation 3.7 8.4 0
@@ -449,32 +449,32 @@ Table {
   feetPadding 0.05
 }
 Chair {
-  translation 7.5000004056451886 6.4 -0.0007014150000003161
-  rotation -1.9683341987555027e-15 -1 1.8509317418237032e-13 0.001113492543142319
+  translation 7.500000970776001 6.4 -0.000701414999999872
+  rotation -4.4287815630082736e-15 -1 2.122559450801168e-13 0.0011134925431422146
   name "chair(1)"
   physics Physics {
     density 500
   }
 }
 Chair {
-  translation 7.5000004056451886 5.6 -0.0007014150000003161
-  rotation -1.9683341987555027e-15 -1 1.8509317418237032e-13 0.001113492543142319
+  translation 7.500000970776001 5.6 -0.000701414999999872
+  rotation -4.4287815630082736e-15 -1 2.122559450801168e-13 0.0011134925431422146
   name "chair(2)"
   physics Physics {
     density 500
   }
 }
 Chair {
-  translation 8.29999959435519 6.400000000009334 -0.000701415000000094
-  rotation 0.0005567462428090544 -6.306150500658283e-09 0.9999998450167986 3.1415700000035094
+  translation 8.299999029224711 6.400000000022282 -0.0007014149999995389
+  rotation 0.0005567462428090049 -6.306150500259417e-09 0.9999998450167985 3.141570000003509
   name "chair(3)"
   physics Physics {
     density 500
   }
 }
 Chair {
-  translation 8.29999959435519 5.6000000000093335 -0.000701415000000094
-  rotation 0.0005567462428090544 -6.306150500658283e-09 0.9999998450167986 3.1415700000035094
+  translation 8.299999029224711 5.600000000022281 -0.0007014149999995389
+  rotation 0.0005567462428090049 -6.306150500259417e-09 0.9999998450167985 3.141570000003509
   physics Physics {
     density 500
   }
@@ -484,17 +484,17 @@ Carpet {
   color 0.47451 0.47451 0.47451
 }
 Apple {
-  translation 6.092729182763509 5.507074457948408 1.1096347750608504
-  rotation -0.1576107611699117 -0.8395811026158738 -0.5198676947972 1.2813858913494027
+  translation 6.092729211929926 5.507074394127413 1.1096348047570679
+  rotation -0.15785072218511692 -0.8393380964104992 -0.5201871869045186 1.2817126747954761
 }
 Apple {
-  translation 6.092729226547875 5.607074435674414 1.109629526132677
-  rotation -0.17113295162857511 -0.48211514547306306 0.859231342172979 1.0559025760470009
+  translation 6.092729211276883 5.607074381179332 1.1096294829562243
+  rotation -0.17109890300784658 -0.48209003084526164 0.8592522141659725 1.0559577777371147
   name "apple(1)"
 }
 FruitBowl {
-  translation 6.150000909588337 5.549824759215453 1.0498038000013459
-  rotation -0.12558203482509386 -0.9920832371202989 5.6161356049563205e-05 0.0004250314562515287
+  translation 6.1500009130736455 5.549824758773516 1.0498038000000005
+  rotation -0.12558098988358096 -0.9920833693922002 5.617186972126781e-05 0.00042503138787907633
 }
 Table {
   translation 6.1 1.4 0
@@ -523,6 +523,8 @@ Armchair {
   rotation 0 0 1 3.14157
 }
 Fridge {
+  hidden position_0_0 -5.83314101663449e-09
+  hidden position_0_1 6.154415915022166e-09
   translation 4.15 6.85 0
 }
 Cabinet {
@@ -659,18 +661,18 @@ Bed {
   rotation 0 0 -1 1.5708
 }
 Can {
-  translation 7.994092494043049 5.379212431163333 0.8010807419053416
-  rotation 0.00021131710282290967 0.0002775073697911792 0.999999939167369 -2.8798027552685888
+  translation 7.9940939660658366 5.379214158122061 0.8010810085228003
+  rotation 0.00022592513414864649 0.00029097386269969817 0.9999999321460201 -2.8798027600567684
   name "can(1)"
 }
 Can {
-  translation 7.904268159126811 5.231648755165435 0.8010816437933985
-  rotation 0.0001489337882882635 0.0003689311400706587 0.9999999208542673 2.356187164044469
+  translation 7.904269008147852 5.231646531788036 0.8010816008786631
+  rotation 0.0001638892028121766 0.00035473954182864713 0.9999999236500905 2.356187170642999
   name "can(2)"
 }
 Can {
-  translation 7.818275896470575 5.3651617675229035 0.8010817898482469
-  rotation 0.9999193025062111 0.012067414435687514 -0.003970640292187823 0.0007191567713146846
+  translation 7.818277405470131 5.365160807369088 0.8010822092013635
+  rotation 0.9989686093260152 0.045243563677501805 -0.003838948685148724 0.0007378600256581489
 }
 BunchOfSunFlowers {
   translation 0.4 9 0
@@ -714,21 +716,23 @@ Barbecue {
   rotation 0 0 1 3.14159
 }
 Wineglass {
-  translation 5.710000000542656 1.6600003128370828 0.5595891777841697
-  rotation 0.999984767738725 -0.005519444544926903 4.737465980050085e-06 0.0004897075844717775
+  translation 5.710000004526232 1.6600003600091915 0.5595897492728483
+  rotation 0.999697546093034 -0.024593011749854857 1.042293478584989e-05 0.000504341258048496
 }
 BeerBottle {
-  translation 5.820427185849478 1.6991226110171955 0.560479129169782
-  rotation -7.255742726137692e-05 -0.0005376679859605647 -0.9999998528242676 1.8325959151772218
+  translation 5.820427254948353 1.6991224755139076 0.5604780167183163
+  rotation -5.8176192102237045e-05 -0.0005033318351384876 -0.999999871636289 1.8325959111754628
 }
 SH_SimulationTime {
+  hidden position_0_0 6.063273821428325
+  hidden position_0_1 4.970523176754696
+  hidden position_0_2 4.733900163415559
+  hidden rotation_1 0 0 -1 6.063273821428326
+  hidden rotation_2 0 0 -1 4.970523176754696
+  hidden rotation_3 0 0 -1 4.733900163415559
   translation 3.8 1.03647e-07 1.4
   rotation 0.5773489358556708 0.5773509358554485 0.5773509358554485 -2.094395307179586
   size 1.8
-}
-SH_WallHeatingThermostat {
-  name "ThermostatLivingroom"
-  translation 3.91 3.99 1.2708
 }
 Window {
   translation 5.1 7.3 0
@@ -752,13 +756,18 @@ Toilet {
   rotation 0 0 1 1.5708
 }
 Cabinet {
+  hidden position_6_0 2.9297253194098324e-14
+  hidden position_10_0 -1.869231426291807e-14
   translation 2.39 4.22 0
   rotation 0 0 1 -3.1415853071795863
   name "cabinet(6)"
 }
 Laptop {
-  translation 5.710000253613039 1.3799999833506225 0.559292711747774
-  rotation 0.0007839095849686657 1.8921835173078936e-05 0.9999996925638162 3.1415900291055596
+  hidden position_0_0 -4.1998963651485153e-05
+  hidden translation_1 -0.10000000000000009 -0.013995136507663205 0.13000058788336044
+  hidden rotation_1 0.5772988516910852 -0.577423098954077 -0.5773288496432729 2.0944357538767746
+  translation 5.710000205795418 1.3799999835858412 0.559292722616136
+  rotation 0.0007839118232013607 1.8930364797838235e-05 0.9999996925619002 3.1415900215307007
 }
 Transform {
   translation 1.21 5.19596 1.63609
@@ -774,16 +783,17 @@ Transform {
   ]
 }
 Door {
+  hidden translation_5 0.0010000001573815809 4.936812070255314e-11 0
   translation -0.1 0.5 0
   name "door(1)"
-  position -3.3140608539397855e-09
+  position -3.6453905090831377e-09
 }
 SH_CO2Sensor {
   translation 6.19 2.93 2.4
 }
 SH_Shutter {
   name "ShutterLivingRoomSide"
-  translation 6.9 -0.12 1.93
+  translation 6.9 -0.12 0.08
   rotation 0 0 1 -1.5707953071795862
   ShutterControllerPosition -0.13 -1.7 -1
   ShutterHeight 2
@@ -791,20 +801,20 @@ SH_Shutter {
 }
 SH_Shutter {
   name "ShutterKitchen"
-  translation 5.1 7.3 2.09
+  translation 5.1 7.3 0.74
   rotation 0 0 1 1.5708
   ShutterControllerPosition -0.1 -0.6 -0.7
 }
 SH_Shutter {
   name "ShutterDiningRoom"
-  translation 7.6 7.3 2.07
+  translation 7.6 7.3 0.65
   rotation 0 0 1 1.5708
   ShutterControllerPosition -0.1 -1 -0.7
   ShutterWidth 1.6
 }
 SH_Shutter {
   name "ShutterLivingRoomBalcony"
-  translation 8.5 2 2
+  translation 8.5 2 0.06
   ShutterControllerPosition -0.1025 2.1 -1
   ShutterHeight 2
   ShutterWidth 4
@@ -816,8 +826,8 @@ IKEA_tradfri_dimmer_switch_E1734 {
   rotation 0.577349935856137 -0.5773509358560258 -0.577349935856137 -2.094395307179586
 }
 DEF HUMAN HUMAN {
-  translation 1.6999999996625645 2.3601003983727527 0.5204540457223996
-  rotation 2.0447855782030453e-09 -2.0447783608321335e-09 1 1.5708000000275026
+  translation 1.6999999996625639 2.36010039862426 0.5204540572071102
+  rotation -3.711741241317456e-18 -1.2833132733529771e-17 1 1.5708000000275026
   scale 3
 }
 SH_Sprinkler {

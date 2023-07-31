@@ -51,7 +51,7 @@ PROTO hue_color_ambience_bulb [
       children [
         Transform {
           translation 0 -4.07848e-08 0.036
-          rotation 1 0 0 -1.5707953071795862
+          rotation 1 0 0 3.1415
           scale 0.05 0.05 0.05
           children [
             Shape {
