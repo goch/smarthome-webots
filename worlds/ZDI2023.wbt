@@ -1,0 +1,267 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Window.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_Shutter.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Door.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_RGBLight.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_DistanceSensor.proto"
+EXTERNPROTO "../protos/SONOFF/SNZB_04_door_window_sensor.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_Thermostat.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/festo/robotino3/protos/Robotino3.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/plants/protos/FlowerPot.proto"
+
+WorldInfo {
+  info [
+    "RoCKIn@Home"
+  ]
+  title "SmartHomeSimulation"
+  basicTimeStep 20
+  FPS 30
+  optimalThreadCount 8
+  lineScale 1
+}
+Viewpoint {
+  orientation -0.43416158387220993 0.013228648965920175 0.9007378763747589 3.086723031523976
+  position 6.758629886587196 5.531099262777252 8.238972676109789
+  near 0.5
+}
+TexturedBackground {
+  texture "dusk"
+}
+DEF GROUND Solid {
+  rotation 0 1 0 0
+  scale 10 10 10
+  children [
+    Transform {
+      translation 0.5 0.5 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.411765 0.411765 0.411765
+            roughness 0.4
+            metalness 0
+          }
+          geometry Plane {
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(1)"
+  boundingObject Transform {
+    translation 0.5 0.5 0
+    children [
+      Plane {
+      }
+    ]
+  }
+}
+Door {
+  hidden translation_5 0.0010000003147721814 9.873823980655061e-11 2.220446049250313e-15
+  translation 1.28 8.37 0
+  rotation 0 0 1 -1.5707953071795862
+  position -3.3133884885816817e-10
+  doorSlot [
+    Solid {
+      translation -0.01 0.48 0.98
+      rotation 0 1 0 1.0472
+      children [
+        Shape {
+          geometry Box {
+            size 0.032 0.015 0.013
+          }
+        }
+      ]
+      name "SNZB-04_MAG"
+      boundingObject Box {
+        size 0.032 0.015 0.013
+      }
+    }
+  ]
+}
+Door {
+  hidden translation_5 0.0008017114968283667 -6.224543870558819e-05 2.220446049250313e-16
+  hidden rotation_5 0 0 1 0.00041747715891025765
+  translation 1.27 2.11 0
+  rotation 0 0 1 -1.5707953071795862
+  name "door(1)"
+  position 0.0004174771593539259
+}
+Wall {
+  translation 0.35 2.11 0
+  rotation 0 0 1 1.5708
+  name "wall(1)"
+  size 0.2 0.9 2.4
+}
+Wall {
+  translation 2.22 2.11 0
+  rotation 0 0 1 1.5708
+  name "wall(2)"
+  size 0.2 0.9 2.4
+}
+Wall {
+  translation 2.77 2.48 0
+  rotation 0 0 -1 -5.307179586466759e-06
+  name "wall(3)"
+  size 0.2 0.9 2.4
+}
+Wall {
+  translation 2.77 4.28 0
+  rotation 0 0 -1 -5.307179586466759e-06
+  name "wall(4)"
+  size 0.2 1.1 2.4
+}
+Wall {
+  translation 2.77 6.21 0
+  rotation 0 0 -1 -5.307179586466759e-06
+  name "wall(5)"
+  size 0.2 1.2 2.4
+}
+Wall {
+  translation 2.77 8.02 0
+  rotation 0 0 -1 -5.307179586466759e-06
+  name "wall(6)"
+  size 0.2 0.9 2.4
+}
+Wall {
+  translation 2.22 8.37 0
+  rotation 0 0 1 1.5708
+  name "wall(7)"
+  size 0.2 0.9 2.4
+}
+Wall {
+  translation 0.34 8.37 0
+  rotation 0 0 1 1.5708
+  name "wall(8)"
+  size 0.2 0.9 2.4
+}
+Wall {
+  translation 0 5.23 0
+  size 0.2 6.2 2.4
+}
+Window {
+  translation 2.77 3.33 0
+}
+Window {
+  translation 2.77 5.23 0
+  name "window(1)"
+}
+Window {
+  translation 2.77 7.17 0
+  name "window(2)"
+}
+SH_Shutter {
+  translation 2.8 3.34 0.68
+  ShutterPosition 1.4
+  ShutterTransparency 0.7
+}
+SH_Shutter {
+  name "shutter(1)"
+  translation 2.83 7.17 0.68
+  ShutterPosition 1.4
+  ShutterTransparency 0.7
+}
+SH_Shutter {
+  name "shutter(2)"
+  translation 2.77 5.21 0.67
+  ShutterPosition 1.4
+  ShutterTransparency 0.7
+}
+SH_RGBLight {
+  name "RGBLight1"
+  translation 1.35 7.12 3.24
+}
+SH_RGBLight {
+  name "RGBLight3"
+  translation 1.38 4.49 3.29
+}
+SH_RGBLight {
+  name "RGBLight4"
+  translation 1.44 3.2 3.29
+}
+SH_RGBLight {
+  name "RGBLight2"
+  translation 1.39 5.81 3.26
+}
+SH_DistanceSensor {
+  name "DistanceSensor1"
+  translation 0.11 7.63 0.109978
+  rotation 0.7071067811841499 2.60412919414612e-06 0.7071067811841499 3.14159
+  detectionDistance 2.8
+}
+SH_DistanceSensor {
+  name "DistanceSensor2"
+  translation 0.099995 5.96 0.0799911
+  rotation 0.7071067811841499 2.60412919414612e-06 0.7071067811841499 3.14159
+  detectionDistance 2.8
+}
+SH_DistanceSensor {
+  name "DistanceSensor3"
+  translation 0.12 4.37 0.110001
+  rotation 0.7071067811841499 2.60412919414612e-06 0.7071067811841499 3.14159
+  detectionDistance 2.8
+}
+SH_DistanceSensor {
+  name "DistanceSensor4"
+  translation 0.13 3.05 0.100007
+  rotation 0.7071067811841499 2.60412919414612e-06 0.7071067811841499 3.14159
+  detectionDistance 2.8
+}
+SNZB_04_door_window_sensor {
+  translation 1.78 8.21 1.98
+  rotation -0.5773509358554485 0.5773489358556708 -0.5773509358554485 -2.094395307179586
+}
+Solid {
+  translation 1.78 2.03 1
+  rotation 0 1 0 0
+  children [
+    Shape {
+      geometry Box {
+        size 0.032 0.015 0.013
+      }
+    }
+  ]
+  name "SNZB-04_MAG"
+  boundingObject Box {
+    size 0.032 0.015 0.013
+  }
+}
+SH_Thermostat {
+  translation 0.109999 5.15 1.5708
+  rotation 0 0 1 1.5708
+}
+Robotino3 {
+  hidden position_0_0 51.468242046732286
+  hidden position_0_1 -5502.069646032678
+  hidden position_0_2 5606.702040259058
+  hidden linearVelocity_0 -4.597211010179127e-09 0.7498094763539903 7.349421744104062e-16
+  hidden angularVelocity_0 -5.327172506648721e-14 -1.5555537578447465e-10 4.114876556770163e-08
+  hidden rotation_1 0 1 0 1.2027595892955938
+  hidden linearVelocity_1 2.888286920528769e-09 0.7498094763540317 9.819146914339907e-15
+  hidden angularVelocity_1 -4.488119747335726e-14 2.0574261257340068e-10 4.114952970225775e-08
+  hidden rotation_2 0 1 0 2.0006830566396885
+  hidden linearVelocity_2 -8.38002731595428e-09 0.7498094828564926 2.411247538914507e-11
+  hidden angularVelocity_2 -11.904733205297491 -6.8731784868526145 -3.6999881640610895e-05
+  hidden rotation_3 0 1 0 2.1007462548667295
+  hidden linearVelocity_3 -8.380025690230049e-09 0.7498094698515548 -2.4120523778656894e-11
+  hidden angularVelocity_3 -11.904732919887072 6.873178981621118 3.483622402707546e-05
+  translation 0.4813610361927975 7.117585636000366 1.1541867170727915e-05
+  rotation 3.5786362142078727e-06 -3.673230567265474e-06 0.9999999999868504 1.5707963067004793
+}
+FlowerPot {
+  translation 0.21 3.08 1.24
+}
+FlowerPot {
+  translation 0.21 4.07 1.24
+  name "flower pot(1)"
+}
+FlowerPot {
+  translation 0.21 6.16 1.24
+  name "flower pot(2)"
+}
+FlowerPot {
+  translation 0.21 7.32 1.24
+  name "flower pot(3)"
+}
