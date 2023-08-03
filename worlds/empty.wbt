@@ -1,7 +1,6 @@
 #VRML_SIM R2023a utf8
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
-EXTERNPROTO "../protos/_GENERIC/SH_WallHeatingThermostat.proto"
 
 WorldInfo {
   info [
@@ -14,10 +13,8 @@ WorldInfo {
   lineScale 1
 }
 Viewpoint {
-
   orientation -0.4845057026750939 -0.15300792423303736 0.8613029659749296 3.6766502093968785
   position 17.98090181323835 16.448924968275655 29.955594615806532
-
   near 0.5
 }
 TexturedBackground {
@@ -50,6 +47,4 @@ DEF GROUND Solid {
       }
     ]
   }
-}
-SH_WallHeatingThermostat {
 }
