@@ -1,0 +1,198 @@
+#VRML_SIM R2023a utf8
+# licence: MIT
+# license url: https://choosealicense.com/licenses/mit/
+# INSERT DESCRIPTION HERE
+# template language: javascript
+
+EXTERNPROTO "../../worlds/sh.wbt"
+
+PROTO HUMAN_legacy [
+    field SFString      name "Human"
+    field SFVec3f       translation 0 0 0
+    field SFRotation    rotation    0 1 0 0
+    field SFFloat       scale 5
+  ]
+{
+DEF HUMAN Solid {
+  translation IS translation
+  rotation IS rotation
+  children [
+    DEF BEAK Transform {
+      translation 0.0394 0 0.05868
+      scale %<= fields.scale.value >% %<= fields.scale.value >% %<= fields.scale.value >%
+
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.901961 0.431373 0.109804
+            roughness 0.7
+            metalness 0
+          }
+          geometry Mesh {
+            url [
+              "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/objects/toys/protos/RubberDuck/meshes/beak.obj"
+            ]
+          }
+        }
+      ]
+    }
+    DEF BODY Transform {
+      scale %<= fields.scale.value >% %<= fields.scale.value >% %<= fields.scale.value >%
+
+      children [
+        DEF GEOM Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.8 0
+            roughness 0.7
+            metalness 0
+          }
+          geometry Mesh {
+            url [
+              "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/objects/toys/protos/RubberDuck/meshes/body.obj"
+            ]
+          }
+        }
+      ]
+    }
+    DEF EYE Transform {
+      translation 0.026677002 0.012248128 0.069200846
+      rotation -0.18117290235136482 0.4918957348778623 0.8515955410067332 -1.18424
+      scale %<= fields.scale.value >% %<= fields.scale.value >% %<= fields.scale.value >%
+
+      children [
+        DEF EYE_GEOM Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/objects/toys/protos/RubberDuck/textures/eye.jpg"
+              ]
+            }
+            roughness 0.4
+            metalness 0
+          }
+          geometry Mesh {
+            url [
+              "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/objects/toys/protos/RubberDuck/meshes/eye.obj"
+            ]
+          }
+        }
+      ]
+    }
+    DEF EYE Transform {
+      translation 0.026708849 -0.012243724 0.069238147
+      rotation -0.23056699185533644 0.18891399332670777 0.954541966281283 -2.20978
+      scale %<= fields.scale.value >% %<= fields.scale.value >% %<= fields.scale.value >%
+      
+      children [
+        USE EYE_GEOM
+      ]
+    }
+  ]
+  name IS name
+  model "rubber duck"
+  immersionProperties [
+    ImmersionProperties {
+      fluidName "water"
+      viscousResistanceForceCoefficient 400
+      viscousResistanceTorqueCoefficient 0.5
+    }
+  ]
+  boundingObject Group {
+    children [
+      Transform {
+        translation 0 0 -0.018
+        children [
+          Box {
+            size 0.06 0.05 0.005
+          }
+        ]
+      }
+      Transform {
+        translation 0.037 0 0.06
+        children [
+          Box {
+            size 0.014 0.025 0.015
+          }
+        ]
+      }
+      Transform {
+        translation 0.01 0 0.059
+        children [
+          Sphere {
+            radius 0.025
+          }
+        ]
+      }
+      Transform {
+        translation -0.042 0 0.013
+        rotation -0.06526396752413574 -0.06526396752413574 0.9957315045161609 1.575074
+        children [
+          Capsule {
+            height 0.04
+            radius 0.008
+            subdivision 16
+          }
+        ]
+      }
+      Transform {
+        translation 0 0 0.005
+        rotation -0.5773509358554485 -0.5773509358554485 -0.5773489358556708 -2.094397
+        children [
+          Capsule {
+            height 0.05
+            radius 0.025
+            subdivision 16
+          }
+        ]
+      }
+      Transform {
+        translation 0.013 0 0.034
+        children [
+          Cylinder {
+            height 0.013
+            radius 0.018
+          }
+        ]
+      }
+      Transform {
+        translation 0 0.02 0
+        rotation -0.5773509358554485 -0.5773509358554485 -0.5773489358556708 -2.094397
+        children [
+          Capsule {
+            height 0.036
+            radius 0.018
+            subdivision 16
+          }
+        ]
+      }
+      Transform {
+        translation 0 -0.02 0
+        rotation -0.5773509358554485 -0.5773509358554485 -0.5773489358556708 -2.094397
+        children [
+          Capsule {
+            height 0.036
+            radius 0.018
+            subdivision 16
+          }
+        ]
+      }
+    ]
+  }
+  physics Physics {
+    density 400
+    centerOfMass [
+      0 0 0
+    ]
+    damping Damping {
+      linear 0.5
+      angular 0.5
+    }
+  }
+  radarCrossSection 1
+    recognitionColors [
+    0.87451 0.756863 0.113725
+  ]
+
+}
+
+}
