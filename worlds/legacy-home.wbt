@@ -35,6 +35,7 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/paintings/protos/PortraitPainting.proto"
 EXTERNPROTO "../protos/PhilipsHue/hue_color_ambience_bulb.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_Alarm.proto"
+EXTERNPROTO "../protos/_GENERIC/SH_SimulationTime.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_RGBLight.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_PowerPlug.proto"
 EXTERNPROTO "../protos/_GENERIC/SH_Sprinkler.proto"
@@ -58,8 +59,8 @@ WorldInfo {
   lineScale 1
 }
 Viewpoint {
-  orientation 0.39708984365334965 0.252675645932052 -0.8823121182553137 2.118430567361022
-  position 9.824472142171222 14.99948907063032 14.621212817522535
+  orientation 0.44761789145529823 0.18488438633654886 -0.8749034157768906 2.4480493975352404
+  position 11.826103288642654 12.073994036469399 15.79580658682176
   near 0.2
 }
 SH_RGBLight {
@@ -734,6 +735,11 @@ BeerBottle {
   translation 5.820427254948353 1.6991224755139076 0.5604780167183163
   rotation -5.8176192102237045e-05 -0.0005033318351384876 -0.999999871636289 1.8325959111754628
 }
+SH_SimulationTime {
+  translation 3.8 1.03647e-07 1.4
+  rotation 0.5773489358556708 0.5773509358554485 0.5773509358554485 -2.094395307179586
+  size 1.8
+}
 Window {
   translation 5.1 7.3 0
   rotation 0 0 1 -1.5707953071795862
@@ -809,14 +815,12 @@ SH_Shutter {
   ShutterControllerPosition -0.13 -1.7 -1
   ShutterHeight 2
   ShutterWidth 3
-  ShutterTransparency 0.7
 }
 SH_Shutter {
   name "ShutterKitchen"
   translation 5.1 7.3 0.74
   rotation 0 0 1 1.5708
   ShutterControllerPosition -0.1 -0.6 -0.7
-  ShutterTransparency 0.7
 }
 SH_Shutter {
   name "ShutterDiningRoom"
@@ -824,7 +828,6 @@ SH_Shutter {
   rotation 0 0 1 1.5708
   ShutterControllerPosition -0.1 -1 -0.7
   ShutterWidth 1.6
-  ShutterTransparency 0.7
 }
 SH_Shutter {
   name "ShutterLivingRoomBalcony"
@@ -832,7 +835,6 @@ SH_Shutter {
   ShutterControllerPosition -0.1025 2.1 -1
   ShutterHeight 2
   ShutterWidth 4
-  ShutterTransparency 0.7
   up FALSE
   down FALSE
 }

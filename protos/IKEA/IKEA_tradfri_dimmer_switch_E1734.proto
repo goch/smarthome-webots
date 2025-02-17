@@ -7,14 +7,12 @@ PROTO IKEA_tradfri_dimmer_switch_E1734 [
     field SFString      name "IKEA_tradfri_dimmer_switch_E1734"
     field SFVec3f       translation 0 0 0
     field SFRotation    rotation    0 1 0 0
-    field SFVec3f       scale 0.025 0.025 0.025
 
     unconnectedField SFFloat  batteryDrainDuration 10000
   ]
 {
     Robot {
     name IS name
-    scale IS scale
     translation IS translation
     rotation IS rotation
     children [
